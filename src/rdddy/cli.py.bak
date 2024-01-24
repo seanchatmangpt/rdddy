@@ -1,0 +1,102 @@
+"""Smart Lean Six Sigma CLI."""
+import inspect
+import os
+from importlib import import_module
+from pathlib import Path
+
+import typer
+from typer import Context
+
+app = typer.Typer(help="Smart Lean Six Sigma CLI")
+
+
+current_module = inspect.getmodule(inspect.currentframe()).__name__
+
+
+# Define the subcommand to generate subcommand modules
+@app.command(
+    name="new-cmd",
+    context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
+)
+def generate_subcommand(subcommand_name: str):
+    """
+    Generate a new subcommand module with the given name.
+    Example usage: slss new-cmd new_command
+    """
+    script_dir = Path(__file__).parent
+    subcommands_dir = script_dir / "subcommands"
+
+    # Ensure the "subcommands" directory exists, create it if not
+    subcommands_dir.mkdir(parents=True, exist_ok=True)
+
+    # Generate the filename for the new subcommand module
+    filename = f"{subcommand_name}_cmd.py"
+    module_name = f"{current_module}.subcommands.{subcommand_name}"
+
+    # Create the subcommand module file
+    with open(subcommands_dir / filename, "w") as module_file:
+        # You can customize the content of the module here
+        module_file.write(
+            f'import typer\n\napp = typer.Typer()\n\n@app.command(name="{subcommand_name}")\n'
+        )
+        module_file.write(f"def {subcommand_name}():\n")
+        module_file.write(f'    typer.echo("Running {subcommand_name} subcommand")\n')
+
+    typer.echo(f"Subcommand module '{subcommand_name}' generated successfully!")
+
+
+@app.command(name="add-cmd")
+def add_command(ctx: Context, subcommand_name: str, new_command_name: str):
+    """
+    Add a new command to an existing subcommand module.
+    Example usage: slss add-cmd sub_command new_command
+    """
+    script_dir = Path(__file__).parent
+    subcommands_dir = script_dir / "subcommands"
+
+    print(subcommands_dir)
+
+    # Check if the subcommands directory exists
+    if not subcommands_dir.exists():
+        typer.echo("Subcommands directory does not exist.")
+        return
+
+    # Construct the filename for the existing subcommand module
+    module_filename = f"{subcommand_name}_cmd.py"
+
+    # Construct the path to the existing subcommand module
+    module_path = subcommands_dir / module_filename
+
+    # Check if the existing subcommand module file exists
+    if not module_path.exists():
+        typer.echo(f"Subcommand module '{subcommand_name}' does not exist.")
+        return
+
+    # Construct the code to be added
+    new_command_code = f'\n@app.command(name="{new_command_name}")\n'
+    new_command_code += f"def {new_command_name}():\n"
+    new_command_code += f'    typer.echo("Running {new_command_name} subcommand")\n'
+
+    # Append the code to the existing subcommand module file
+    with open(module_path, "a") as module_file:
+        module_file.write(new_command_code)
+
+    typer.echo(
+        f"New command '{new_command_name}' added to subcommand module '{subcommand_name}' successfully!"
+    )
+
+
+# Load existing subcommands
+def load_subcommands():
+    script_dir = Path(__file__).parent
+    subcommands_dir = script_dir / "subcommands"
+
+    for filename in os.listdir(subcommands_dir):
+        if filename.endswith("_cmd.py"):
+            module_name = f"slss.subcommands.{filename[:-3]}"
+            module = import_module(module_name)
+            if hasattr(module, "app"):
+                app.add_typer(module.app, name=filename[:-7])
+
+
+load_subcommands()

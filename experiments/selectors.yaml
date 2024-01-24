@@ -1,0 +1,603 @@
+attributes: {}
+children:
+- attributes:
+    aria-label: Toast message
+  children: []
+  inner_text: null
+  selector: section[aria-label="Toast message"]
+  tag_name: section
+- attributes:
+    aria-label: LinkedIn
+  children: []
+  inner_text: null
+  selector: li-icon[aria-label="LinkedIn"]
+  tag_name: li-icon
+- attributes:
+    aria-activedescendant: ''
+    aria-autocomplete: list
+    aria-expanded: 'false'
+    aria-label: Search
+  children: []
+  inner_text: null
+  selector: input[aria-autocomplete="list"][aria-label="Search"][aria-activedescendant=""][aria-expanded="false"]
+  tag_name: input
+- attributes:
+    aria-label: Click to start a search
+  children: []
+  inner_text: null
+  selector: button[aria-label="Click to start a search"]
+  tag_name: button
+- attributes:
+    aria-label: Primary Navigation
+  children: []
+  inner_text: null
+  selector: nav[aria-label="Primary Navigation"]
+  tag_name: nav
+- attributes:
+    aria-current: page
+  children: []
+  inner_text: null
+  selector: a[aria-current="page"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"]
+  tag_name: button
+- attributes:
+    aria-expanded: 'false'
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"]
+  tag_name: button
+- attributes:
+    aria-checked: 'true'
+    aria-label: All
+  children: []
+  inner_text: null
+  selector: button[aria-checked="true"][aria-label="All"]
+  tag_name: button
+- attributes:
+    aria-checked: 'false'
+    aria-label: My posts
+  children: []
+  inner_text: null
+  selector: button[aria-checked="false"][aria-label="My posts"]
+  tag_name: button
+- attributes:
+    aria-checked: 'false'
+    aria-label: Mentions
+  children: []
+  inner_text: null
+  selector: button[aria-checked="false"][aria-label="Mentions"]
+  tag_name: button
+- attributes:
+    aria-label: "View Woodley B. Preucil, CFA\u2019s profile"
+  children: []
+  inner_text: null
+  selector: "a[aria-label=\"View Woodley B. Preucil, CFA\u2019s profile\"]"
+  tag_name: a
+- attributes:
+    aria-hidden: 'false'
+    aria-label: "Related content: \U0001F916 Sean Chatman \U0001F916 Very insightful. Thank you for sharing"
+  children: []
+  inner_text: null
+  selector: "button[aria-label=\"Related content: \U0001F916 Sean Chatman \U0001F916 Very insightful. Thank you for sharing\"][aria-hidden=\"false\"]"
+  tag_name: button
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: Profile image for several companies on LinkedIn
+  children: []
+  inner_text: null
+  selector: a[aria-label="Profile image for several companies on LinkedIn"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: Profile image for several companies on LinkedIn
+  children: []
+  inner_text: null
+  selector: a[aria-label="Profile image for several companies on LinkedIn"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: Profile image for several companies on LinkedIn
+  children: []
+  inner_text: null
+  selector: a[aria-label="Profile image for several companies on LinkedIn"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: Profile image for several companies on LinkedIn
+  children: []
+  inner_text: null
+  selector: a[aria-label="Profile image for several companies on LinkedIn"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: Profile image for several companies on LinkedIn
+  children: []
+  inner_text: null
+  selector: a[aria-label="Profile image for several companies on LinkedIn"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: "View Matthias Meriguet\u2019s profile"
+  children: []
+  inner_text: null
+  selector: "a[aria-label=\"View Matthias Meriguet\u2019s profile\"]"
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: View Big Data, Analytics, Business Intelligence & Visualization Experts Community
+  children: []
+  inner_text: null
+  selector: a[aria-label="View Big Data, Analytics, Business Intelligence & Visualization Experts Community"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: Jennifer Aaker's connection is hiring for a Senior Fullstack Engineer at EarnUp. Explore jobs in your network.
+  children: []
+  inner_text: null
+  selector: a[aria-label="Jennifer Aaker's connection is hiring for a Senior Fullstack Engineer at EarnUp. Explore jobs in your network."]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: View Lean-Six Sigma Supervisor Academy
+  children: []
+  inner_text: null
+  selector: a[aria-label="View Lean-Six Sigma Supervisor Academy"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: View job posting
+  children: []
+  inner_text: null
+  selector: a[aria-label="View job posting"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: "View Woodley B. Preucil, CFA\u2019s profile"
+  children: []
+  inner_text: null
+  selector: "a[aria-label=\"View Woodley B. Preucil, CFA\u2019s profile\"]"
+  tag_name: a
+- attributes:
+    aria-hidden: 'false'
+    aria-label: "Related content: \U0001F916 Sean Chatman \U0001F916 Very Informative. Thank you for sharing."
+  children: []
+  inner_text: null
+  selector: "button[aria-label=\"Related content: \U0001F916 Sean Chatman \U0001F916 Very Informative. Thank you for sharing.\"][aria-hidden=\"false\"]"
+  tag_name: button
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: "View Woodley B. Preucil, CFA\u2019s profile"
+  children: []
+  inner_text: null
+  selector: "a[aria-label=\"View Woodley B. Preucil, CFA\u2019s profile\"]"
+  tag_name: a
+- attributes:
+    aria-hidden: 'false'
+    aria-label: "Related content: \U0001F916 Sean Chatman \U0001F916 Very informative.\_Thanks for sharing."
+  children: []
+  inner_text: null
+  selector: "button[aria-label=\"Related content: \U0001F916 Sean Chatman \U0001F916 Very informative.\_Thanks for sharing.\"][aria-hidden=\"false\"]"
+  tag_name: button
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: View Big Data, Analytics, Business Intelligence & Visualization Experts Community
+  children: []
+  inner_text: null
+  selector: a[aria-label="View Big Data, Analytics, Business Intelligence & Visualization Experts Community"]
+  tag_name: a
+- attributes:
+    aria-expanded: 'false'
+    aria-label: Settings menu
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="Settings menu"]
+  tag_name: button
+- attributes:
+    aria-hidden: ''
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden=""]
+  tag_name: svg
+- attributes:
+    aria-label: LinkedIn Footer Content
+  children: []
+  inner_text: null
+  selector: footer[aria-label="LinkedIn Footer Content"]
+  tag_name: footer
+- attributes:
+    aria-expanded: 'false'
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"]
+  tag_name: button
+- attributes:
+    aria-expanded: 'false'
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"]
+  tag_name: button
+- attributes:
+    aria-expanded: 'false'
+    aria-label: More options
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"][aria-label="More options"]
+  tag_name: button
+- attributes:
+    aria-hidden: 'false'
+    aria-label: LinkedIn
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden="false"][aria-label="LinkedIn"]
+  tag_name: svg
+- attributes:
+    aria-expanded: 'false'
+  children: []
+  inner_text: null
+  selector: button[aria-expanded="false"]
+  tag_name: button
+- attributes:
+    aria-hidden: 'false'
+    aria-label: Open messenger dropdown menu
+  children: []
+  inner_text: null
+  selector: svg[aria-hidden="false"][aria-label="Open messenger dropdown menu"]
+  tag_name: svg
+- attributes:
+    aria-label: AI-powered assistant to get help with your career, jobs etc
+  children: []
+  inner_text: null
+  selector: aside[aria-label="AI-powered assistant to get help with your career, jobs etc"]
+  tag_name: aside
+- attributes:
+    aria-live: polite
+  children: []
+  inner_text: null
+  selector: div[aria-live="polite"]
+  tag_name: div
+inner_text: null
+selector: null
+tag_name: html

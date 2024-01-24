@@ -1,0 +1,24 @@
+{# gen_module.j2: Template for generating DSPy Module classes #}
+import ast
+from dspy import Module, OpenAI, settings, ChainOfThought, Assert
+
+class Gen{{ name | camelize }}(Module):
+    def __init__(self, lm=None):
+        if lm is None:
+            turbo = OpenAI(max_tokens=500)
+            settings.configure(lm=turbo)
+
+        super().__init__()
+
+        # Define specific attributes and methods for {{ name | camelize }}
+        # ...
+
+    def forward(self, *args, **kwargs):
+        # Implementation of the forward method for {{ name | camelize }}
+        # ...
+
+    # Add any additional methods or helper functions specific to Gen{{ name | camelize }}
+    # ...
+
+# Optionally, include other definitions or utility functions if necessary
+# ...

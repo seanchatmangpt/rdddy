@@ -1,0 +1,11 @@
+2024-01-23 12:33:28,672 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for Create a list with syntax error. You will be penalized for not returning only a list forast.literal_eval("list")
+2024-01-23 12:34:08,229 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for Create a list with syntax error. You will be penalized for not returning only a list forast.literal_eval("list")
+2024-01-23 12:34:58,568 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for Create a list with syntax error. You will be penalized for not returning only a list forast.literal_eval("list")
+2024-01-23 12:37:34,056 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for Create a list with syntax error. You will be penalized for not returning only a list forast.literal_eval("list")
+2024-01-23 12:38:04,261 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for Create a list with syntax error. You will be penalized for not returning only a list forast.literal_eval("list")
+2024-01-23 12:39:26,773 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+Create a list with syntax error
+You will be penalized for not returning only a list for ast.literal_eval("list")
+2024-01-23 12:41:23,236 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
