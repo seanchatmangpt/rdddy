@@ -9,3 +9,27 @@ You will be penalized for not returning only a list for ast.literal_eval("list")
 2024-01-23 12:41:23,236 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
 list_python_primitive_string
 You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-26 13:28:01,226 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-26 13:28:01,227 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-26 13:30:49,688 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-26 13:30:49,690 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-26 13:31:47,609 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-26 13:31:47,610 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-26 13:31:54,553 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-26 13:31:54,553 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_python_primitive_string
+You will be penalized for not returning only a list for list_python_primitive_string
