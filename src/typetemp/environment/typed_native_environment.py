@@ -18,7 +18,7 @@ class TypedNativeEnvironment(NativeEnvironment):
         self.add_extension("jinja2.ext.loopcontrols")
 
 
-file_loader = FileSystemLoader('./templates')
+file_loader = FileSystemLoader("./templates")
 
 native_environment = TypedNativeEnvironment(loader=file_loader)
 

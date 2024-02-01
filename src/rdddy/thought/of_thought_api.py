@@ -26,10 +26,13 @@ Output: Provides a JSON-based weather report with all the details.
 
 """
 
+
 class APIEndpoint(BaseModel):
     method: str = Field(..., description="HTTP method of the API endpoint")
     url: str = Field(..., description="URL of the API endpoint")
-    description: str = Field(..., description="Description of what the API endpoint does")
+    description: str = Field(
+        ..., description="Description of what the API endpoint does"
+    )
     response: str = Field(..., description="Response from the API endpoint")
     query_params: Optional[Dict[str, Any]] = Field(None, description="Query parameters")
 
@@ -43,15 +46,19 @@ def main():
 
     # cli_data = APIEndpoint.model_validate_json(result.model_dict)
 
+    generate_answer = dspy.ChainOfThought(
+        f"model, prompt -> {APIEndpoint.__name__.lower()}_dict"
+    )
 
-    generate_answer = dspy.ChainOfThought(f"model, prompt -> {APIEndpoint.__name__.lower()}_dict")
-
-
-    result = generate_answer(model=inspect.getsource(APIEndpoint), prompt=cli_description)
+    result = generate_answer(
+        model=inspect.getsource(APIEndpoint), prompt=cli_description
+    )
 
     print(result.get(f"{APIEndpoint.__name__.lower()}_dict"))
 
-    cli_data = APIEndpoint.model_validate_json(result.get(f"{APIEndpoint.__name__.lower()}_dict"))
+    cli_data = APIEndpoint.model_validate_json(
+        result.get(f"{APIEndpoint.__name__.lower()}_dict")
+    )
 
     endpoint_name = GenStr()(cli_description + "\nEndpoint URL")
 
@@ -68,5 +75,5 @@ def main():
     print(cli_data)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -59,26 +59,24 @@ async def render_template(source, hygen_vars, to):
 
 async def run_shell_command(command):
     process = await asyncio.create_subprocess_shell(
-        command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        shell=True
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
     )
     stdout, stderr = await process.communicate()
     return stdout, stderr
 
 
 @app.command()
-async def main(hygen_vars: str = typer.Option(..., "--hygen-vars"),
-               to: str = typer.Option(None, help="Destination URL"),
-               from_: str = typer.Option(None, '--from', help="Source URL"),
-               force: bool = typer.Option(False, help="Force the generation"),
-               unless_exists: bool = typer.Option(False, help="Unless the file exists"),
-               inject: bool = typer.Option(False, help="Inject something"),
-               after: str = typer.Option(None, help="Regex pattern for 'after'"),
-               skip_if: str = typer.Option(None, help="Regex pattern for 'skip_if'"),
-               sh: str = typer.Option(None, help="Shell command to execute"),
-               ):
+async def main(
+    hygen_vars: str = typer.Option(..., "--hygen-vars"),
+    to: str = typer.Option(None, help="Destination URL"),
+    from_: str = typer.Option(None, "--from", help="Source URL"),
+    force: bool = typer.Option(False, help="Force the generation"),
+    unless_exists: bool = typer.Option(False, help="Unless the file exists"),
+    inject: bool = typer.Option(False, help="Inject something"),
+    after: str = typer.Option(None, help="Regex pattern for 'after'"),
+    skip_if: str = typer.Option(None, help="Regex pattern for 'skip_if'"),
+    sh: str = typer.Option(None, help="Shell command to execute"),
+):
     typer.echo(f"Generating using hygen-vars: {hygen_vars}")
     typer.echo(f"Destination URL: {to}")
     typer.echo(f"Source URL: {from_}")

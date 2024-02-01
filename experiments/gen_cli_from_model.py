@@ -5,6 +5,8 @@ from jinja2 import Environment, FileSystemLoader
 
 from pydantic import BaseModel, Field
 from typing import List
+
+from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 from rdddy.generators.gen_python_primitive import GenPythonPrimitive
 
 
@@ -22,8 +24,7 @@ class TyperCLI(BaseModel):
 
 # Example description for testing
 cli_description = f"""
-{inspect.getsource(Command)}
-{inspect.getsource(TyperCLI)}
+
 
 We are building a Typer CLI application named 'DSPyGenerator'. It should include the following commands:
 
@@ -50,13 +51,12 @@ We are building a Typer CLI application named 'DSPyGenerator'. It should include
 
 """
 
-module = GenPythonPrimitive(primitive_type=dict)
-
-results = module.forward(cli_description)
-
+model = GenPydanticInstance(root_model=TyperCLI, child_models=[Command]).forward(
+    cli_description
+)
 
 # Example CLI data
-cli_data = TyperCLI(**results)
+cli_data = model
 
 
 # --- Jinja Templates ---
@@ -97,9 +97,11 @@ def test_{{ command.name }}():
 
 # --- Render Templates ---
 env = Environment(loader=FileSystemLoader("."))
-env.from_string(cli_template).stream(cli_data=cli_data.model_dump()).dump("gen_cli.py")
+env.from_string(cli_template).stream(cli_data=cli_data.model_dump()).dump(
+    "generated_cli.py"
+)
 env.from_string(pytest_template).stream(cli_data=cli_data.model_dump()).dump(
-    "test_cli.py"
+    "test_generated_cli.py"
 )
 
 print("CLI application and tests generated.")

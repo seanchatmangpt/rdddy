@@ -199,3 +199,28 @@ You will be penalized for not returning only a str for str_python_primitive_pep8
             You will be penalized for not returning only a TyperCLI dict for typercli_model_validate_json_dict
 2024-01-30 22:23:10,369 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a dict for TyperCLI, 
             You will be penalized for not returning only a TyperCLI dict for typercli_model_validate_json_dict
+2024-01-30 22:47:09,648 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a dict for APIEndpoint, 
+            You will be penalized for not returning only a APIEndpoint dict for apiendpoint_model_validate_json_dict
+2024-01-30 22:47:13,187 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a dict for APIEndpoint, 
+            You will be penalized for not returning only a APIEndpoint dict for apiendpoint_model_validate_json_dict
+2024-01-30 22:47:39,876 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a dict for APIEndpoint, 
+            You will be penalized for not returning only a APIEndpoint dict for apiendpoint_model_validate_json_dict
+2024-01-30 22:47:53,616 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a dict for APIEndpoint, 
+            You will be penalized for not returning only a APIEndpoint dict for apiendpoint_model_validate_json_dict
+2024-01-30 22:49:00,556 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a dict for APIEndpoint, You will be penalized for not returning only a APIEndpoint dict
+2024-01-30 22:49:08,053 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a dict for APIEndpoint, You will be penalized for not returning only a APIEndpoint dict
+2024-01-30 22:49:57,644 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-30 22:50:31,359 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-30 22:50:40,523 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-30 22:51:09,495 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-30 22:52:31,586 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-30 22:52:47,041 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-30 22:57:09,494 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-30 22:57:26,878 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-30 22:58:31,973 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 14:03:43,203 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for GraphOfThought
+2024-01-31 14:04:15,785 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for GraphOfThought
+2024-01-31 14:19:30,573 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 14:19:35,053 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 14:21:10,022 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 14:21:15,403 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint

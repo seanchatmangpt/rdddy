@@ -21,7 +21,7 @@ class TypedEnvironment(Environment):
 
 # Initializing environment instances
 
-file_loader = FileSystemLoader('./templates')
+file_loader = FileSystemLoader("./templates")
 
 environment = TypedEnvironment(loader=file_loader)
 

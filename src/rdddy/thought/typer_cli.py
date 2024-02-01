@@ -2,7 +2,7 @@ import json
 
 from pydantic import BaseModel, Field
 
-from rdddy.generators.gen_pydantic_model import GenPydanticModel
+from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
 cli_description = f"""
 
@@ -34,12 +34,14 @@ We are building a Typer CLI application named 'DSPyGenerator'. It should include
 
 class Command(BaseModel):
     """Typer CLI command"""
+
     name: str = Field(..., min_length=1, description="The name of the command")
     help: str = Field(..., min_length=1, description="The help text for the command")
 
 
 class TyperCLI(BaseModel):
     """Typer CLI name and commands"""
+
     name: str = Field(..., min_length=1, description="The name of the CLI application")
     commands: list[Command] = Field(
         ..., description="The commands of the CLI application"
@@ -47,13 +49,12 @@ class TyperCLI(BaseModel):
 
 
 def main():
-    dot = GenPydanticModel(root_model=TyperCLI, models=[Command, TyperCLI])
+    dot = GenPydanticInstance(root_model=TyperCLI, models=[Command, TyperCLI])
 
     cli = dot.forward(prompt=cli_description)
 
     print(cli)
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

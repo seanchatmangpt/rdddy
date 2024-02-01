@@ -17,23 +17,33 @@ app = typer.Typer()
 module_dir = pathlib.Path(__file__).parent.absolute()
 
 # Path to the templates directory
-templates_dir = module_dir / 'templates'
+templates_dir = module_dir / "templates"
 
 
 @app.command(name="module")
 def generate_module(
     name: str = typer.Argument(..., help="Name of the module to generate"),
-    output_key: str = typer.Option(..., "--output-key", "-o", help="The output key for the module"),
-    input_key: str = typer.Option(..., "--input-key", "-i", help="The primary input key for the module"),
-    additional_inputs: str = typer.Option(None, "--additional-inputs", help="Comma-separated additional input keys")
+    output_key: str = typer.Option(
+        ..., "--output-key", "-o", help="The output key for the module"
+    ),
+    input_key: str = typer.Option(
+        ..., "--input-key", "-i", help="The primary input key for the module"
+    ),
+    additional_inputs: str = typer.Option(
+        None, "--additional-inputs", help="Comma-separated additional input keys"
+    ),
 ):
     """Generates a new DSPy module with a specified name."""
-    template_path = templates_dir / 'module_template.j2'
+    template_path = templates_dir / "module_template.j2"
 
     # Handling additional input keys
-    input_keys = [input_key] + (additional_inputs.split(',') if additional_inputs else [])
+    input_keys = [input_key] + (
+        additional_inputs.split(",") if additional_inputs else []
+    )
 
-    rendered = render(template_path, name=name, output_key=output_key, input_key_or_keys=input_keys)
+    rendered = render(
+        template_path, name=name, output_key=output_key, input_key_or_keys=input_keys
+    )
 
     typer.echo(rendered)
 
@@ -81,18 +91,17 @@ def generate_assertion():
 
 
 # def main():
-    # app()
-    # """Generates a new DSPy module with a specified name."""
-    # template_path = templates_dir / 'module_template.j2'
-    #
-    # rendered = render(template_path, name="testCode")
-    #
-    # print(rendered)
+# app()
+# """Generates a new DSPy module with a specified name."""
+# template_path = templates_dir / 'module_template.j2'
+#
+# rendered = render(template_path, name="testCode")
+#
+# print(rendered)
 
-    # cot = dspy.ChainOfThought("prompt -> production_quality_python_code")
-    # result = cot.forward(prompt="Fast API route")
-    # model = PydanticSHACLGenerator().forward("FastAPI route")
-
+# cot = dspy.ChainOfThought("prompt -> production_quality_python_code")
+# result = cot.forward(prompt="Fast API route")
+# model = PydanticSHACLGenerator().forward("FastAPI route")
 
 
 class PydanticSHACLGenerator(dspy.Module):
@@ -107,7 +116,7 @@ class PydanticSHACLGenerator(dspy.Module):
 
 
 def write_to_file(content, filename):
-    with open(filename, 'w') as f:
+    with open(filename, "w") as f:
         f.write(content)
 
 
@@ -122,5 +131,5 @@ def main():
     print(create_pydantic_class())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

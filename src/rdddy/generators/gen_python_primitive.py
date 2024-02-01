@@ -6,9 +6,7 @@ from rdddy.generators.gen_module import GenModule
 
 
 def is_primitive_type(data_type):
-    primitive_types = {
-        int, float, str, bool, list, tuple, dict, set
-    }
+    primitive_types = {int, float, str, bool, list, tuple, dict, set}
 
     return data_type in primitive_types
 
@@ -16,7 +14,9 @@ def is_primitive_type(data_type):
 class GenPythonPrimitive(GenModule):
     def __init__(self, primitive_type, lm=None):
         if not is_primitive_type(primitive_type):
-            raise ValueError(f'primitive type {primitive_type.__name__} must be a Python primitive type')
+            raise ValueError(
+                f"primitive type {primitive_type.__name__} must be a Python primitive type"
+            )
         super().__init__(f"{primitive_type.__name__}_python_primitive_pep8_string", lm)
         self.primitive_type = primitive_type
 
@@ -85,12 +85,23 @@ class GenStr(GenPythonPrimitive):
 
 
 def main():
-    result = GenTuple()("Create a list of planets in our solar system sorted by largest to smallest")
+    result = GenTuple()(
+        "Create a list of planets in our solar system sorted by largest to smallest"
+    )
 
-    assert result == ('Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Earth', 'Venus', 'Mars', 'Mercury')
+    assert result == (
+        "Jupiter",
+        "Saturn",
+        "Uranus",
+        "Neptune",
+        "Earth",
+        "Venus",
+        "Mars",
+        "Mercury",
+    )
 
     print(f"The planets of the solar system are {result}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -40,9 +40,7 @@ in a production environment.
 """
 
 
-def create_jinja(
-    prompt, max_tokens=2500, model=None, filepath=None, temperature=0.7
-):
+def create_jinja(prompt, max_tokens=2500, model=None, filepath=None, temperature=0.7):
     """
     Generate a Jinja2 template based on the given prompt.
     """
@@ -115,9 +113,7 @@ ready to be deployed to a production environment.
 """
 
 
-def create_python(
-    prompt, max_tokens=2500, model=None, filepath=None, temperature=0.7
-):
+def create_python(prompt, max_tokens=2500, model=None, filepath=None, temperature=0.7):
     """
     Generate Python code based on the given prompt.
     """
@@ -331,9 +327,7 @@ that means that the output should be a valid YAML file that follows the schema a
 """
 
 
-def create_evo(
-    prompt, max_tokens=2500, model=None, filepath=None, temperature=0.0
-):
+def create_evo(prompt, max_tokens=2500, model=None, filepath=None, temperature=0.0):
     create_prompt = TypedTemplate(source=create_evo_template, prompt=prompt)()
 
     result = __create(

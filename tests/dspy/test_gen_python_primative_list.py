@@ -1,5 +1,3 @@
-import pytest
-from unittest.mock import patch
 from rdddy.generators.gen_python_primitive import (
     GenPythonPrimitive,
 )  # replace with the actual import

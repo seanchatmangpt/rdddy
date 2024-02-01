@@ -33,3 +33,17 @@ You will be penalized for not returning only a list for list_python_primitive_st
 2024-01-26 13:31:54,553 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
 list_python_primitive_string
 You will be penalized for not returning only a list for list_python_primitive_string
+2024-01-31 12:45:03,574 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:45:07,577 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:46:45,329 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:46:45,329 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:46:54,954 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:47:31,358 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:52:08,534 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:52:12,914 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:56:48,672 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 12:56:48,673 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 14:18:55,945 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 14:18:55,945 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 15:31:54,806 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-01-31 15:31:54,807 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
