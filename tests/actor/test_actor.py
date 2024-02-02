@@ -2,9 +2,9 @@ import asyncio
 
 import pytest
 
-from denz.messages import *
-from denz.actor import *
-from denz.actor_system import ActorSystem
+from rdddy.messages import *
+from rdddy.actor import *
+from rdddy.actor_system import ActorSystem
 
 
 @pytest.fixture

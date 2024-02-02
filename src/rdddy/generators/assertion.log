@@ -22,3 +22,7 @@ You will be penalized for not returning only a set for set_python_primitive_stri
 2024-01-24 10:46:13,339 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python set primitive type for 
 set_python_primitive_string
 You will be penalized for not returning only a set for set_python_primitive_string
+2024-02-01 18:35:23,495 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel
+2024-02-01 18:35:23,496 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel
+2024-02-01 18:36:14,720 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel
+2024-02-01 18:36:14,721 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel

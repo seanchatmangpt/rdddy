@@ -1,7 +1,7 @@
 import asyncio
-from denz.actor import Actor
-from denz.actor_system import ActorSystem
-from denz.messages import Message, ExceptionMessage, TerminationMessage
+from rdddy.actor import Actor
+from rdddy.actor_system import ActorSystem
+from rdddy.messages import Message, ExceptionMessage, TerminationMessage
 
 
 class WorkerActor(Actor):
@@ -55,7 +55,7 @@ class RootSupervisorActor(Actor):
 
 
 import pytest
-from denz.actor_system import ActorSystem
+from rdddy.actor_system import ActorSystem
 
 
 @pytest.fixture

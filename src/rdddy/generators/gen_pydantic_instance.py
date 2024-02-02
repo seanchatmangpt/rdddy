@@ -17,6 +17,7 @@ def eval_dict_str(dict_str: str) -> dict:
 
 class PromptToPydanticInstanceSignature(Signature):
     """Synthesize the prompt into the kwargs fit the model"""
+
     root_pydantic_model_class_name = InputField(
         desc="The class name of the pydantic model to receive the kwargs"
     )
@@ -32,6 +33,7 @@ class PromptToPydanticInstanceSignature(Signature):
 
 class PromptToPydanticInstanceErrorSignature(PromptToPydanticInstanceSignature):
     """Synthesize the prompt into the kwargs fit the model"""
+
     error = InputField(desc="Error message to fix the kwargs")
     """Synthesize the prompt into the kwargs fit the model"""
     root_pydantic_model_class_name = InputField(
@@ -46,7 +48,8 @@ class PromptToPydanticInstanceErrorSignature(PromptToPydanticInstanceSignature):
         desc="Generate a Python dictionary as a string with minimized whitespace that only contains json valid values.",
     )
 
-T = TypeVar('T', bound=BaseModel)
+
+T = TypeVar("T", bound=BaseModel)
 
 
 class GenPydanticInstance(Module):
@@ -59,9 +62,7 @@ class GenPydanticInstance(Module):
         with a prompt to generate Pydantic model instances based on the provided prompt.
     """
 
-    def __init__(
-        self, root_model: Type[T], child_models: list[Type[BaseModel]] = None
-    ):
+    def __init__(self, root_model: Type[T], child_models: list[Type[BaseModel]] = None):
         super().__init__()
 
         if not issubclass(root_model, BaseModel):
@@ -76,9 +77,7 @@ class GenPydanticInstance(Module):
                     raise TypeError(
                         "All child_models must inherit from pydantic.BaseModel"
                     )
-            self.models.extend(
-                child_models
-            )
+            self.models.extend(child_models)
 
         self.output_key = "root_model_kwargs_dict"
         self.root_model = root_model
@@ -91,6 +90,7 @@ class GenPydanticInstance(Module):
         # Initialize DSPy ChainOfThought modules for generation and correction
         self.generate = ChainOfThought(PromptToPydanticInstanceSignature)
         self.correct_generate = ChainOfThought(PromptToPydanticInstanceErrorSignature)
+        self.validation_error = None
 
     def validate_root_model(self, output: str) -> bool:
         """Validates whether the generated output conforms to the root Pydantic model."""
@@ -98,13 +98,15 @@ class GenPydanticInstance(Module):
             model_inst = self.root_model.model_validate(eval_dict_str(output))
             return isinstance(model_inst, self.root_model)
         except (ValidationError, ValueError, TypeError, SyntaxError) as error:
+            self.validation_error = error
             return False
 
     def validate_output(self, output) -> T:
         """Validates the generated output and returns an instance of the root Pydantic model if successful."""
         Assert(
             self.validate_root_model(output),
-            f"""You need to create a kwargs dict for {self.root_model.__name__}""",
+            f"""You need to create a kwargs dict for {self.root_model.__name__}\n
+            Validation error:\n{self.validation_error}""",
         )
 
         return self.root_model.model_validate(eval_dict_str(output))

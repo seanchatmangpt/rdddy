@@ -43,7 +43,9 @@ def main():
     lm = dspy.OpenAI(max_tokens=1000)
     dspy.settings.configure(lm=lm)
 
-    prompt = "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
+    prompt = (
+        "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
+    )
     # prompt = "BPMN for ordering a sandwich"
     # prompt = "Explain the water cycle step by step."
 

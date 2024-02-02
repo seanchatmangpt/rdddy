@@ -9,7 +9,11 @@ from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
 class InputFieldModel(BaseModel):
     """Defines an input field for a DSPy Signature."""
-    name: str = Field(..., description="The key used to access and pass the input within the Signature.")
+
+    name: str = Field(
+        ...,
+        description="The key used to access and pass the input within the Signature.",
+    )
     prefix: str | None = Field(
         None,
         description="Optional additional context or labeling for the input field.",
@@ -22,7 +26,11 @@ class InputFieldModel(BaseModel):
 
 class OutputFieldModel(BaseModel):
     """Defines an input field for a DSPy Signature."""
-    name: str = Field(..., description="The key used to access and pass the input within the Signature.")
+
+    name: str = Field(
+        ...,
+        description="The key used to access and pass the input within the Signature.",
+    )
     prefix: str | None = Field(
         None,
         description="Optional additional context or labeling for the output field.",
@@ -42,8 +50,14 @@ class SignatureModel(BaseModel):
 
     signature_class = type(model.name, (Signature,), class_dict)
     """
-    name: str = Field(..., description="Signature class name. Use this to specify additional context or labeling.")
-    instructions: str = Field(..., description="Documentation of the task's expected LM function and output.")
+
+    name: str = Field(
+        ...,
+        description="Signature class name. Use this to specify additional context or labeling.",
+    )
+    instructions: str = Field(
+        ..., description="Documentation of the task's expected LM function and output."
+    )
     input_fields: list[InputFieldModel]
     output_fields: list[OutputFieldModel]
 
@@ -81,11 +95,11 @@ def main():
 
     sig_prompt = "I need a signature called QuestionAnswering that allows input of 'context', 'question', and output 'answer'"
 
-    sig_module = GenPydanticInstance(root_model=SignatureModel,
-                                     child_models=[InputFieldModel, OutputFieldModel])
+    sig_module = GenPydanticInstance(
+        root_model=SignatureModel, child_models=[InputFieldModel, OutputFieldModel]
+    )
 
     question_answering_signature = sig_module.forward(sig_prompt)
-
 
     # Convert the SignatureModel to a DSPy Signature class
     QuestionAnswering = create_signature_class_from_model(question_answering_signature)
@@ -107,7 +121,11 @@ def main():
 
     question = "What strategies can DSPy use?"
 
-    answer = dspy.ChainOfThought(QuestionAnswering).forward(context=context, question=question).answer
+    answer = (
+        dspy.ChainOfThought(QuestionAnswering)
+        .forward(context=context, question=question)
+        .answer
+    )
     print(answer)
 
 

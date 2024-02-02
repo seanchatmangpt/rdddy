@@ -1,8 +1,8 @@
 import asyncio
 
 import pytest
-from denz.actor import Actor, Message
-from denz.actor_system import ActorSystem
+from rdddy.actor import Actor, Message
+from rdddy.actor_system import ActorSystem
 
 
 @pytest.fixture

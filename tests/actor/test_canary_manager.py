@@ -2,8 +2,8 @@ import asyncio
 import pytest
 from unittest.mock import patch, MagicMock
 
-from denz.actor import Actor
-from denz.actor_system import ActorSystem
+from rdddy.actor import Actor
+from rdddy.actor_system import ActorSystem
 from actors.canary_manager import (
     ChromeCanaryManager,
     StartCanaryCommand,

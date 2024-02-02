@@ -40,7 +40,7 @@ class WorkshopAggregate(AbstractAggregate):
         self.events = []
 
     async def start_workshop(self, command: StartWorkshop):
-        # Start workshop logic
+# Start workshop logic
         # Emit WorkshopStarted event
         print("Starting workshop")
         await self.emit_event(WorkshopStarted(workshop_id=command.workshop_id))

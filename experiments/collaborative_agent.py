@@ -1,9 +1,9 @@
-from slss.actor_system import ActorSystem
-from slss.agent import Agent
-from domain.collaboration_context import *
+from rdddy.actor import Actor
+from rdddy.actor_system import ActorSystem
+from slss.domain.collaboration_context import *
 
 
-class CollaborativeAgent(Agent):
+class CollaborativeAgent(Actor):
     def handle_agent_created(self, event: AgentCreated):
         print(f"Agent {event.agent_id} created with name: {event.agent_name}")
 
