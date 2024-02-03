@@ -26,3 +26,39 @@ You will be penalized for not returning only a set for set_python_primitive_stri
 2024-02-01 18:35:23,496 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel
 2024-02-01 18:36:14,720 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel
 2024-02-01 18:36:14,721 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel
+2024-02-02 14:39:54,969 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for MetaTemplateSpecificationBaseModel
+
+            Validation error:
+malformed node or string on line 1: <ast.Name object at 0x1627059c0>
+2024-02-02 14:39:54,971 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for MetaTemplateSpecificationBaseModel
+
+            Validation error:
+malformed node or string on line 1: <ast.Name object at 0x162718b80>
+2024-02-02 17:21:00,921 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_str_for_ast_literal_eval
+You will be penalized for not returning only a list for list_str_for_ast_literal_eval
+2024-02-02 17:28:34,365 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python list primitive type for 
+list_str_for_ast_literal_eval
+You will be penalized for not returning only a list for list_str_for_ast_literal_eval
+2024-02-02 17:33:18,794 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for RootModel
+
+            Validation error:
+malformed node or string on line 1: <ast.ListComp object at 0x15ce01750>
+2024-02-02 17:33:18,795 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for RootModel
+
+            Validation error:
+malformed node or string on line 1: <ast.ListComp object at 0x15cea1480>
+2024-02-02 17:56:38,280 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel
+
+            Validation error:
+1 validation error for PydanticClassTemplateSpecificationModel
+fields.3.default_value
+  Input should be a valid string [type=string_type, input_value=1, input_type=int]
+    For further information visit https://errors.pydantic.dev/2.5/v/string_type
+2024-02-02 17:56:38,282 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for PydanticClassTemplateSpecificationModel
+
+            Validation error:
+1 validation error for PydanticClassTemplateSpecificationModel
+fields.3.default_value
+  Input should be a valid string [type=string_type, input_value=1, input_type=int]
+    For further information visit https://errors.pydantic.dev/2.5/v/string_type

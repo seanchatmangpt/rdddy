@@ -17,7 +17,7 @@ class GenPythonPrimitive(GenModule):
             raise ValueError(
                 f"primitive type {primitive_type.__name__} must be a Python primitive type"
             )
-        super().__init__(f"{primitive_type.__name__}_python_primitive_pep8_string", lm)
+        super().__init__(f"{primitive_type.__name__}_str_for_ast_literal_eval", lm)
         self.primitive_type = primitive_type
 
     def validate_primitive(self, output) -> bool:

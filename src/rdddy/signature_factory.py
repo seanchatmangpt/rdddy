@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
 
-class InputFieldModel(BaseModel):
+class InputFieldTemplateSpecModel(BaseModel):
     """Defines an input field for a DSPy Signature."""
 
     name: str = Field(
@@ -24,7 +24,7 @@ class InputFieldModel(BaseModel):
     )
 
 
-class OutputFieldModel(BaseModel):
+class OutputFieldTemplateSpecModel(BaseModel):
     """Defines an input field for a DSPy Signature."""
 
     name: str = Field(
@@ -41,9 +41,9 @@ class OutputFieldModel(BaseModel):
     )
 
 
-class SignatureModel(BaseModel):
+class SignatureTemplateSpecModel(BaseModel):
     """
-    SignatureModel encapsulates the specifications for input/output behavior of a task in the DSPy framework.
+    SignatureTemplateSpecModel encapsulates the specifications for input/output behavior of a task in the DSPy framework.
 
     It provides a structured approach to define how data should be inputted into and outputted from a language model (LM),
     facilitating the creation and integration of complex LM pipelines.
@@ -58,11 +58,11 @@ class SignatureModel(BaseModel):
     instructions: str = Field(
         ..., description="Documentation of the task's expected LM function and output."
     )
-    input_fields: list[InputFieldModel]
-    output_fields: list[OutputFieldModel]
+    input_fields: list[InputFieldTemplateSpecModel]
+    output_fields: list[OutputFieldTemplateSpecModel]
 
 
-def create_signature_class_from_model(model: SignatureModel) -> type:
+def create_signature_class_from_model(model: SignatureTemplateSpecModel) -> type:
     """
     Create a DSPy Signature class from a Pydantic model.
 
@@ -96,7 +96,7 @@ def main():
     sig_prompt = "I need a signature called QuestionAnswering that allows input of 'context', 'question', and output 'answer'"
 
     sig_module = GenPydanticInstance(
-        root_model=SignatureModel, child_models=[InputFieldModel, OutputFieldModel]
+        root_model=SignatureTemplateSpecModel, child_models=[InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel]
     )
 
     question_answering_signature = sig_module.forward(sig_prompt)

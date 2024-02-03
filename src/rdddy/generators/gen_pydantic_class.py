@@ -11,27 +11,22 @@ from typing import List, Optional
 class FieldTemplateSpecificationModel(BaseModel):
     field_name: str = Field(
         ...,
-        title="Field Name",
-        description="The name of the field in the model.",
+        description="The name of the field in the model. PEP8 naming. No prefixes, suffixes, or abbreviations.",
     )
     field_type: str = Field(
         ...,
-        title="Field Type",
-        description="The data type of the field, e.g., 'str', 'int', 'EmailStr', or 'datetime'.",
+        description="The data type of the field, e.g., 'str', 'int', 'EmailStr', or 'datetime'. No dict or classes.",
     )
     default_value: str | None = Field(
         "...",
-        title="Default Value",
         description="The default value for the field if not provided.",
     )
     description: str = Field(
         ...,
-        title="Description",
         description="A detailed description of the field's purpose and usage.",
     )
     constraints: str | None = Field(
         None,
-        title="Constraints",
         description="Constraints or validation rules for the field, if any. Specify as a string, e.g., 'min_length=2, max_length=50' or 'ge=0, le=120'.",
     )
 
@@ -84,20 +79,16 @@ class ValidatorTemplateSpecificationModel(BaseModel):
 class PydanticClassTemplateSpecificationModel(BaseModel):
     class_name: str = Field(
         ...,
-        title="Model Class Name",
         description="The class name of the Pydantic model.",
     )
     description: str = Field(
         ...,
-        title="Description",
         description="A detailed description of the Pydantic model's purpose and usage.",
     )
     fields: List[FieldTemplateSpecificationModel] = Field(
         ...,
-        title="Fields",
-        description="A list of field specifications for the model. Each field specifies the name, type, default value, description, and constraints.",
+        description="A list of field specifications for the model. Each field specifies the name, type, default value, description, and constraints. 10 fields max.",
     )
-
 
 
 template_str = '''from pydantic import BaseModel, Field, validator, root_validator, EmailStr, UrlStr
@@ -127,6 +118,7 @@ class {{ model.class_name }}(BaseModel):
     {% endif %}
 '''
 
+
 def render_pydantic_class(model_spec, template_str):
     template = jinja2.Template(template_str)
     return template.render(model=model_spec)
@@ -145,8 +137,7 @@ def main():
     model_prompt = "I need a verbose contact model named ContactModel from the friend of a friend ontology with 10 fields, each with length constraints"
 
     model_module = GenPydanticInstance(root_model=PydanticClassTemplateSpecificationModel,
-                                     child_models=[FieldTemplateSpecificationModel
-                                                   ])
+                                       child_models=[FieldTemplateSpecificationModel])
 
     model_inst = model_module.forward(model_prompt)
 
@@ -157,5 +148,45 @@ def main():
     write_pydantic_class_to_file(rendered_class_str, f"{inflection.underscore(model_inst.class_name)}.py")
 
 
+icalendar_entities = {
+    'VEVENT': 'This is one of the most commonly used components in iCalendar and represents an event.',
+    'VTODO': 'Represents a to-do task or action item.',
+    'VJOURNAL': 'Represents a journal entry or a note.',
+    'VFREEBUSY': 'Represents information about the free or busy time of a calendar user.',
+    'VTIMEZONE': 'Represents time zone information.',
+    'VAVAILABILITY': 'Represents availability information for a calendar user.',
+    'VALARM': 'Represents an alarm or reminder associated with an event or to-do.'
+}
+
+
+def generate_icalendar_models():
+    for entity, description in icalendar_entities.items():
+        # generate_answer = dspy.ChainOfThought("question -> answer")
+        # prompt = f"What are the exact fields or attributes of the {entity} in RFC 5545?"
+        # answer = generate_answer(question=prompt).answer
+        # print(f"{entity}: {answer}")
+
+        # Define a Pydantic class dynamically for each entity
+        model_prompt = f'I need a model named {entity}Model that has all of the relevant fields for RFC 5545 compliance.'
+
+        model_module = GenPydanticInstance(root_model=PydanticClassTemplateSpecificationModel,
+                                           child_models=[FieldTemplateSpecificationModel])
+
+        model_inst = model_module.forward(model_prompt)
+
+        print(model_inst)
+
+        # Render the Pydantic class from the specification
+        rendered_class_str = render_pydantic_class(model_inst, template_str)
+
+        # Write the rendered class to a Python file
+        write_pydantic_class_to_file(rendered_class_str, f"ical/{inflection.underscore(model_inst.class_name)}.py")
+
+        print(f"{model_inst.class_name} written to {model_inst.class_name}.py")
+
 if __name__ == '__main__':
-    main()
+    lm = dspy.OpenAI(max_tokens=3000)
+    dspy.settings.configure(lm=lm)
+
+    generate_icalendar_models()
+    # main()
