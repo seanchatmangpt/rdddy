@@ -1,7 +1,9 @@
 import dspy
 import inflection
 import jinja2
+from dspy import Signature, OutputField, InputField
 from pydantic import BaseModel, Field
+from typetemp.functional import render
 
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 from typetemp.functional import render
@@ -11,15 +13,15 @@ from typing import List, Optional
 class FieldTemplateSpecificationModel(BaseModel):
     field_name: str = Field(
         ...,
-        description="The name of the field in the model. PEP8 naming. No prefixes, suffixes, or abbreviations.",
+        description="The name of the field in the model. No prefixes, suffixes, or abbreviations.",
     )
     field_type: str = Field(
         ...,
         description="The data type of the field, e.g., 'str', 'int', 'EmailStr', or 'datetime'. No dict or classes.",
     )
-    default_value: str | None = Field(
+    default_value: str | int | None = Field(
         "...",
-        description="The default value for the field if not provided.",
+        description="The default value for the field if not provided. ",
     )
     description: str = Field(
         ...,
@@ -87,7 +89,7 @@ class PydanticClassTemplateSpecificationModel(BaseModel):
     )
     fields: List[FieldTemplateSpecificationModel] = Field(
         ...,
-        description="A list of field specifications for the model. Each field specifies the name, type, default value, description, and constraints. 10 fields max.",
+        description="A list of field specifications for the model. Each field specifies the name, type, default value, description, and constraints. 15 fields max."
     )
 
 
@@ -99,7 +101,7 @@ from datetime import datetime
 class {{ model.class_name }}(BaseModel):
     """{{ model.description }}"""
     {% for field in model.fields %}
-    {{ field.field_name }}: {{ field.field_type }} = Field(default={{ field.default_value }}, title="{{ field.title }}", description="{{ field.description }}"{% if field.constraints %}, {{ field.constraints }}{% endif %})
+    {{ field.field_name | underscore }}: {{ field.field_type }} = Field(default={{ field.default_value }}, title="{{ field.title }}", description="{{ field.description }}"{% if field.constraints %}, {{ field.constraints }}{% endif %})
     {% endfor %}
 
     {% if model.validators|length > 0 %}
@@ -119,14 +121,50 @@ class {{ model.class_name }}(BaseModel):
 '''
 
 
-def render_pydantic_class(model_spec, template_str):
-    template = jinja2.Template(template_str)
-    return template.render(model=model_spec)
-
 
 def write_pydantic_class_to_file(class_str, filename):
     with open(filename, 'w') as file:
         file.write(class_str)
+
+
+class PromptToPydanticInstanceSignature(Signature):
+    """
+    Converts a  prompt into Pydantic model initialization kwargs.
+    """
+
+    root_pydantic_model_class_name = InputField(
+        desc="Class name of the Pydantic model for which `kwargs` are being generated."
+    )
+    pydantic_model_definitions = InputField(
+        desc="Complete Python code string containing the class definitions of the target Pydantic model and any related models."
+    )
+    prompt = InputField(
+        desc="Data structure and values to be converted into `kwargs` for the Pydantic model instantiation."
+    )
+    root_model_kwargs_dict = OutputField(
+        prefix="kwargs_dict: dict = ",
+        desc="Python dictionary (as a string) representing the keyword arguments for initializing the Pydantic model. The dictionary is minimized in terms of whitespace and includes only JSON-compatible values."
+    )
+
+
+class PromptToPydanticInstanceErrorSignature(Signature):
+    error = InputField(
+        desc="An error message indicating issues with previously generated `kwargs`, used to guide adjustments in the synthesis process."
+    )
+    # Inheriting fields from PromptToPydanticInstanceSignature
+    root_pydantic_model_class_name = InputField(
+        desc="Class name of the Pydantic model to be corrected based on the error."
+    )
+    pydantic_model_definitions = InputField(
+        desc="Python class definitions of the Pydantic model and any dependencies, provided as a string."
+    )
+    prompt = InputField(
+        desc="Original natural language prompt, potentially adjusted to incorporate insights from the error message."
+    )
+    root_model_kwargs_dict = OutputField(
+        prefix="kwargs_dict = ",
+        desc="Refined Python dictionary (as a string) for model initialization, adjusted to address the provided error message. Ensures minimized whitespace and JSON-compatible values."
+    )
 
 
 # Example usage
@@ -161,28 +199,25 @@ icalendar_entities = {
 
 def generate_icalendar_models():
     for entity, description in icalendar_entities.items():
-        # generate_answer = dspy.ChainOfThought("question -> answer")
-        # prompt = f"What are the exact fields or attributes of the {entity} in RFC 5545?"
-        # answer = generate_answer(question=prompt).answer
-        # print(f"{entity}: {answer}")
 
         # Define a Pydantic class dynamically for each entity
         model_prompt = f'I need a model named {entity}Model that has all of the relevant fields for RFC 5545 compliance.'
 
         model_module = GenPydanticInstance(root_model=PydanticClassTemplateSpecificationModel,
-                                           child_models=[FieldTemplateSpecificationModel])
+                                           child_models=[FieldTemplateSpecificationModel],
+                                           generate_sig=PromptToPydanticInstanceSignature,
+                                           correct_generate_sig=PromptToPydanticInstanceErrorSignature)
 
         model_inst = model_module.forward(model_prompt)
 
-        print(model_inst)
-
         # Render the Pydantic class from the specification
-        rendered_class_str = render_pydantic_class(model_inst, template_str)
+        rendered_class_str = render(template_str, model=model_inst)
 
         # Write the rendered class to a Python file
         write_pydantic_class_to_file(rendered_class_str, f"ical/{inflection.underscore(model_inst.class_name)}.py")
 
         print(f"{model_inst.class_name} written to {model_inst.class_name}.py")
+
 
 if __name__ == '__main__':
     lm = dspy.OpenAI(max_tokens=3000)

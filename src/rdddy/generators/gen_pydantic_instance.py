@@ -31,7 +31,7 @@ class PromptToPydanticInstanceSignature(Signature):
     )
 
 
-class PromptToPydanticInstanceErrorSignature(PromptToPydanticInstanceSignature):
+class PromptToPydanticInstanceErrorSignature(Signature):
     """Synthesize the prompt into the kwargs fit the model"""
 
     error = InputField(desc="Error message to fix the kwargs")
@@ -62,7 +62,9 @@ class GenPydanticInstance(Module):
         with a prompt to generate Pydantic model instances based on the provided prompt.
     """
 
-    def __init__(self, root_model: Type[T], child_models: list[Type[BaseModel]] = None):
+    def __init__(self, root_model: Type[T], child_models: list[Type[BaseModel]] = None,
+                 generate_sig=PromptToPydanticInstanceSignature,
+                 correct_generate_sig=PromptToPydanticInstanceErrorSignature):
         super().__init__()
 
         if not issubclass(root_model, BaseModel):
@@ -88,8 +90,8 @@ class GenPydanticInstance(Module):
         )
 
         # Initialize DSPy ChainOfThought modules for generation and correction
-        self.generate = ChainOfThought(PromptToPydanticInstanceSignature)
-        self.correct_generate = ChainOfThought(PromptToPydanticInstanceErrorSignature)
+        self.generate = ChainOfThought(generate_sig)
+        self.correct_generate = ChainOfThought(correct_generate_sig)
         self.validation_error = None
 
     def validate_root_model(self, output: str) -> bool:
