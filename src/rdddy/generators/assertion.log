@@ -192,3 +192,11 @@ fields.10.default_value
 fields.14.default_value
   Input should be a valid string [type=string_type, input_value=0, input_type=int]
     For further information visit https://errors.pydantic.dev/2.5/v/string_type
+2024-02-05 11:15:12,713 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for GRDDDFLSSFramework
+
+            Validation error:
+invalid character '∫' (U+222B) (<unknown>, line 1)
+2024-02-05 11:15:15,163 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for GRDDDFLSSFramework
+
+            Validation error:
+invalid character '∫' (U+222B) (<unknown>, line 1)

@@ -25,6 +25,13 @@ class ActorSystem:
         await actor.start(self.scheduler)
         return actor
 
+    async def actors_of(self, actor_classes, **kwargs) -> list["Actor"]:
+        actors = []
+        for actor_class in actor_classes:
+            actor = await self.actor_of(actor_class, **kwargs)
+            actors.append(actor)
+        return actors
+
     async def publish(self, message: "Message"):
         self.event_stream.on_next(message)
         actors = list(self.actors.values())

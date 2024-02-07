@@ -7,7 +7,6 @@ from pydantic import BaseModel, Field
 from typing import List
 
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
-from rdddy.generators.gen_python_primitive import GenPythonPrimitive
 
 
 class Command(BaseModel):

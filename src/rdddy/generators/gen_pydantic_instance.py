@@ -16,7 +16,10 @@ def eval_dict_str(dict_str: str) -> dict:
 
 
 class PromptToPydanticInstanceSignature(Signature):
-    """Synthesize the prompt into the kwargs fit the model"""
+    """
+    Synthesize the prompt into the kwargs fit the model.
+    Do not duplicate the field descriptions
+    """
 
     root_pydantic_model_class_name = InputField(
         desc="The class name of the pydantic model to receive the kwargs"
@@ -24,7 +27,7 @@ class PromptToPydanticInstanceSignature(Signature):
     pydantic_model_definitions = InputField(
         desc="Pydantic model class definitions as a string"
     )
-    prompt = InputField(desc="The prompt to be synthesized into data")
+    prompt = InputField(desc="The prompt to be synthesized into data. Do not duplicate descriptions")
     root_model_kwargs_dict = OutputField(
         prefix="kwargs_dict: dict = ",
         desc="Generate a Python dictionary as a string with minimized whitespace that only contains json valid values.",
@@ -138,3 +141,8 @@ class GenPydanticInstance(Module):
             )[self.output_key]
 
             return self.validate_output(corrected_output)
+
+    def __call__(self, *args, **kwargs):
+        return self.forward(kwargs.get("prompt"))
+
+
