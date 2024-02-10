@@ -13,18 +13,21 @@ from typing import List, Type
 
 class TemplateSpecificationBaseModel(BaseModel):
     """Template specification base model."""
+
     def __init__(self, **data: Any):
         super().__init__(**data)
 
 
 class TemplateSpecificationFieldBaseModel(BaseModel):
     """Template specification field model."""
+
     def __init__(self, **data: Any):
         super().__init__(**data)
 
 
 class MetaTemplateSpecificationFieldModel(TemplateSpecificationFieldBaseModel):
     """A Pydantic model for jinja templates that render Pydantic fields."""
+
     description: str = Field(
         ...,
         description="A detailed description of the field's purpose and usage.",
@@ -32,7 +35,7 @@ class MetaTemplateSpecificationFieldModel(TemplateSpecificationFieldBaseModel):
     field_name: str = Field(
         ...,
         description="The name of the field in the generated template model. "
-                    "It should fit the description and be unique. No prefixes, suffixes, or abbreviations.",
+        "It should fit the description and be unique. No prefixes, suffixes, or abbreviations.",
     )
     default_value: str | None = Field(
         "...",
@@ -42,6 +45,7 @@ class MetaTemplateSpecificationFieldModel(TemplateSpecificationFieldBaseModel):
 
 class MetaTemplateSpecificationBaseModel(TemplateSpecificationBaseModel):
     """A Pydantic model for jinja templates that render BaseModels."""
+
     class_name: str = Field(
         ...,
         description="The name of the generated template model.",
@@ -71,7 +75,9 @@ class {{ model.class_name }}(TemplateSpecificationBaseModel):
 
 class RootModel(BaseModel):
     root_model_class_name: str = Field(..., description="The name of the root model")
-    child_model_class_names: list[str] = Field(..., description="The names of the child models")
+    child_model_class_names: list[str] = Field(
+        ..., description="The names of the child models"
+    )
 
 
 def gen_model_tree():
@@ -104,13 +110,13 @@ Create the ICalendar root model and add the child entities
 
 
 icalendar_entities = {
-    'VEVENT': 'This is one of the most commonly used components in iCalendar and represents an event.',
-    'VTODO': 'Represents a to-do task or action item.',
-    'VJOURNAL': 'Represents a journal entry or a note.',
-    'VFREEBUSY': 'Represents information about the free or busy time of a calendar user.',
-    'VTIMEZONE': 'Represents time zone information.',
-    'VAVAILABILITY': 'Represents availability information for a calendar user.',
-    'VALARM': 'Represents an alarm or reminder associated with an event or to-do.'
+    "VEVENT": "This is one of the most commonly used components in iCalendar and represents an event.",
+    "VTODO": "Represents a to-do task or action item.",
+    "VJOURNAL": "Represents a journal entry or a note.",
+    "VFREEBUSY": "Represents information about the free or busy time of a calendar user.",
+    "VTIMEZONE": "Represents time zone information.",
+    "VAVAILABILITY": "Represents availability information for a calendar user.",
+    "VALARM": "Represents an alarm or reminder associated with an event or to-do.",
 }
 
 
@@ -122,10 +128,12 @@ def generate_icalendar_models():
         print(f"{entity}: {answer}")
 
         # Define a Pydantic class dynamically for each entity
-        model_prompt = f'I need a model named {entity}Model that has all of the relevant fields {description}'
+        model_prompt = f"I need a model named {entity}Model that has all of the relevant fields {description}"
 
-        model_module = GenPydanticInstance(root_model=MetaTemplateSpecificationBaseModel,
-                                           child_models=[MetaTemplateSpecificationFieldModel])
+        model_module = GenPydanticInstance(
+            root_model=MetaTemplateSpecificationBaseModel,
+            child_models=[MetaTemplateSpecificationFieldModel],
+        )
 
         model_inst = model_module.forward(model_prompt)
 
@@ -135,7 +143,10 @@ def generate_icalendar_models():
         rendered_class_str = render_pydantic_class(model_inst, template_str)
 
         # Write the rendered class to a Python file
-        write_pydantic_class_to_file(rendered_class_str, f"ical/{inflection.underscore(model_inst.class_name)}.py")
+        write_pydantic_class_to_file(
+            rendered_class_str,
+            f"ical/{inflection.underscore(model_inst.class_name)}.py",
+        )
 
         print(f"{model_inst.class_name} written to {model_inst.class_name}.py")
 
@@ -146,7 +157,7 @@ def render_pydantic_class(model_spec, template_str):
 
 
 def write_pydantic_class_to_file(class_str, filename):
-    with open(filename, 'w') as file:
+    with open(filename, "w") as file:
         file.write(class_str)
 
 
@@ -156,8 +167,10 @@ def main():
     so that I can create Pydantic models for Domain Specific Languages. Come up with 
     field names that fit a DSL template."""
 
-    model_module = GenPydanticInstance(root_model=MetaTemplateSpecificationBaseModel,
-                                       child_models=[MetaTemplateSpecificationFieldModel])
+    model_module = GenPydanticInstance(
+        root_model=MetaTemplateSpecificationBaseModel,
+        child_models=[MetaTemplateSpecificationFieldModel],
+    )
 
     model_inst = model_module.forward(model_prompt)
 
@@ -165,10 +178,12 @@ def main():
     rendered_class_str = render(template_str, model=model_inst)
 
     # Write the rendered class to a Python file
-    write_pydantic_class_to_file(rendered_class_str, f"{inflection.underscore(model_inst.class_name)}.py")
+    write_pydantic_class_to_file(
+        rendered_class_str, f"{inflection.underscore(model_inst.class_name)}.py"
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     lm = dspy.OpenAI(max_tokens=1000)
     dspy.settings.configure(lm=lm)
     # main()

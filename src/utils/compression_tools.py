@@ -4,15 +4,16 @@ import inspect
 
 import re
 
+
 def remove_whitespace(input_data):
     if isinstance(input_data, str):
         # Check if filepath
         if os.path.exists(input_data):
-            with open(input_data, 'r') as file:
+            with open(input_data, "r") as file:
                 return remove_whitespace(file.read())
         else:
             # If the input is a string, remove whitespace characters
-            return re.sub(r'\s+', '', input_data)
+            return re.sub(r"\s+", "", input_data)
     elif isinstance(input_data, type):
         # If the input is a class, remove whitespace from its source code
         return remove_whitespace(inspect.getsource(input_data))
@@ -61,7 +62,5 @@ LLMs are a kind of deep neural network. They have been demonstrated to embed kno
 Render the input as a distilled list of succinct statements, assertions, associations, concepts, analogies, and metaphors. The idea is to capture as much, conceptually, as possible but with as few words as possible. Write it in a way that makes sense to you, as the future audience will be another language model, not a human. Use complete sentences.
 """
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-
-

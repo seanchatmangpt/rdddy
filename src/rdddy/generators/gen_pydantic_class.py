@@ -89,7 +89,7 @@ class PydanticClassTemplateSpecificationModel(BaseModel):
     )
     fields: List[FieldTemplateSpecificationModel] = Field(
         ...,
-        description="A list of field specifications for the model. Each field specifies the name, type, default value, description, and constraints. 15 fields max."
+        description="A list of field specifications for the model. Each field specifies the name, type, default value, description, and constraints. 15 fields max.",
     )
 
 
@@ -121,9 +121,8 @@ class {{ model.class_name }}(BaseModel):
 '''
 
 
-
 def write_pydantic_class_to_file(class_str, filename):
-    with open(filename, 'w') as file:
+    with open(filename, "w") as file:
         file.write(class_str)
 
 
@@ -143,7 +142,7 @@ class PromptToPydanticInstanceSignature(Signature):
     )
     root_model_kwargs_dict = OutputField(
         prefix="kwargs_dict: dict = ",
-        desc="Python dictionary (as a string) representing the keyword arguments for initializing the Pydantic model. The dictionary is minimized in terms of whitespace and includes only JSON-compatible values."
+        desc="Python dictionary (as a string) representing the keyword arguments for initializing the Pydantic model. The dictionary is minimized in terms of whitespace and includes only JSON-compatible values.",
     )
 
 
@@ -163,7 +162,7 @@ class PromptToPydanticInstanceErrorSignature(Signature):
     )
     root_model_kwargs_dict = OutputField(
         prefix="kwargs_dict = ",
-        desc="Refined Python dictionary (as a string) for model initialization, adjusted to address the provided error message. Ensures minimized whitespace and JSON-compatible values."
+        desc="Refined Python dictionary (as a string) for model initialization, adjusted to address the provided error message. Ensures minimized whitespace and JSON-compatible values.",
     )
 
 
@@ -174,8 +173,10 @@ def main():
 
     model_prompt = "I need a verbose contact model named ContactModel from the friend of a friend ontology with 10 fields, each with length constraints"
 
-    model_module = GenPydanticInstance(root_model=PydanticClassTemplateSpecificationModel,
-                                       child_models=[FieldTemplateSpecificationModel])
+    model_module = GenPydanticInstance(
+        root_model=PydanticClassTemplateSpecificationModel,
+        child_models=[FieldTemplateSpecificationModel],
+    )
 
     model_inst = model_module.forward(model_prompt)
 
@@ -183,30 +184,33 @@ def main():
     rendered_class_str = render(template_str, model=model_inst)
 
     # Write the rendered class to a Python file
-    write_pydantic_class_to_file(rendered_class_str, f"{inflection.underscore(model_inst.class_name)}.py")
+    write_pydantic_class_to_file(
+        rendered_class_str, f"{inflection.underscore(model_inst.class_name)}.py"
+    )
 
 
 icalendar_entities = {
-    'VEVENT': 'This is one of the most commonly used components in iCalendar and represents an event.',
-    'VTODO': 'Represents a to-do task or action item.',
-    'VJOURNAL': 'Represents a journal entry or a note.',
-    'VFREEBUSY': 'Represents information about the free or busy time of a calendar user.',
-    'VTIMEZONE': 'Represents time zone information.',
-    'VAVAILABILITY': 'Represents availability information for a calendar user.',
-    'VALARM': 'Represents an alarm or reminder associated with an event or to-do.'
+    "VEVENT": "This is one of the most commonly used components in iCalendar and represents an event.",
+    "VTODO": "Represents a to-do task or action item.",
+    "VJOURNAL": "Represents a journal entry or a note.",
+    "VFREEBUSY": "Represents information about the free or busy time of a calendar user.",
+    "VTIMEZONE": "Represents time zone information.",
+    "VAVAILABILITY": "Represents availability information for a calendar user.",
+    "VALARM": "Represents an alarm or reminder associated with an event or to-do.",
 }
 
 
 def generate_icalendar_models():
     for entity, description in icalendar_entities.items():
-
         # Define a Pydantic class dynamically for each entity
-        model_prompt = f'I need a model named {entity}Model that has all of the relevant fields for RFC 5545 compliance.'
+        model_prompt = f"I need a model named {entity}Model that has all of the relevant fields for RFC 5545 compliance."
 
-        model_module = GenPydanticInstance(root_model=PydanticClassTemplateSpecificationModel,
-                                           child_models=[FieldTemplateSpecificationModel],
-                                           generate_sig=PromptToPydanticInstanceSignature,
-                                           correct_generate_sig=PromptToPydanticInstanceErrorSignature)
+        model_module = GenPydanticInstance(
+            root_model=PydanticClassTemplateSpecificationModel,
+            child_models=[FieldTemplateSpecificationModel],
+            generate_sig=PromptToPydanticInstanceSignature,
+            correct_generate_sig=PromptToPydanticInstanceErrorSignature,
+        )
 
         model_inst = model_module.forward(model_prompt)
 
@@ -214,55 +218,57 @@ def generate_icalendar_models():
         rendered_class_str = render(template_str, model=model_inst)
 
         # Write the rendered class to a Python file
-        write_pydantic_class_to_file(rendered_class_str, f"ical/{inflection.underscore(model_inst.class_name)}.py")
+        write_pydantic_class_to_file(
+            rendered_class_str,
+            f"ical/{inflection.underscore(model_inst.class_name)}.py",
+        )
 
         print(f"{model_inst.class_name} written to {model_inst.class_name}.py")
 
 
 from pydantic import BaseModel, Field
 
+
 class GRDDDFLSSFramework(BaseModel):
     digital_twin_integration: str = Field(
         ...,
-        description="Represents the cumulative impact of real-time monitoring and predictive analytics on project management effectiveness. Calculus: Σ(RealTimeMonitoring(t) + PredictiveAnalytics(t)) over time t."
+        description="Represents the cumulative impact of real-time monitoring and predictive analytics on project management effectiveness. Calculus: Σ(RealTimeMonitoring(t) + PredictiveAnalytics(t)) over time t.",
     )
     gp_optimization: str = Field(
         ...,
-        description="Quantifies the continuous optimization of project management strategies over the project timeline. Calculus: ∫(AdaptationStrategies(t) * ResourceEfficiency(t)) dt from t0 to tf."
+        description="Quantifies the continuous optimization of project management strategies over the project timeline. Calculus: ∫(AdaptationStrategies(t) * ResourceEfficiency(t)) dt from t0 to tf.",
     )
     cp_compliance: str = Field(
         ...,
-        description="Represents the multiplicative effect of adhering to quality standards and compliance measures across all project constraints. Calculus: ∏(QualityStandards(i) + ComplianceMeasures(i)) for each constraint i."
+        description="Represents the multiplicative effect of adhering to quality standards and compliance measures across all project constraints. Calculus: ∏(QualityStandards(i) + ComplianceMeasures(i)) for each constraint i.",
     )
     project_change_management: str = Field(
         ...,
-        description="Quantifies the change in project efficiency as a result of analyzing interdependencies and optimizing interfaces over time. Calculus: Δ(ΣInterdependenciesAnalysis(i, t) + ΣInterfacesOptimization(i, t)) over all components i and time t."
+        description="Quantifies the change in project efficiency as a result of analyzing interdependencies and optimizing interfaces over time. Calculus: Δ(ΣInterdependenciesAnalysis(i, t) + ΣInterfacesOptimization(i, t)) over all components i and time t.",
     )
     digital_twin_semantic_enrichment: str = Field(
         ...,
-        description="Indicates the use of semantic enrichment for advanced change management within digital twins. Impact: Enhances the digital twin's ability to manage change by identifying and visualizing complex interdependencies."
+        description="Indicates the use of semantic enrichment for advanced change management within digital twins. Impact: Enhances the digital twin's ability to manage change by identifying and visualizing complex interdependencies.",
     )
     genetic_programming_adaptation_impact: str = Field(
         ...,
-        description="Integral of adaptation strategies over time, highlighting the role of GP in adapting project management strategies. Calculus: ∫AdaptationStrategies(t) dt."
+        description="Integral of adaptation strategies over time, highlighting the role of GP in adapting project management strategies. Calculus: ∫AdaptationStrategies(t) dt.",
     )
     constraint_programming_quality_impact: str = Field(
         ...,
-        description="Product of quality standards across constraints, underlining CP's role in ensuring project quality and compliance. Calculus: ∏QualityStandards(i)."
+        description="Product of quality standards across constraints, underlining CP's role in ensuring project quality and compliance. Calculus: ∏QualityStandards(i).",
     )
     change_management_interdependency_analysis: str = Field(
         ...,
-        description="Change in efficiency due to interdependency analysis over time, integral to managing change within projects. Calculus: ΔΣInterdependenciesAnalysis(i, t)."
+        description="Change in efficiency due to interdependency analysis over time, integral to managing change within projects. Calculus: ΔΣInterdependenciesAnalysis(i, t).",
     )
     change_management_interface_optimization: str = Field(
         ...,
-        description="Change in efficiency due to interface optimization over time, crucial for effective change management in projects. Calculus: ΔΣInterfacesOptimization(i, t)."
+        description="Change in efficiency due to interface optimization over time, crucial for effective change management in projects. Calculus: ΔΣInterfacesOptimization(i, t).",
     )
 
 
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     lm = dspy.OpenAI(max_tokens=3000)
     dspy.settings.configure(lm=lm)
 

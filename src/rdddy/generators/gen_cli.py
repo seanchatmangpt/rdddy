@@ -90,31 +90,6 @@ def generate_assertion():
     print("This is the generate_assertion command.")
 
 
-# def main():
-# app()
-# """Generates a new DSPy module with a specified name."""
-# template_path = templates_dir / 'module_template.j2'
-#
-# rendered = render(template_path, name="testCode")
-#
-# print(rendered)
-
-# cot = dspy.ChainOfThought("prompt -> production_quality_python_code")
-# result = cot.forward(prompt="Fast API route")
-# model = PydanticSHACLGenerator().forward("FastAPI route")
-
-
-class PydanticSHACLGenerator(dspy.Module):
-    def __init__(self):
-        super().__init__()
-        self.output_kwarg = "pydantic_base_class_all_fields"
-        self.cot = dspy.ChainOfThought(f"requirements -> {self.output_kwarg}")
-
-    def forward(self, requirements: str):
-        result = self.cot.forward(prompt=f"{requirements}")
-        return result.get(self.output_kwarg)
-
-
 def write_to_file(content, filename):
     with open(filename, "w") as f:
         f.write(content)

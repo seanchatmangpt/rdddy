@@ -1,3 +1,4 @@
+import dspy
 import json
 
 from pydantic import BaseModel, Field
@@ -49,7 +50,9 @@ class TyperCLI(BaseModel):
 
 
 def main():
-    dot = GenPydanticInstance(root_model=TyperCLI, models=[Command, TyperCLI])
+    lm = dspy.OpenAI(max_tokens=2000)
+    dspy.settings.configure(lm=lm)
+    dot = GenPydanticInstance(root_model=TyperCLI, child_models=[Command, TyperCLI])
 
     cli = dot.forward(prompt=cli_description)
 

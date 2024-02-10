@@ -96,7 +96,8 @@ def main():
     sig_prompt = "I need a signature called QuestionAnswering that allows input of 'context', 'question', and output 'answer'"
 
     sig_module = GenPydanticInstance(
-        root_model=SignatureTemplateSpecModel, child_models=[InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel]
+        root_model=SignatureTemplateSpecModel,
+        child_models=[InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel],
     )
 
     question_answering_signature = sig_module.forward(sig_prompt)

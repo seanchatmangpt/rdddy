@@ -1,0 +1,11 @@
+2024-02-09 16:20:32,273 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for HygenTemplateSpecificationCommand
+
+            Validation error:
+1 validation error for HygenTemplateSpecificationCommand
+template_content
+  String should have at least 200 characters [type=string_too_short, input_value='This is the template for...he dashboard generator.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/string_too_short
+2024-02-09 16:20:34,397 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for HygenTemplateSpecificationCommand
+
+            Validation error:
+invalid syntax. Perhaps you forgot a comma? (<unknown>, line 1)

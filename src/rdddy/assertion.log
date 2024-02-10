@@ -2,3 +2,10 @@
 2024-01-31 16:06:30,434 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for SignatureModel
 2024-01-31 16:08:39,507 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for SignatureModel
 2024-01-31 16:08:43,071 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for SignatureModel
+2024-02-09 13:48:26,296 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for HygenTemplateModel
+
+            Validation error:
+1 validation error for HygenTemplateModel
+generator
+  Field required [type=missing, input_value={'name': 'about', 'action': 'create'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing

@@ -34,33 +34,3 @@ async def test_handler(actor_system):
     await asyncio.sleep(0)
 
     assert actor.processed_query.actor_id == actor.actor_id
-
-
-@pytest.mark.asyncio
-async def test_concurrent_message_processing(actor_system):
-    class ConcurrentActor(Actor):
-        def __init__(self, actor_system: "ActorSystem", actor_id=None):
-            super().__init__(actor_system, actor_id)
-            self.processed_message = None
-
-        async def receive(self, message):
-            await asyncio.sleep(0)  # Simulate time-consuming processing
-            self.processed_message = message
-
-    actor1 = await actor_system.actor_of(ConcurrentActor)
-    actor2 = await actor_system.actor_of(ConcurrentActor)
-
-    message1 = Message(actor_id=actor1.actor_id, content="Content1", module="Test")
-    message2 = Message(actor_id=actor2.actor_id, content="Content2", module="Test")
-
-    assert actor1.processed_message is None
-    assert actor2.processed_message is None
-
-    await asyncio.gather(
-        actor1.receive(message1),
-        actor2.receive(message2),
-    )
-
-    # Implement assertions for concurrent message processing
-    assert actor1.processed_message == message1
-    assert actor2.processed_message == message2

@@ -1,6 +1,7 @@
 from rdddy.actor import Actor
 from rdddy.actor_system import ActorSystem
-from experiments.actor.messages import *
+from experiments.actor.messages import StartPhaseCommand, EvaluatePreconditionQuery, PreconditionEvaluatedEvent, \
+    ProcessPhaseCommand, PhaseErrorEvent, EvaluatePostconditionQuery, PostconditionEvaluatedEvent, PhaseCompletedEvent
 
 
 class InitiationActor(Actor):

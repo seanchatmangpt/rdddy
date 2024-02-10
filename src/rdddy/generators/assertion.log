@@ -200,3 +200,6 @@ invalid character '∫' (U+222B) (<unknown>, line 1)
 
             Validation error:
 invalid character '∫' (U+222B) (<unknown>, line 1)
+2024-02-09 12:50:36,101 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a valid python tuple primitive type for 
+tuple_str_for_ast_literal_eval
+You will be penalized for not returning only a tuple for tuple_str_for_ast_literal_eval

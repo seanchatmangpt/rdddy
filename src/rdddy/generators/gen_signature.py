@@ -3,7 +3,11 @@ from jinja2 import Template
 import os
 
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
-from rdddy.signature_factory import SignatureTemplateSpecModel, InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel
+from rdddy.signature_factory import (
+    SignatureTemplateSpecModel,
+    InputFieldTemplateSpecModel,
+    OutputFieldTemplateSpecModel,
+)
 
 
 def render_signature_class(model, template_str):
@@ -11,12 +15,14 @@ def render_signature_class(model, template_str):
     rendered_class = template.render(model=model)
     return rendered_class
 
+
 def write_signature_class_to_file(class_str, file_name):
-    with open(file_name, 'w') as file:
+    with open(file_name, "w") as file:
         file.write(class_str)
 
+
 # Example usage
-signature_model_instance = ... # Your SignatureModel instance
+signature_model_instance = ...  # Your SignatureModel instance
 template_str = '''import dspy
 
 class {{ model.name }}(dspy.Signature):
@@ -33,21 +39,22 @@ class {{ model.name }}(dspy.Signature):
 '''
 
 
-
 def main():
     lm = dspy.OpenAI(max_tokens=1000)
     dspy.settings.configure(lm=lm)
 
     sig_prompt = "I need a signature called GenJinjaSignature that allows input of 'source', and output 'jinja_template'. The signature needs to create proper jinja templates from the source"
 
-    sig_module = GenPydanticInstance(root_model=SignatureTemplateSpecModel,
-                                     child_models=[InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel])
+    sig_module = GenPydanticInstance(
+        root_model=SignatureTemplateSpecModel,
+        child_models=[InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel],
+    )
 
     sig_inst = sig_module.forward(sig_prompt)
 
     rendered_class_str = render_signature_class(sig_inst, template_str)
-    write_signature_class_to_file(rendered_class_str, 'output_signature.py')
+    write_signature_class_to_file(rendered_class_str, "output_signature.py")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -7,7 +7,6 @@ json_file_path = "/Users/candacechatman/dev/rdddy/data/conversations.json"
 
 from pydantic import BaseModel, Field, ValidationError
 from typing import List, Optional, Any
-from decimal import Decimal
 
 class Author(BaseModel):
     role: str
@@ -53,7 +52,7 @@ def process_conversations_chunk(chunk):
                 data = Data(**conversation.mapping[key])
                 if data.message and data.message.author.role == "assistant":
                     for part in data.message.content.parts:
-                        if "CoRL" in part:
+                        if "calculus" in part:
                             print(part)
                         # encoding = tiktoken.encoding_for_model("text-embedding-ada-002")
                         # print(len(encoding.encode(part)))

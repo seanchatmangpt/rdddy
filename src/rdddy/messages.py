@@ -30,6 +30,7 @@ class Message(YAMLMixin, BaseModel):
 
     class Config:
         allow_extra = True
+        arbitrary_types_allowed = True
 
 
 class Command(Message):

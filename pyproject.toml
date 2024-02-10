@@ -33,6 +33,7 @@ inflection = "^0.5.1"
 jinja2-time = "^0.2.0"
 jinja2-ext = "^0.1"
 faker = "^22.5.1"
+pytest-asyncio = "^0.23.4"
 
 [tool.poetry.group.test.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
 coverage = { extras = ["toml"], version = ">=7.2.5" }
