@@ -24,7 +24,7 @@ class DashboardGeneratorActor(Actor):
     def __init__(self, actor_system: ActorSystem, actor_id=None):
         super().__init__(actor_system, actor_id=actor_id)
         # Retrieve NextJS project root:
-        self.nextjs_root = "/Users/candacechatman/dev/nextjs-dashboard"
+        self.nextjs_root = "/Users/candacechatman/dev/nextjs-page"
         # self.nextjs_root = os.getenv("NEXTJS_PROJECT_ROOT")
         if not self.nextjs_root:
             # Handle this error - is this an event to the ActorSystem, a log?
@@ -44,9 +44,9 @@ class DashboardGeneratorActor(Actor):
         # Construct Hygen command
         hygen_command = [
             "hygen",
-            "dashboard",  # Assuming your template is  named 'dashboard'
+            "page",  # Assuming your template is  named 'page'
             "new",
-            page_name,  # We  pass the page name to Hygen
+            page_name,  # We  pass the component name to Hygen
         ]
 
         process = await asyncio.create_subprocess_exec(
@@ -75,7 +75,7 @@ class DashboardGeneratorActor(Actor):
     ):
         # ... Logic will come later ....
         typer.echo(
-            f"Generating a dashboard page named '{page_name}' with a '{widget_type}' widget!"
+            f"Generating a page page named '{page_name}' with a '{widget_type}' widget!"
         )
         actor_system = ActorSystem()
         generator_actor = await actor_system.actor_of(DashboardGeneratorActor)

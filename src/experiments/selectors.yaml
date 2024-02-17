@@ -34,10 +34,10 @@ children:
   selector: nav[aria-label="Primary Navigation"]
   tag_name: nav
 - attributes:
-    aria-current: page
+    aria-current: component
   children: []
   inner_text: null
-  selector: a[aria-current="page"]
+  selector: a[aria-current="component"]
   tag_name: a
 - attributes:
     aria-expanded: 'false'

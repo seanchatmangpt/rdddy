@@ -1,6 +1,7 @@
 import asyncio
 
 import streamlit as st
+
 # from streamlit_mermaid import st_mermaid
 
 from typetemp.template.typed_template import TypedTemplate

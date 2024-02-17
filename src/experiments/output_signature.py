@@ -1,5 +1,6 @@
 import dspy
 
+
 class GenJinjaSignature(dspy.Signature):
     """
     This signature transforms source code into Jinja templates, adhering to best practices for template creation.
@@ -10,13 +11,14 @@ class GenJinjaSignature(dspy.Signature):
     ample documentation within the template, and maintaining a structure that mirrors the source while allowing for
     flexibility and scalability in template rendering.
     """
+
     source = dspy.InputField(
         prefix="Convert to a Jinja Template: ",
-        desc="The source code snippet to be converted into a Jinja template. The source should be a valid Python code structure, such as a class or a function, that you wish to render dynamically using Jinja."
+        desc="The source code snippet to be converted into a Jinja template. The source should be a valid Python code structure, such as a class or a function, that you wish to render dynamically using Jinja.",
     )
     jinja_template = dspy.OutputField(
         prefix="```jinja\n",
-        desc="The Jinja template generated from the provided source. This template will embody best practices in template creation, ensuring clarity, maintainability, and ease of use. The template will include dynamic placeholders, control statements, and documentation comments as necessary."
+        desc="The Jinja template generated from the provided source. This template will embody best practices in template creation, ensuring clarity, maintainability, and ease of use. The template will include dynamic placeholders, control statements, and documentation comments as necessary.",
     )
 
 
@@ -39,5 +41,5 @@ def main():
     print(template)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

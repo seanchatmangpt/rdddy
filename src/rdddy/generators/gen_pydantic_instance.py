@@ -76,18 +76,9 @@ class GenPydanticInstance(Module):
     ):
         super().__init__()
 
-        if not issubclass(root_model, BaseModel):
-            raise TypeError("root_model must inherit from pydantic.BaseModel")
-
         self.models = [root_model]  # Always include root_model in models list
 
         if child_models:
-            # Validate that each child_model inherits from BaseModel
-            for model in child_models:
-                if not issubclass(model, BaseModel):
-                    raise TypeError(
-                        "All child_models must inherit from pydantic.BaseModel"
-                    )
             self.models.extend(child_models)
 
         self.output_key = "root_model_kwargs_dict"
@@ -146,10 +137,82 @@ class GenPydanticInstance(Module):
                 prompt=prompt,
                 root_pydantic_model_class_name=self.root_model.__name__,
                 pydantic_model_definitions=self.model_sources,
-                error=str(error),
+                error=f"str(error){self.validation_error}",
             )[self.output_key]
 
             return self.validate_output(corrected_output)
 
     def __call__(self, *args, **kwargs):
         return self.forward(kwargs.get("prompt"))
+
+
+def main():
+    import dspy
+    from rdddy.messages import EventStormModel, Event, Command, Query
+
+    lm = dspy.OpenAI(max_tokens=3000, model="gpt-4")
+    dspy.settings.configure(lm=lm)
+    prompt = """
+    ```prompt
+    Automated Hygen template full stack system for NextJS.
+    Express
+Express.js is arguably the most popular web framework for Node.js
+
+A typical app structure for express celebrates the notion of routes and handlers, while views and data are left for interpretation (probably because the rise of microservices and client-side apps).
+
+So an app structure may look like this:
+
+app/
+  routes.js
+  handlers/
+    health.js
+    shazam.js
+While routes.js glues everything together:
+
+// ... some code ...
+const health = require('./handlers/health')
+const shazam = require('./handlers/shazam')
+app.get('/health', health)
+app.post('/shazam', shazam)
+
+module.exports = app
+Unlike React Native, you could dynamically load modules here. However, there's still a need for judgement when constructing the routes (app.get/post part).
+
+Using hygen let's see how we could build something like this:
+
+$ hygen route new --method post --name auth
+Since we've been through a few templates as with previous use cases, let's jump straight to the interesting part, the inject part.
+
+So let's say our generator is structured like this:
+
+_templates/
+  route/
+    new/
+      handler.ejs.t
+      inject_handler.ejs.t
+Then inject_handler looks like this:
+
+---
+inject: true
+to: app/routes.js
+skip_if: <%= name %>
+before: "module.exports = app"
+---
+app.<%= method %>('/<%= name %>', <%= name %>)
+Note how we're anchoring this inject to before: "module.exports = app". If in previous occasions we appended content to a given line, we're now prepending it.
+```    
+    
+You are a Event Storm assistant that comes up with Events, Commands, and Queries for Reactive Domain Driven Design based on the ```prompt```
+    """
+
+    model_module = GenPydanticInstance(
+        root_model=EventStormModel, child_models=[Event, Command, Query]
+    )
+    model_inst = model_module(prompt=prompt)
+    print(model_inst)
+
+
+value = """"""
+
+if __name__ == "__main__":
+    main()

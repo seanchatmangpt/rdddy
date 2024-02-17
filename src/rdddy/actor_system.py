@@ -236,7 +236,7 @@ class ActorSystem:
             actor_id (int): The ID of the target actor.
             message (Message): The message to be sent to the target actor.
         """
-        logger.debug(f"Sending message {message} to actor {actor_id}")
+        # logger.debug(f"Sending message {message} to actor {actor_id}")
         actor = self.actors.get(actor_id)
         if actor:
             actor.mailbox.on_next(message)

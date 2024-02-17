@@ -1,5 +1,5 @@
-from denz.actor import MessageList
-from denz.actor_system import ActorSystem
+from denz.agent import MessageList
+from denz.agent_system import AgentSystem
 from denz.agent import Agent
 from denz.collaborative_agent import CollaborativeAgent
 from domain.collaboration_context import *
@@ -83,9 +83,9 @@ class GregYoungAgent(CollaborativeAgent):
 event_results = [
     AgentCreated(agent_id=1, agent_name="AB"),
     AgentCreated(agent_id=2, agent_name="GY"),
-    MessageSent(actor_id_id=1, recipient_id=2, message_content="Brainstorming ideas"),
+    MessageSent(agent_id_id=1, recipient_id=2, message_content="Brainstorming ideas"),
     MessageReceived(
-        actor_id_id=1, recipient_id=2, message_content="Received brainstorming ideas"
+        agent_id_id=1, recipient_id=2, message_content="Received brainstorming ideas"
     ),
     TaskAssigned(task_id=1, task_description="Write book content"),
     TaskCompleted(task_id=1, task_description="Completed writing chapter 1"),
@@ -105,21 +105,21 @@ import anyio
 
 
 async def main():
-    sys = ActorSystem()
+    sys = AgentSystem()
 
-    alberto_brandolini = sys.actor_of(AlbertoBrandoliniAgent)
-    greg_young = sys.actor_of(GregYoungAgent)
+    alberto_brandolini = sys.agent_of(AlbertoBrandoliniAgent)
+    greg_young = sys.agent_of(GregYoungAgent)
 
     event_results = [
         AgentCreated(agent_id=alberto_brandolini.agent_id, agent_name="AB"),
         AgentCreated(agent_id=greg_young.agent_id, agent_name="GY"),
         MessageSent(
-            actor_id_id=alberto_brandolini.agent_id,
+            agent_id_id=alberto_brandolini.agent_id,
             recipient_id=greg_young.agent_id,
             message_content="Brainstorming ideas",
         ),
         MessageReceived(
-            actor_id_id=alberto_brandolini.agent_id,
+            agent_id_id=alberto_brandolini.agent_id,
             recipient_id=greg_young.agent_id,
             message_content="Received brainstorming ideas",
         ),
@@ -166,9 +166,9 @@ async def main():
 
     for event in event_results:
         if event.agent_id == alberto_brandolini.agent_id:
-            await sys.send(alberto_brandolini.actor_id, event)
+            await sys.send(alberto_brandolini.agent_id, event)
         elif event.agent_id == greg_young.agent_id:
-            await sys.send(greg_young.actor_id, event)
+            await sys.send(greg_young.agent_id, event)
 
 
 if __name__ == "__main__":

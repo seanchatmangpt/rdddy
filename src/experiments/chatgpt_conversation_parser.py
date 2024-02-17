@@ -8,14 +8,17 @@ json_file_path = "/Users/candacechatman/dev/rdddy/data/conversations.json"
 from pydantic import BaseModel, Field, ValidationError
 from typing import List, Optional, Any
 
+
 class Author(BaseModel):
     role: str
     name: Optional[str] = None
     metadata: dict
 
+
 class ContentPart(BaseModel):
     content_type: str
     parts: List[str] | None
+
 
 class Message(BaseModel):
     id: str
@@ -23,6 +26,7 @@ class Message(BaseModel):
     content: ContentPart
     status: str
     metadata: dict
+
 
 class Data(BaseModel):
     id: str
@@ -52,7 +56,7 @@ def process_conversations_chunk(chunk):
                 data = Data(**conversation.mapping[key])
                 if data.message and data.message.author.role == "assistant":
                     for part in data.message.content.parts:
-                        if "calculus" in part:
+                        if "ECCN" in part:
                             print(part)
                         # encoding = tiktoken.encoding_for_model("text-embedding-ada-002")
                         # print(len(encoding.encode(part)))
@@ -60,7 +64,6 @@ def process_conversations_chunk(chunk):
         except ValidationError as e:
             # print(e)
             pass
-
 
 
 # Open the JSON file for streaming

@@ -19,41 +19,69 @@ Hello <%= name %>,
 (version <%= version %>)
 """
 
+
 class HygenTemplateSpecificationCommand(Command):
     template_name: str = Field(..., description="The name of the template to generate.")
-    template_path: str = Field(..., description="The path where the template should be created.")
-    template_content: str = Field(..., description=template_content_desc, min_length=200)
+    template_path: str = Field(
+        ..., description="The path where the template should be created."
+    )
+    template_content: str = Field(
+        ..., description=template_content_desc, min_length=200
+    )
 
 
 class TemplateGeneratedEvent(Event):
     template_name: str = Field(..., description="The name of the generated template.")
-    success: bool = Field(..., description="Indicates whether the template was successfully generated.")
+    success: bool = Field(
+        ..., description="Indicates whether the template was successfully generated."
+    )
 
 
 class TemplateValidatedEvent(Event):
     template_name: str = Field(..., description="The name of the validated template.")
-    is_valid: bool = Field(..., description="Indicates the validation result of the template.")
+    is_valid: bool = Field(
+        ..., description="Indicates the validation result of the template."
+    )
 
 
 class TemplateDeploymentStartedEvent(Event):
-    template_name: str = Field(..., description="The name of the template being deployed.")
+    template_name: str = Field(
+        ..., description="The name of the template being deployed."
+    )
 
 
 class TemplateDeploymentCompletedEvent(Event):
     template_name: str = Field(..., description="The name of the deployed template.")
-    success: bool = Field(..., description="Indicates whether the template was successfully deployed.")
+    success: bool = Field(
+        ..., description="Indicates whether the template was successfully deployed."
+    )
 
 
 class HygenTemplateGeneratorActor(Actor):
-    async def handle_hygen_template_specification_command(self, command: HygenTemplateSpecificationCommand):
+    async def handle_hygen_template_specification_command(
+        self, command: HygenTemplateSpecificationCommand
+    ):
         # Generate the Hygen template
         try:
-            self.write_to_file(f"{command.template_path}/{command.template_name}.ejs.t", command.template_content)
-            logger.debug(f"Hygen template {command.template_name} generated successfully.")
-            await self.publish(TemplateGeneratedEvent(template_name=command.template_name, success=True))
+            self.write_to_file(
+                f"{command.template_path}/{command.template_name}.ejs.t",
+                command.template_content,
+            )
+            logger.debug(
+                f"Hygen template {command.template_name} generated successfully."
+            )
+            await self.publish(
+                TemplateGeneratedEvent(
+                    template_name=command.template_name, success=True
+                )
+            )
         except Exception as e:
             logger.debug(f"Failed to generate template {command.template_name}: {e}")
-            await self.publish(TemplateGeneratedEvent(template_name=command.template_name, success=False))
+            await self.publish(
+                TemplateGeneratedEvent(
+                    template_name=command.template_name, success=False
+                )
+            )
 
     def write_to_file(self, file_path: str, content: str):
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
@@ -67,7 +95,9 @@ class TemplateValidationActor(Actor):
             # Simulate validation logic
             logger.debug(f"Validating template: {event.template_name}")
             # Assume validation passes for this example
-            await self.publish(TemplateValidatedEvent(template_name=event.template_name, is_valid=True))
+            await self.publish(
+                TemplateValidatedEvent(template_name=event.template_name, is_valid=True)
+            )
 
 
 class TemplateDeploymentActor(Actor):
@@ -76,21 +106,24 @@ class TemplateDeploymentActor(Actor):
             logger.debug(f"Deploying template: {event.template_name}")
             # Simulate deployment logic
             # Assume deployment succeeds for this example
-            await self.publish(TemplateDeploymentCompletedEvent(template_name=event.template_name, success=True))
+            await self.publish(
+                TemplateDeploymentCompletedEvent(
+                    template_name=event.template_name, success=True
+                )
+            )
 
 
 async def setup_and_run():
     actor_system = ActorSystem()
     # Initialize and register all actors
-    await actor_system.actors_of([
-        HygenTemplateGeneratorActor,
-        TemplateValidationActor,
-        TemplateDeploymentActor
-    ])
+    await actor_system.actors_of(
+        [HygenTemplateGeneratorActor, TemplateValidationActor, TemplateDeploymentActor]
+    )
 
     module = GenPydanticInstance(root_model=HygenTemplateSpecificationCommand)
     hygen_inst = module.forward(
-        "I need a hygen template to create an about page, use the dashboard generator. and the 'new' action. the route is about")
+        "I need a hygen template to create an about component, use the page generator. and the 'new' action. the route is about"
+    )
 
     await actor_system.publish(hygen_inst)
     # Trigger the template generation process
@@ -112,6 +145,4 @@ async def main():
 
 
 # if __name__ == '__main__':
-    # asyncio.run(main())
-
-
+# asyncio.run(main())

@@ -1,19 +1,19 @@
 from jinja2 import Template
 
-# Define the actor name and a list of events
+# Define the actor name and a list of messages
 actor_name = "MyActor"
-events = [
+messages = [
     {
-        "name": "EventOne",
-        "type": "EventOneType",
-        "description": "Description of Event One",
+        "name": "RequirementSpecificationCommand",
+        "type": "Command",
+        "description": "Description of RequirementSpecificationCommand",
     },
     {
-        "name": "EventTwo",
-        "type": "EventTwoType",
-        "description": "Description of Event Two",
+        "name": "ModelGeneratedEvent",
+        "type": "Event",
+        "description": "Description of ModelGeneratedEvent",
     },
-    # Add more events as needed
+    # Add more messages as needed
 ]
 
 # Load and render the template
@@ -24,7 +24,7 @@ class {{ actor_name }}(Actor):
         super().__init__(actor_system, actor_id)
         # Additional initialization here if necessary
 
-    {% for event in events %}
+    {% for event in messages %}
     async def handle_{{ event.name|lower }}(self, event: {{ event.type }}):
         """
         Handle {{ event.name }} event.
@@ -35,7 +35,7 @@ class {{ actor_name }}(Actor):
     {% endfor %}
 '''  # The string content of the actor_template.jinja
 template = Template(template_string)
-rendered_actor_class = template.render(actor_name=actor_name, events=events)
+rendered_actor_class = template.render(actor_name=actor_name, messages=messages)
 
 # Output the rendered actor class
 print(rendered_actor_class)

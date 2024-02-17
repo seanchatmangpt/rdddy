@@ -3,7 +3,7 @@ from typing import Type, TypeVar, Any
 from importlib import import_module
 from utils.yaml_tools import YAMLMixin
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Message(YAMLMixin, BaseModel):
@@ -38,7 +38,7 @@ class Command(Message):
     Command message type.
     """
 
-    keyword_args: dict = {}
+    pass
 
 
 class Event(Message):
@@ -55,6 +55,93 @@ class Query(Message):
     """
 
     pass
+
+
+from pydantic import BaseModel, Field
+
+
+class EventStormModel(BaseModel):
+    """
+    Integrates Event Storming with RDDD and DFLSS to capture and analyze domain complexities through events, commands,
+    and queries, using Hoare logic for correctness. It serves as a repository for interactions identified in
+    Event Storming, enhancing system responsiveness and process efficiency. This model educates on designing and
+    verifying systems aligned with domain requirements and operational excellence. CamelCase only.
+    """
+
+    domain_event_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of domain event names triggering system reactions. Examples: 'OrderPlaced', 'PaymentProcessed', 'InventoryUpdated'.",
+    )
+    external_event_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of external event names that originate from outside the system but affect its behavior. Examples: 'WeatherChanged', 'ExternalSystemUpdated', 'RegulationAmended'.",
+    )
+    command_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of command names driving state transitions. Examples: 'CreateOrder', 'ProcessPayment', 'UpdateInventory'.",
+    )
+    query_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of query names for information retrieval without altering the system state. Examples: 'GetOrderDetails', 'ListAvailableProducts', 'CheckCustomerCredit'.",
+    )
+    aggregate_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of aggregate names, clusters of domain objects treated as a single unit. Examples: 'OrderAggregate', 'CustomerAggregate', 'ProductAggregate'.",
+    )
+    policy_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of policy names governing system behavior. Examples: 'OrderFulfillmentPolicy', 'ReturnPolicy', 'DiscountPolicy'.",
+    )
+    read_model_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of read model names optimized for querying. Examples: 'OrderSummaryReadModel', 'ProductCatalogReadModel', 'CustomerProfileReadModel'.",
+    )
+    view_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of view names representing user interface components. Examples: 'OrderDetailsView', 'ProductListView', 'CustomerDashboardView'.",
+    )
+    ui_event_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of UI event names triggered by user interactions. Examples: 'ButtonClick', 'FormSubmitted', 'PageLoaded'.",
+    )
+    saga_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of saga names representing long-running processes. Examples: 'OrderProcessingSaga', 'CustomerOnboardingSaga', 'InventoryRestockSaga'.",
+    )
+    integration_event_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of integration event names exchanged between different parts of a distributed system. Examples: 'OrderCreatedIntegrationEvent', 'PaymentConfirmedIntegrationEvent', 'InventoryCheckIntegrationEvent'.",
+    )
+    exception_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of exception names representing error conditions. Examples: 'OrderNotFoundException', 'PaymentFailedException', 'InventoryShortageException'.",
+    )
+    value_object_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of immutable value object names within the domain model. Examples: 'AddressValueObject', 'MoneyValueObject', 'QuantityValueObject'.",
+    )
+    task_names: list[str] = Field(
+        ...,
+        min_items=3,
+        description="List of task names needed to complete a process or workflow. Examples: 'ValidateOrderTask', 'AllocateInventoryTask', 'NotifyCustomerTask'.",
+    )
+
+    class Config:
+        arbitrary_types_allowed = True
+
 
 
 class MessageList(YAMLMixin, BaseModel):

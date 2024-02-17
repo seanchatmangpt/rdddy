@@ -41,27 +41,27 @@ class GraphOfThought(Module):
 
 
 # def main():
-    # lm = dspy.OpenAI(max_tokens=1000)
-    # dspy.settings.configure(lm=lm)
+# lm = dspy.OpenAI(max_tokens=1000)
+# dspy.settings.configure(lm=lm)
 
-    # prompt = (
-    #     "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
-    # )
+# prompt = (
+#     "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
+# )
 
-    # result
-    # prompt = "BPMN for ordering a sandwich"
-    # prompt = "Explain the water cycle step by step."
+# result
+# prompt = "BPMN for ordering a sandwich"
+# prompt = "Explain the water cycle step by step."
 
-    # result_graph = GraphOfThought().forward(prompt)
-    # print(result_graph)
+# result_graph = GraphOfThought().forward(prompt)
+# print(result_graph)
 
 
 # if __name__ == "__main__":
 #     main()
 
 
-
 import asyncio
+
 
 async def main():
     prompt = (
@@ -73,5 +73,5 @@ async def main():
     print(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.run(main())

@@ -14,22 +14,38 @@ class GenerateDashboardEvent(Event):
     widget_type: str
 
 
-class Kwargs(BaseModel):
-    name: str = Field(...,
-                      description="The name associated with the template generation, often used as a filename or identifier.")
-    route: str = Field(..., description="The route or path where the generated file(s) should be located.")
-    items: str = Field(...,
-                       description="A string representing items or configurations specific to the generation process.")
+class HygenCLIArgs(BaseModel):
+    """The arguments for the Hygen CLI"""
+
+    name: str = Field(
+        ...,
+        description="The name associated with the template generation, often used as a filename or identifier.",
+    )
+    route: str = Field(
+        None,
+        description="The route or path where the generated file(s) should be located.",
+    )
+    description: str = Field(None, description="The description of the page")
+    items: str = Field(
+        None,
+        description="A string representing items or configurations specific to the generation process.",
+    )
 
     class Config:
         extra = "allow"  # Allows for additional fields beyond those explicitly defined.
 
 
 class HygenTemplateModel(BaseModel):
-    generator: str = Field(..., description="Specifies the Hygen generator to be used for code generation.")
-    action: str = Field(..., description="Defines the action that the generator should perform.")
-    kwargs: Kwargs = Field(...,
-                           description="Additional key-value pairs providing specific arguments for the template generation process.")
+    generator: str = Field(
+        ..., description="Specifies the Hygen generator to be used for code generation."
+    )
+    action: str = Field(
+        ..., description="Defines the action that the generator should perform."
+    )
+    cli_args: HygenCLIArgs = Field(
+        ...,
+        description="Additional key-value pairs providing specific arguments for the template generation process.",
+    )
 
     class Config:
         extra = "allow"  # Permits additional fields, offering flexibility for extending the model as needed.
@@ -39,7 +55,7 @@ class DashboardGeneratorActor(Actor):
     def __init__(self, actor_system: ActorSystem, actor_id=None):
         super().__init__(actor_system, actor_id=actor_id)
         # Retrieve NextJS project root:
-        self.nextjs_root = "/Users/candacechatman/dev/nextjs-dashboard"
+        self.nextjs_root = "/Users/candacechatman/dev/nextjs-page"
         # self.nextjs_root = os.getenv("NEXTJS_PROJECT_ROOT")
         if not self.nextjs_root:
             # Handle this error - is this an event to the ActorSystem, a log?
@@ -50,8 +66,12 @@ class DashboardGeneratorActor(Actor):
         # ... Logic will come later ...
         print(f"Received generation request: {event}")
         try:
-            module = GenPydanticInstance(root_model=HygenTemplateModel, child_models=[Kwargs])
-            hygen_inst = module.forward("I need a hygen template to create an about page, use the dashboard generator. and the 'new' action. the route is about")
+            module = GenPydanticInstance(
+                root_model=HygenTemplateModel, child_models=[HygenCLIArgs]
+            )
+            hygen_inst = module.forward(
+                "I need a hygen template to create an about component, use the page generator. and the 'new' action. the route is about"
+            )
 
             output = await run_hygen_async(hygen_inst, self.nextjs_root)
             logger.debug(output)
@@ -59,13 +79,18 @@ class DashboardGeneratorActor(Actor):
             logger.error(e)
 
 
-async def run_hygen_async(template_params: HygenTemplateModel, cwd: str = None, overwrite: bool = True):  # Use the new model
-    """Executes a Hygen command asynchronously... (Same docstring as earlier) """
+async def run_hygen_async(
+    template_params: HygenTemplateModel, cwd: str = None, overwrite: bool = True
+):  # Use the new model
+    """Executes a Hygen command asynchronously... (Same docstring as earlier)"""
 
     hygen_command = ["hygen", template_params.generator, template_params.action]
 
-    for key, value in template_params.kwargs.model_dump().items():  # Iterate over kwargs
-        hygen_command.extend(["--"+key, str(value)])
+    for (
+        key,
+        value,
+    ) in template_params.cli_args.model_dump().items():  # Iterate over kwargs
+        hygen_command.extend(["--" + key, str(value)])
 
     logger.debug(f"Running hygen command: {hygen_command}")
 
@@ -75,10 +100,10 @@ async def run_hygen_async(template_params: HygenTemplateModel, cwd: str = None, 
             stdin=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            cwd=cwd
+            cwd=cwd,
         )
 
-        response = b'yes' if overwrite else b'no'
+        response = b"yes" if overwrite else b"no"
 
         process.stdin.write(response)
         await process.stdin.drain()
@@ -86,8 +111,12 @@ async def run_hygen_async(template_params: HygenTemplateModel, cwd: str = None, 
 
         stdout, stderr = await process.communicate()
 
-        if process.returncode != 0 or "Error" in stdout.decode():  # Check for non-zero exit code from Hygen
-            raise ChildProcessError(f"Hygen failed with error:\n{stderr.decode()}{stdout.decode()}")
+        if (
+            process.returncode != 0 or "Error" in stdout.decode()
+        ):  # Check for non-zero exit code from Hygen
+            raise ChildProcessError(
+                f"Hygen failed with error:\n{stderr.decode()}{stdout.decode()}"
+            )
         else:
             return stdout.decode()
     except ChildProcessError as e:
@@ -99,9 +128,11 @@ async def main():
     dspy.settings.configure(lm=lm)
     actor_system = ActorSystem()
     generator_actor = await actor_system.actor_of(DashboardGeneratorActor)
-    await actor_system.publish(GenerateDashboardEvent(page_name="summary", widget_type="line_chart"))
+    await actor_system.publish(
+        GenerateDashboardEvent(page_name="summary", widget_type="line_chart")
+    )
     await asyncio.sleep(60)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.run(main())

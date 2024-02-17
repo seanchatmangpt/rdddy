@@ -7,6 +7,7 @@ from rdddy.messages import Event, Message
 
 from loguru import logger
 
+
 class LogSink:
     def __init__(self):
         self.messages = []
@@ -68,6 +69,7 @@ async def test_publishing(actor_system):
     Postconditions:
         - Verifies that each actor has received the published message.
     """
+
     class TestActor(Actor):
         def __init__(self, actor_system: "ActorSystem", actor_id=None):
             super().__init__(actor_system, actor_id)
@@ -85,6 +87,7 @@ async def test_publishing(actor_system):
 
     assert actor1.received_message == "Content"
     assert actor2.received_message == "Content"
+
 
 @pytest.mark.asyncio
 async def test_wait_for_event_sequentially(actor_system):
@@ -176,8 +179,9 @@ async def test_error_when_base_message_used(actor_system):
     base_message_instance = Message()  # Create an instance of the base Message class
 
     with pytest.raises(ValueError) as exc_info:
-        await actor_system.publish(base_message_instance)  # Attempt to publish the base message instance
+        await actor_system.publish(
+            base_message_instance
+        )  # Attempt to publish the base message instance
 
     # Check if the error message matches the expected output
     assert "The base Message class should not be used directly" in str(exc_info.value)
-

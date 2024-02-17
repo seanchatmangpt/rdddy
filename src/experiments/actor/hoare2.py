@@ -1,7 +1,15 @@
 from rdddy.actor import Actor
 from rdddy.actor_system import ActorSystem
-from experiments.actor.messages import StartPhaseCommand, EvaluatePreconditionQuery, PreconditionEvaluatedEvent, \
-    ProcessPhaseCommand, PhaseErrorEvent, EvaluatePostconditionQuery, PostconditionEvaluatedEvent, PhaseCompletedEvent
+from experiments.actor.messages import (
+    StartPhaseCommand,
+    EvaluatePreconditionQuery,
+    PreconditionEvaluatedEvent,
+    ProcessPhaseCommand,
+    PhaseErrorEvent,
+    EvaluatePostconditionQuery,
+    PostconditionEvaluatedEvent,
+    PhaseCompletedEvent,
+)
 
 
 class InitiationActor(Actor):
@@ -12,14 +20,20 @@ class InitiationActor(Actor):
 
 
 class ProcessingActor(Actor):
-    async def handle_precondition_evaluated_event(self, message: PreconditionEvaluatedEvent):
+    async def handle_precondition_evaluated_event(
+        self, message: PreconditionEvaluatedEvent
+    ):
         if message.result:
             print(f"Preconditions met for phase: {message.phase_name}, processing...")
             # Simulate phase processing and then evaluate postconditions
             await self.publish(ProcessPhaseCommand(phase_name=message.phase_name))
         else:
             print(f"Preconditions not met for phase: {message.phase_name}, aborting...")
-            await self.publish(PhaseErrorEvent(phase_name=message.phase_name, error_message="Precondition failed"))
+            await self.publish(
+                PhaseErrorEvent(
+                    phase_name=message.phase_name, error_message="Precondition failed"
+                )
+            )
 
     async def handle_process_phase_command(self, message: ProcessPhaseCommand):
         # Simulate phase processing logic here
@@ -29,13 +43,20 @@ class ProcessingActor(Actor):
 
 
 class CompletionActor(Actor):
-    async def handle_postcondition_evaluated_event(self, message: PostconditionEvaluatedEvent):
+    async def handle_postcondition_evaluated_event(
+        self, message: PostconditionEvaluatedEvent
+    ):
         if message.result:
             print(f"Phase {message.phase_name} completed successfully.")
             await self.publish(PhaseCompletedEvent(phase_name=message.phase_name))
         else:
             print(f"Postconditions not met for phase: {message.phase_name}.")
-            await self.publish(PhaseErrorEvent(phase_name=message.phase_name, error_message="Postcondition failed"))
+            await self.publish(
+                PhaseErrorEvent(
+                    phase_name=message.phase_name, error_message="Postcondition failed"
+                )
+            )
+
 
 # Setup the actor system and actors
 async def setup_and_run():
@@ -48,10 +69,13 @@ async def setup_and_run():
     for i in range(5):
         await initiation_actor.publish(StartPhaseCommand(phase_name=f"Phase {i}"))
 
+
 import asyncio
+
 
 async def main():
     await setup_and_run()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.run(main())

@@ -46,6 +46,7 @@ class MockAsyncProcess:
 def actor_system():
     return ActorSystem()
 
+
 @pytest.mark.asyncio
 async def test_chrome_browser_restart(actor_system):
     mock_process = MockAsyncProcess()

@@ -125,7 +125,7 @@ async def goto_chatgpt(prompt, copy_code=False, route=""):
         # Retrieve the first context of the browser.
         default_context = browser.contexts[0]
 
-        # Retrieve the first page in the context.
+        # Retrieve the first component in the context.
         page = default_context.pages[0]
 
         chat_gpt_url = f"https://chat.openai.com/{route}"
@@ -137,8 +137,8 @@ async def goto_chatgpt(prompt, copy_code=False, route=""):
 
         await asyncio.sleep(1)
 
-        # await page.click("#prompt-textarea")
-        # await page.type("#prompt-textarea", prompt)
+        # await component.click("#prompt-textarea")
+        # await component.type("#prompt-textarea", prompt)
         await page.click('[data-testid="send-button"]')
 
         response = await process_new_responses(page, copy_code=copy_code)

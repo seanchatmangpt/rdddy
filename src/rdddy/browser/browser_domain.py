@@ -32,21 +32,21 @@ class BrowserStatusEvent(Event):
 
 
 class Click(Command):
-    """Matches the pyppeteer page click exactly"""
+    """Matches the pyppeteer component click exactly"""
 
     selector: str
     options: dict = None
 
 
 class Goto(Command):
-    """Matches the pyppeteer page goto exactly"""
+    """Matches the pyppeteer component goto exactly"""
 
     url: str
     options: dict = None
 
 
 class TypeText(Command):
-    """Matches the pyppeteer page type exactly"""
+    """Matches the pyppeteer component type exactly"""
 
     selector: str
     text: str
@@ -69,7 +69,7 @@ class FindElement(Command):
 
 
 class ElementFound(Event):
-    """Element found in the page"""
+    """Element found in the component"""
 
 
 class NavigateBack(Command):
@@ -81,21 +81,21 @@ class NavigateForward(Command):
 
 
 class ReloadPage(Command):
-    """Reload the current page"""
+    """Reload the current component"""
 
 
 class GetPageContent(Command):
-    """Get the HTML content of the current page"""
+    """Get the HTML content of the current component"""
 
 
 class PageContent(Event):
-    """HTML content of the page"""
+    """HTML content of the component"""
 
     content: str
 
 
 class ExecuteScript(Command):
-    """Execute JavaScript code on the page"""
+    """Execute JavaScript code on the component"""
 
     script: str
 

@@ -49,8 +49,11 @@ class ModelMonitoringCommand(Command):
 # Actors will be defined here, each handling relevant messages
 # For brevity, only the structure of actors is outlined
 
+
 class ProjectManagementActor(Actor):
-    async def handle_requirement_specification_command(self, message: RequirementSpecificationCommand):
+    async def handle_requirement_specification_command(
+        self, message: RequirementSpecificationCommand
+    ):
         # Log the receipt of requirements and trigger model generation
         print(f"Received project requirements: {message.requirements}")
         await self.publish(ModelGeneratedEvent(mdl_id="model_123"))
@@ -60,7 +63,9 @@ class ModelGenerationActor(Actor):
     async def handle_model_generated_event(self, message: ModelGeneratedEvent):
         # Generate model based on received event (simulate model generation)
         print(f"Model {message.mdl_id} generated.")
-        await self.publish(ModelValidatedEvent(mdl_id=message.mdl_id, validation_status=True))
+        await self.publish(
+            ModelValidatedEvent(mdl_id=message.mdl_id, validation_status=True)
+        )
 
 
 class ModelValidationActor(Actor):
@@ -68,9 +73,15 @@ class ModelValidationActor(Actor):
         # Validate the model (simulation)
         print(f"Model {message.mdl_id} validation status: {message.validation_status}")
         if message.validation_status:
-            await self.publish(DecisionMadeEvent(mdl_id=message.mdl_id, decision_actions=["proceed"]))
+            await self.publish(
+                DecisionMadeEvent(mdl_id=message.mdl_id, decision_actions=["proceed"])
+            )
         else:
-            await self.publish(PhaseErrorEvent(phase_name="Validation", error_message="Validation Failed"))
+            await self.publish(
+                PhaseErrorEvent(
+                    phase_name="Validation", error_message="Validation Failed"
+                )
+            )
 
 
 class AdaptationActor(Actor):
@@ -89,14 +100,18 @@ class DecisionMakingActor(Actor):
 
 
 class OptimizationActor(Actor):
-    async def handle_optimization_completed_event(self, message: OptimizationCompletedEvent):
+    async def handle_optimization_completed_event(
+        self, message: OptimizationCompletedEvent
+    ):
         # Optimization logic (simulation)
         print(f"Optimization completed for model {message.mdl_id}.")
         await self.publish(ModelDeployedEvent(mdl_id=message.mdl_id))
 
 
 class DeploymentActor(Actor):
-    async def handle_deployment_started_command(self, message: DeploymentStartedCommand):
+    async def handle_deployment_started_command(
+        self, message: DeploymentStartedCommand
+    ):
         # Handle deployment (simulate deployment process)
         print(f"Deployment started for model {message.mdl_id}.")
         await self.publish(ModelMonitoringCommand(mdl_id=message.mdl_id))
@@ -112,23 +127,31 @@ class MonitoringActor(Actor):
 # Setup and execution logic for the actors and the actor system
 async def setup_and_run():
     actor_system = ActorSystem()
-    await actor_system.actors_of([ProjectManagementActor,
-                                  ModelGenerationActor,
-                                  ModelValidationActor,
-                                  AdaptationActor,
-                                  DecisionMakingActor,
-                                  OptimizationActor,
-                                  DeploymentActor,
-                                  MonitoringActor])
+    await actor_system.actors_of(
+        [
+            ProjectManagementActor,
+            ModelGenerationActor,
+            ModelValidationActor,
+            AdaptationActor,
+            DecisionMakingActor,
+            OptimizationActor,
+            DeploymentActor,
+            MonitoringActor,
+        ]
+    )
     # Instantiate and start all actors
     # Example: project_management_actor = await actor_system.actor_of(ProjectManagementActor)
     # Trigger the start of the scenario by sending a RequirementSpecificationCommand
-    await actor_system.publish(RequirementSpecificationCommand(requirements={"model-deployment-started": "hello"}))
+    await actor_system.publish(
+        RequirementSpecificationCommand(
+            requirements={"model-deployment-started": "hello"}
+        )
+    )
 
 
 async def main():
     await setup_and_run()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.run(main())

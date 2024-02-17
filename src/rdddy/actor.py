@@ -91,7 +91,7 @@ class Actor:
         map_handlers(): Maps message types to corresponding handler methods.
     """
 
-    def __init__(self, actor_system: "ActorSystem", actor_id=None):
+    def __init__(self, actor_system: "ActorSystem", actor_id: int = None):
         self.actor_system = actor_system
         self.actor_id = actor_id or id(self)
         self.mailbox = rx.subject.Subject()
@@ -139,7 +139,7 @@ class Actor:
             message (Message): The incoming message to be processed.
         """
         # Schedule the async handler as a new task
-        logger.debug(f"Actor {self.actor_id} received message: {message}")
+        # logger.debug(f"Actor {self.actor_id} received message: {message}")
         asyncio.create_task(self.receive(message))
 
     def on_error(self, error):
@@ -173,7 +173,7 @@ class Actor:
         Postconditions (Post):
             - The actor's mailbox stream has completed, and appropriate action has been taken.
         """
-        logger.debug(f"Actor {self.actor_id} mailbox stream completed")
+        # logger.debug(f"Actor {self.actor_id} mailbox stream completed")
 
     async def receive(self, message: Message):
         """
@@ -194,6 +194,7 @@ class Actor:
         try:
             handler = self.handlers.get(type(message))
             if handler:
+                logger.debug(f"Actor handling message: {message} with {handler.__name__}")
                 await handler(message)
         except Exception as e:
             error_message = f"Error in actor {self.actor_id} processing message: {e}"

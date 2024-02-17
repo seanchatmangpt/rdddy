@@ -390,13 +390,13 @@ def gen_evo():
     evo = create_evo(action_space, filepath="action_space_evo.yaml")
 
 
-create_tailwind_landing_template = """Take the prompt and generate a landing page.
+create_tailwind_landing_template = """Take the prompt and generate a landing component.
 Do not reference yourself or anything other than what is contained within the prompt.
 
 The design must be modern, with a fresh and professional color scheme that aligns with industry standards (blues, yellows, and whites).
 Use large, readable typography and include visually appealing separators between sections. No images.
 
-The page should be fully responsive, ensuring a seamless experience on all devices, including tablets and smartphones.
+The component should be fully responsive, ensuring a seamless experience on all devices, including tablets and smartphones.
 
 Ensure the design follows best practices for web accessibility, 
 such as alt text for visual elements, keyboard navigation, and proper contrast ratios.
@@ -426,7 +426,7 @@ def create_tailwind_landing(
     title="Landing Page",
 ):
     prompt = create(
-        prompt=f"Convert into a PRD for a landing page for {prompt}\n\n```prd\n",
+        prompt=f"Convert into a PRD for a landing component for {prompt}\n\n```prd\n",
         stop=["```"],
     )
 
@@ -448,7 +448,7 @@ def create_tailwind_landing(
          <html lang="en">
          <head>
            <meta charset="UTF-8">
-           <title>Landing page</title>
+           <title>Landing component</title>
            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"></head><body>"""
     markup += landing
 
