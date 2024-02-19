@@ -1,8 +1,5 @@
 import ijson
 
-# Define the path to your large JSON file
-json_file_path = "/Users/candacechatman/dev/rdddy/data/conversations.json"
-
 
 from typing import Optional
 
@@ -64,21 +61,29 @@ def process_conversations_chunk(chunk):
             pass
 
 
-# Open the JSON file for streaming
-with open(json_file_path, "rb") as json_file:
-    conversations_generator = ijson.items(
-        json_file, "item"
-    )  # Assumes each conversation is a separate JSON object
+def main():
+    # Define the path to your large JSON file
+    json_file_path = "/Users/candacechatman/dev/rdddy/data/conversations.json"
 
-    # Process the conversations in chunks (adjust the chunk size as needed)
-    chunk_size = 10  # Define your desired chunk size
-    chunk = []
-    for conversation in conversations_generator:
-        chunk.append(conversation)
-        if len(chunk) >= chunk_size:
+    # Open the JSON file for streaming
+    with open(json_file_path, "rb") as json_file:
+        conversations_generator = ijson.items(
+            json_file, "item"
+        )  # Assumes each conversation is a separate JSON object
+
+        # Process the conversations in chunks (adjust the chunk size as needed)
+        chunk_size = 10  # Define your desired chunk size
+        chunk = []
+        for conversation in conversations_generator:
+            chunk.append(conversation)
+            if len(chunk) >= chunk_size:
+                process_conversations_chunk(chunk)
+                chunk = []
+
+        # Process any remaining conversations in the last chunk
+        if chunk:
             process_conversations_chunk(chunk)
-            chunk = []
 
-    # Process any remaining conversations in the last chunk
-    if chunk:
-        process_conversations_chunk(chunk)
+
+if __name__ == '__main__':
+    main()
