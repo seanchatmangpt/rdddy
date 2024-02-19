@@ -1,15 +1,16 @@
 import inspect
-from typing import Type, TypeVar, Any
 from importlib import import_module
+from typing import Any, TypeVar
+
+from pydantic import BaseModel, ConfigDict, Field
+
 from utils.yaml_tools import YAMLMixin
 
-from pydantic import BaseModel, Field
 
+class AbstractMessage(YAMLMixin, BaseModel):
+    """Message class using Pydantic for data validation and serialization."""
 
-class Message(YAMLMixin, BaseModel):
-    """
-    Message class using Pydantic for data validation and serialization.
-    """
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 
     actor_id: int = -1
     content: Any = None
@@ -21,121 +22,102 @@ class Message(YAMLMixin, BaseModel):
         self.message_type = self._calculate_import_path()
 
     def _calculate_import_path(self) -> str:
-        """
-        Calculate the relative import path of the class.
-        """
+        """Calculate the relative import path of the class."""
         module = inspect.getmodule(self)
         relative_path = f"{module.__name__}.{self.__class__.__name__}"
         return relative_path
 
-    class Config:
-        allow_extra = True
-        arbitrary_types_allowed = True
+
+class AbstractCommand(AbstractMessage):
+    """AbstractCommand message type."""
 
 
-class Command(Message):
-    """
-    Command message type.
-    """
-
-    pass
+class AbstractEvent(AbstractMessage):
+    """Event message type."""
 
 
-class Event(Message):
-    """
-    Event message type.
-    """
-
-    pass
-
-
-class Query(Message):
-    """
-    Query message type.
-    """
-
-    pass
+class AbstractQuery(AbstractMessage):
+    """Query message type."""
 
 
 from pydantic import BaseModel, Field
 
 
 class EventStormModel(BaseModel):
-    """
-    Integrates Event Storming with RDDD and DFLSS to capture and analyze domain complexities through events, commands,
+    """Integrates Event Storming with RDDDY and DFLSS to capture and analyze domain complexities through events, commands,
     and queries, using Hoare logic for correctness. It serves as a repository for interactions identified in
     Event Storming, enhancing system responsiveness and process efficiency. This model educates on designing and
     verifying systems aligned with domain requirements and operational excellence. CamelCase only.
     """
 
-    domain_event_names: list[str] = Field(
+    domain_event_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of domain event names triggering system reactions. Examples: 'OrderPlaced', 'PaymentProcessed', 'InventoryUpdated'.",
     )
-    external_event_names: list[str] = Field(
+    external_event_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of external event names that originate from outside the system but affect its behavior. Examples: 'WeatherChanged', 'ExternalSystemUpdated', 'RegulationAmended'.",
     )
-    command_names: list[str] = Field(
+    command_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of command names driving state transitions. Examples: 'CreateOrder', 'ProcessPayment', 'UpdateInventory'.",
     )
-    query_names: list[str] = Field(
+    query_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of query names for information retrieval without altering the system state. Examples: 'GetOrderDetails', 'ListAvailableProducts', 'CheckCustomerCredit'.",
     )
-    aggregate_names: list[str] = Field(
+    aggregate_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of aggregate names, clusters of domain objects treated as a single unit. Examples: 'OrderAggregate', 'CustomerAggregate', 'ProductAggregate'.",
     )
-    policy_names: list[str] = Field(
+    policy_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of policy names governing system behavior. Examples: 'OrderFulfillmentPolicy', 'ReturnPolicy', 'DiscountPolicy'.",
     )
-    read_model_names: list[str] = Field(
+    read_model_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of read model names optimized for querying. Examples: 'OrderSummaryReadModel', 'ProductCatalogReadModel', 'CustomerProfileReadModel'.",
     )
-    view_names: list[str] = Field(
+    view_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of view names representing user interface components. Examples: 'OrderDetailsView', 'ProductListView', 'CustomerDashboardView'.",
     )
-    ui_event_names: list[str] = Field(
+    ui_event_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of UI event names triggered by user interactions. Examples: 'ButtonClick', 'FormSubmitted', 'PageLoaded'.",
     )
-    saga_names: list[str] = Field(
+    saga_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of saga names representing long-running processes. Examples: 'OrderProcessingSaga', 'CustomerOnboardingSaga', 'InventoryRestockSaga'.",
     )
-    integration_event_names: list[str] = Field(
+    integration_event_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of integration event names exchanged between different parts of a distributed system. Examples: 'OrderCreatedIntegrationEvent', 'PaymentConfirmedIntegrationEvent', 'InventoryCheckIntegrationEvent'.",
     )
-    exception_names: list[str] = Field(
+    exception_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of exception names representing error conditions. Examples: 'OrderNotFoundException', 'PaymentFailedException', 'InventoryShortageException'.",
     )
-    value_object_names: list[str] = Field(
+    value_object_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of immutable value object names within the domain model. Examples: 'AddressValueObject', 'MoneyValueObject', 'QuantityValueObject'.",
     )
-    task_names: list[str] = Field(
+    task_classnames: list[str] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description="List of task names needed to complete a process or workflow. Examples: 'ValidateOrderTask', 'AllocateInventoryTask', 'NotifyCustomerTask'.",
     )
 
@@ -143,16 +125,15 @@ class EventStormModel(BaseModel):
         arbitrary_types_allowed = True
 
 
-
 class MessageList(YAMLMixin, BaseModel):
-    messages: list[Message]
+    messages: list[AbstractMessage]
 
 
-class ExceptionMessage(Message):
+class ExceptionMessage(AbstractMessage):
     """Generic exception message"""
 
 
-class TerminationMessage(Message):
+class TerminationMessage(AbstractMessage):
     """Message indicating an actor should be terminated."""
 
 
@@ -160,14 +141,11 @@ T = TypeVar("T", bound="Message")
 
 
 class MessageFactory:
-    """
-    Factory class to convert YAML data into appropriate Message types.
-    """
+    """Factory class to convert YAML data into appropriate Message types."""
 
     @classmethod
     def create_message(cls, data: dict) -> T:
-        """
-        Create a message of the appropriate type based on the data provided.
+        """Create a message of the appropriate type based on the data provided.
 
         Parameters:
         - data (dict): A dictionary containing the message data.
@@ -180,8 +158,7 @@ class MessageFactory:
 
     @classmethod
     def create_messages_from_list(cls, data_list: list[dict]) -> list[T]:
-        """
-        Create a list of messages from a list of YAML data dictionaries.
+        """Create a list of messages from a list of YAML data dictionaries.
 
         Parameters:
         - data_list (List[dict]): A list of dictionaries containing message data.
@@ -193,9 +170,8 @@ class MessageFactory:
         return messages
 
     @classmethod
-    def _get_message_class(cls, module_name: str) -> Type[T]:
-        """
-        Get the message class corresponding to the module name. Import the module if not already imported.
+    def _get_message_class(cls, module_name: str) -> type[T]:
+        """Get the message class corresponding to the module name. Import the module if not already imported.
 
         Parameters:
         - module_name (str): The module name containing the message class.

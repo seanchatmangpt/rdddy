@@ -1,6 +1,5 @@
 from typetemp.template.smart_template import SmartTemplate
 from utils.complete import LLMConfig
-from utils.file_tools import write
 
 
 class Template(SmartTemplate):
@@ -15,13 +14,8 @@ You are a yaml assistant. A hyperdetailed assistant prompt is a tool that helps 
 
 
 async def create_yaml(prompt: str, max_tokens=2000):
-    """
-    Generate a yaml based on a prompt.
-    """
-
-    return await Template(
-        prompt=prompt, config=LLMConfig(max_tokens=max_tokens)
-    ).render()
+    """Generate a yaml based on a prompt."""
+    return await Template(prompt=prompt, config=LLMConfig(max_tokens=max_tokens)).render()
 
 
 async def main():

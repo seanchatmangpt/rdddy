@@ -3,7 +3,6 @@ import asyncio
 import streamlit as st
 
 # from streamlit_mermaid import st_mermaid
-
 from typetemp.template.typed_template import TypedTemplate
 from utils.complete import acreate
 from utils.file_tools import write
@@ -22,9 +21,7 @@ Make sure to capture the nuances of the input in the output. The most elegant so
 
 
 async def create_mermaid(prompt, md_type="mermaid", model=None, filepath=None):
-    """
-    Generate a Mermaid diagram image based on the given Mermaid diagram code.
-    """
+    """Generate a Mermaid diagram image based on the given Mermaid diagram code."""
     create_prompt = TypedTemplate(source=create_mermaid_template, prompt=prompt)()
 
     return await __create(

@@ -1,0 +1,71 @@
+2024-02-17 11:38:46,884 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for EventStormModel
+
+            Validation error:
+11 validation errors for EventStormModel
+external_event_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+aggregate_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+policy_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+read_model_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+view_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+ui_event_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+saga_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+integration_event_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+exception_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+value_object_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+task_names
+  List should have at least 3 items after validation, not 0 [type=too_short, input_value=[], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+2024-02-17 11:45:16,698 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for EventStormModel
+
+            Validation error:
+10 validation errors for EventStormModel
+command_classnames
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=['Retrieve', 'ChainOfThought'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+query_classnames
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['GenerateAnswer'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+aggregate_classnames
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['RAG'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+policy_classnames
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['validate_context_and_answer'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+read_model_classnames
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['BootstrapFewShot'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+view_classnames
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['Evaluate'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+ui_event_classnames
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=['my_question', 'pred'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+saga_classnames
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['RAG'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+integration_event_classnames
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['compiled_rag'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+task_classnames
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['GenerateAnswer'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short

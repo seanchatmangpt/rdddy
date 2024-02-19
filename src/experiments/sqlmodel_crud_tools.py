@@ -1,10 +1,22 @@
 import hashlib
-import json
-from datetime import datetime, timedelta
-
-from shipit.data import *
-
+import os
 from contextlib import contextmanager
+
+from sqlalchemy import create_engine
+from sqlmodel import Session
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+
+db_path = os.path.join(current_dir, "dev.db")
+
+DATABASE_URL = f"sqlite:///{db_path}"
+
+engine = create_engine(DATABASE_URL)
+
+
+def get_session():
+    return Session(engine)
 
 
 def get_model(model_cls, model_id):
@@ -20,9 +32,9 @@ def delete_model(model_cls, model_id):
         session.delete(model)
 
         doc_id = hashlib.sha256(str(model_id).encode()).hexdigest()[:20]
-        get_mem_store().delete(
-            collection_id=f"{model.__class__.__name__}_collection", doc_id=doc_id
-        )
+        # get_mem_store().delete(
+        #     collection_id=f"{model.__class__.__name__}_collection", doc_id=doc_id
+        # )
 
         session.commit()
 
@@ -34,11 +46,11 @@ def add_model(model):
         session.commit()  # Commit changes on success
         session.refresh(model)  # Refresh the provided model
 
-        get_mem_store().add(
-            collection_id=f"{model.__class__.__name__}_collection",
-            document=json.dumps(model.dict(), default=str),
-            metadatas={"model_id": model.id},
-        )
+        # get_mem_store().add(
+        #     collection_id=f"{model.__class__.__name__}_collection",
+        #     document=json.dumps(model.dict(), default=str),
+        #     metadatas={"model_id": model.id},
+        # )
     except Exception as e:
         session.rollback()  # Rollback changes on failure
         raise e
@@ -57,12 +69,12 @@ def update_model(model_cls, model_id):
         yield existing_model
 
         doc_id = hashlib.sha256(str(model_id).encode()).hexdigest()[:20]
-        get_mem_store().update(
-            collection_id=f"{model_cls.__name__}_collection",
-            doc_ids=[doc_id],
-            documents=[json.dumps(existing_model.dict(), default=str)],
-            metadatas=[{"model_id": model_id}],
-        )
+        # get_mem_store().update(
+        #     collection_id=f"{model_cls.__name__}_collection",
+        #     doc_ids=[doc_id],
+        #     documents=[json.dumps(existing_model.dict(), default=str)],
+        #     metadatas=[{"model_id": model_id}],
+        # )
 
         session.commit()
     except Exception as e:

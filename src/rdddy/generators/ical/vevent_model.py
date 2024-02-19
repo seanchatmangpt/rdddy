@@ -1,6 +1,6 @@
-from pydantic import BaseModel, Field, validator, root_validator, EmailStr, UrlStr
-from typing import List, Optional
 from datetime import datetime
+
+from pydantic import *
 
 
 class VEVENTModel(BaseModel):
@@ -27,16 +27,14 @@ class VEVENTModel(BaseModel):
     description: str = Field(
         default=None, title="", description="A detailed description of the event."
     )
-    location: str = Field(
-        default=None, title="", description="The location of the event."
-    )
+    location: str = Field(default=None, title="", description="The location of the event.")
     organizer: str = Field(
         default=None, title="", description="The organizer or creator of the event."
     )
-    attendees: List[str] = Field(
+    attendees: list[str] = Field(
         default=None, title="", description="A list of attendees for the event."
     )
-    categories: List[str] = Field(
+    categories: list[str] = Field(
         default=None,
         title="",
         description="A list of categories or tags for the event.",
@@ -45,7 +43,7 @@ class VEVENTModel(BaseModel):
         default="TENTATIVE",
         title="",
         description="The status of the event, e.g., 'TENTATIVE', 'CONFIRMED', or 'CANCELLED'.",
-        regex="^(TENTATIVE|CONFIRMED|CANCELLED)$",
+        pattern="^(TENTATIVE|CONFIRMED|CANCELLED)$",
     )
     priority: int = Field(
         default=0,

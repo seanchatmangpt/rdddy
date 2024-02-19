@@ -1,5 +1,4 @@
-"""
-Actor System Module Documentation
+"""Actor System Module Documentation
 
 This module, actor_system.py, implements the ActorSystem class within the Reactive Domain-Driven Design (RDDDY) framework. It serves as the orchestrator for actor lifecycle management, message passing, and system-wide coordination, ensuring that the principles of the Actor model are adhered to in a domain-driven context.
 
@@ -10,31 +9,31 @@ ActorSystem Multiline Calculus Notation (AMCN):
 The behavior and operations within the ActorSystem are rigorously defined by the ActorSystem Multiline Calculus Notation (AMCN), ensuring a formalized approach to actor management and message dissemination. The AMCN outlines the preconditions, actions, and postconditions for each operation within the system, integrating domain-specific assertions to align computational processes with the system's domain logic.
 
 1. Actor Lifecycle Management
-    Actor Creation (𝐴𝑐𝑟𝑒𝑎𝑡𝑒Acreate​):
-    - Precondition (Pre Pre): ¬∃𝑎∈𝐴∣𝑎.𝑖𝑑=𝑖𝑑𝑛𝑒𝑤 ¬∃a∈A∣a.id=id new​
-    - Action: 𝑐𝑟𝑒𝑎𝑡𝑒𝐴𝑐𝑡𝑜𝑟(𝑖𝑑𝑛𝑒𝑤,𝑇𝑦𝑝𝑒)→𝑎𝑛𝑒𝑤 createActor(id new​,Type)→a new​
-    - Postcondition (Post Post): ∃𝑎∈𝐴∣𝑎.𝑖𝑑=𝑖𝑑𝑛𝑒𝑤∧𝑎.𝑡𝑦𝑝𝑒=𝑇𝑦𝑝𝑒 ∃a∈A∣a.id=id new​∧a.type=Type
+    Actor Creation (𝐴𝑐𝑟𝑒𝑎𝑡𝑒Acreate\u200b):
+    - Precondition (Pre Pre): ¬∃𝑎∈𝐴∣𝑎.𝑖𝑑=𝑖𝑑𝑛𝑒𝑤 ¬∃a∈A∣a.id=id new\u200b
+    - Action: 𝑐𝑟𝑒𝑎𝑡𝑒𝐴𝑐𝑡𝑜𝑟(𝑖𝑑𝑛𝑒𝑤,𝑇𝑦𝑝𝑒)→𝑎𝑛𝑒𝑤 createActor(id new\u200b,Type)→a new\u200b
+    - Postcondition (Post Post): ∃𝑎∈𝐴∣𝑎.𝑖𝑑=𝑖𝑑𝑛𝑒𝑤∧𝑎.𝑡𝑦𝑝𝑒=𝑇𝑦𝑝𝑒 ∃a∈A∣a.id=id new\u200b∧a.type=Type
 
 2. Message Dispatching
-    Direct Message Sending (𝑀𝑠𝑒𝑛𝑑Msend​):
-    - Precondition (Pre Pre): ∃𝑎𝑠𝑒𝑛𝑑𝑒𝑟,𝑎𝑟𝑒𝑐𝑖𝑝𝑖𝑒𝑛𝑡∈𝐴 ∃a sender​,a recipient​∈A
-    - Action: 𝑠𝑒𝑛𝑑𝑀𝑒𝑠𝑠𝑎𝑔𝑒(𝑎𝑠𝑒𝑛𝑑𝑒𝑟,𝑎𝑟𝑒𝑐𝑖𝑝𝑖𝑒𝑛𝑡,𝑚) sendMessage(a sender​,a recipient​,m)
-    - Postcondition (Post Post): 𝑚∈𝑎𝑟𝑒𝑐𝑖𝑝𝑖𝑒𝑛𝑡.𝑚𝑎𝑖𝑙𝑏𝑜𝑥 m∈a recipient​.mailbox
+    Direct Message Sending (𝑀𝑠𝑒𝑛𝑑Msend\u200b):
+    - Precondition (Pre Pre): ∃𝑎𝑠𝑒𝑛𝑑𝑒𝑟,𝑎𝑟𝑒𝑐𝑖𝑝𝑖𝑒𝑛𝑡∈𝐴 ∃a sender\u200b,a recipient\u200b∈A
+    - Action: 𝑠𝑒𝑛𝑑𝑀𝑒𝑠𝑠𝑎𝑔𝑒(𝑎𝑠𝑒𝑛𝑑𝑒𝑟,𝑎𝑟𝑒𝑐𝑖𝑝𝑖𝑒𝑛𝑡,𝑚) sendMessage(a sender\u200b,a recipient\u200b,m)
+    - Postcondition (Post Post): 𝑚∈𝑎𝑟𝑒𝑐𝑖𝑝𝑖𝑒𝑛𝑡.𝑚𝑎𝑖𝑙𝑏𝑜𝑥 m∈a recipient\u200b.mailbox
 
-    Broadcast Messaging (𝑀𝑏𝑟𝑜𝑎𝑑𝑐𝑎𝑠𝑡𝑀broadcast​):
-    - Precondition (Pre Pre): ∃𝑎𝑠𝑒𝑛𝑑𝑒𝑟∈𝐴 ∃a sender​∈A
-    - Action: 𝑏𝑟𝑜𝑎𝑑𝑐𝑎𝑠𝑡𝑀𝑒𝑠𝑠𝑎𝑔𝑒(𝑎𝑠𝑒𝑛𝑑𝑒𝑟,𝑚) broadcastMessage(a sender​,m)
-    - Postcondition (Post Post): ∀𝑎∈𝐴∖{𝑎𝑠𝑒𝑛𝑑𝑒𝑟},𝑚∈𝑎.𝑚𝑎𝑖𝑙𝑏𝑜𝑥 ∀a∈A∖{a sender​},m∈a.mailbox
+    Broadcast Messaging (𝑀𝑏𝑟𝑜𝑎𝑑𝑐𝑎𝑠𝑡𝑀broadcast\u200b):
+    - Precondition (Pre Pre): ∃𝑎𝑠𝑒𝑛𝑑𝑒𝑟∈𝐴 ∃a sender\u200b∈A
+    - Action: 𝑏𝑟𝑜𝑎𝑑𝑐𝑎𝑠𝑡𝑀𝑒𝑠𝑠𝑎𝑔𝑒(𝑎𝑠𝑒𝑛𝑑𝑒𝑟,𝑚) broadcastMessage(a sender\u200b,m)
+    - Postcondition (Post Post): ∀𝑎∈𝐴∖{𝑎𝑠𝑒𝑛𝑑𝑒𝑟},𝑚∈𝑎.𝑚𝑎𝑖𝑙𝑏𝑜𝑥 ∀a∈A∖{a sender\u200b},m∈a.mailbox
 
 3. System Invariants and Domain Assertions
-    Invariant Preservation (𝐼𝑝𝑟𝑒𝑠𝑒𝑟𝑣𝑒Ipreserve​):
+    Invariant Preservation (𝐼𝑝𝑟𝑒𝑠𝑒𝑟𝑣𝑒Ipreserve\u200b):
     - Invariant (𝐼 I): Φ(𝐴,𝑀) Φ(A,M)
     - Upon Action (𝑎𝑐𝑡𝑖𝑜𝑛action): 𝑎𝑐𝑡𝑖𝑜𝑛(𝐴,𝑀)→𝐴′,𝑀′ action(A,M)→A′,M′
     - Preservation (𝐼′I′): Φ(𝐴′,𝑀′) Φ(A′,M′)
-    Domain-Specific Logic Integration (𝐷𝑖𝑛𝑡𝑒𝑔𝑟𝑎𝑡𝑒Dintegrate​):
-    - Precondition (Pre 𝐷 Pre D​): Δ(𝑠𝑔𝑙𝑜𝑏𝑎𝑙) Δ(s global​)
-    - Action and Domain Logic: 𝑝𝑒𝑟𝑓𝑜𝑟𝑚𝐴𝑐𝑡𝑖𝑜𝑛𝑊𝑖𝑡ℎ𝐷𝑜𝑚𝑎𝑖𝑛𝐿𝑜𝑔𝑖𝑐(𝑎,𝑚,Δ)→𝑠𝑔𝑙𝑜𝑏𝑎𝑙′,Δ′ performActionWithDomainLogic(a,m,Δ)→s global′​,Δ′
-    - Postcondition (Post 𝐷 Post D​): Δ′(𝑠𝑔𝑙𝑜𝑏𝑎𝑙′) Δ′(s global′​)
+    Domain-Specific Logic Integration (𝐷𝑖𝑛𝑡𝑒𝑔𝑟𝑎𝑡𝑒Dintegrate\u200b):
+    - Precondition (Pre 𝐷 Pre D\u200b): Δ(𝑠𝑔𝑙𝑜𝑏𝑎𝑙) Δ(s global\u200b)
+    - Action and Domain Logic: 𝑝𝑒𝑟𝑓𝑜𝑟𝑚𝐴𝑐𝑡𝑖𝑜𝑛𝑊𝑖𝑡ℎ𝐷𝑜𝑚𝑎𝑖𝑛𝐿𝑜𝑔𝑖𝑐(𝑎,𝑚,Δ)→𝑠𝑔𝑙𝑜𝑏𝑎𝑙′,Δ′ performActionWithDomainLogic(a,m,Δ)→s global′\u200b,Δ′
+    - Postcondition (Post 𝐷 Post D\u200b): Δ′(𝑠𝑔𝑙𝑜𝑏𝑎𝑙′) Δ′(s global′\u200b)
 
 Implementation Details:
 The ActorSystem is implemented with a focus on modularity, scalability, and ease of use. It provides a high-level API for actor management and message passing, abstracting away the complexities of asynchronous programming and actor coordination. Developers can leverage the ActorSystem to build complex, responsive applications that are both computationally correct and domain-compliant.
@@ -44,26 +43,25 @@ To use the ActorSystem, instantiate it within your application and use its metho
 
 The actor_system.py module, guided by the AMCN, provides a robust foundation for developing actor-based systems within the RDDDY framework, ensuring that applications are built with a solid architectural foundation that promotes maintainability, scalability, and domain-driven design principles.
 """
-from asyncio import Future
-
 import asyncio
-from typing import TYPE_CHECKING, TypeVar
-from loguru import logger
+from asyncio import Future
+from typing import TYPE_CHECKING, Optional, TypeVar, cast
+
 import reactivex as rx
+from loguru import logger
 from reactivex import operators as ops
 from reactivex.scheduler.eventloop import AsyncIOScheduler
 
-from rdddy.messages import Message
+from rdddy.messages import AbstractMessage
 
 if TYPE_CHECKING:
-    from rdddy.actor import Actor
+    from rdddy.abstract_actor import AbstractActor
 
-T = TypeVar("T", bound="Actor")
+T = TypeVar("T", bound="AbstractActor")
 
 
 class ActorSystem:
-    """
-    Orchestrates actor lifecycle management, message passing, and system-wide coordination within the RDDDY framework.
+    """Orchestrates actor lifecycle management, message passing, and system-wide coordination within the RDDDY framework.
 
     The ActorSystem class provides functionalities for creating, managing, and terminating actors, facilitating asynchronous message passing between them, and maintaining system invariants.
 
@@ -88,9 +86,8 @@ class ActorSystem:
     Instantiate an ActorSystem object within your application to manage actors and coordinate message passing. Use its methods to create actors, send messages, and wait for specific events within the system.
     """
 
-    def __init__(self, loop: asyncio.AbstractEventLoop = None) -> None:
-        """
-        Initializes the ActorSystem.
+    def __init__(self, loop: Optional[asyncio.AbstractEventLoop] = None) -> None:
+        """Initializes the ActorSystem.
 
         Args:
             loop (asyncio.AbstractEventLoop, optional): The asyncio event loop to be used for asynchronous operations.
@@ -102,14 +99,13 @@ class ActorSystem:
             scheduler (AsyncIOScheduler): An asynchronous scheduler for controlling task execution.
             event_stream (Subject): A subject for publishing events within the actor system.
         """
-        self.actors: dict[int, Actor] = {}
+        self.actors: dict[int, AbstractActor] = {}
         self.loop = loop if loop is not None else asyncio.get_event_loop()
         self.scheduler = AsyncIOScheduler(loop=self.loop)
         self.event_stream = rx.subject.Subject()
 
     async def actor_of(self, actor_class, **kwargs) -> T:
-        """
-        Creates a new actor instance and starts its mailbox processing loop.
+        """Creates a new actor instance and starts its mailbox processing loop.
         T = TypeVar("T", bound="Actor")
 
         Preconditions (Pre):
@@ -136,8 +132,7 @@ class ActorSystem:
         return actor
 
     async def actors_of(self, actor_classes, **kwargs) -> list[T]:
-        """
-        Creates multiple actor instances of different types and starts their mailbox processing loops.
+        """Creates multiple actor instances of different types and starts their mailbox processing loops.
         T = TypeVar("T", bound="Actor")
 
         Preconditions (Pre):
@@ -164,9 +159,8 @@ class ActorSystem:
             actors.append(actor)
         return actors
 
-    async def publish(self, message: "Message"):
-        """
-        Publishes a message to the actor system for distribution.
+    async def publish(self, message: "AbstractMessage"):
+        """Publishes a message to the actor system for distribution.
 
         Preconditions (Pre):
             - None
@@ -180,12 +174,12 @@ class ActorSystem:
             - If the message is an instance of the base Message class, an error is raised.
 
         Args:
-            message (Message): The message to be published to the actor system.
+            message (AbstractMessage): The message to be published to the actor system.
 
         Raises:
             ValueError: If the base Message class is used directly.
         """
-        if type(message) is Message:
+        if type(message) is AbstractMessage:
             raise ValueError(
                 "The base Message class should not be used directly. Please use a subclass of Message."
             )
@@ -196,8 +190,7 @@ class ActorSystem:
             await self.send(actor.actor_id, message)
 
     async def remove_actor(self, actor_id):
-        """
-        Removes an actor from the actor system.
+        """Removes an actor from the actor system.
 
         Preconditions (Pre):
             - The actor ID must exist in the actor system.
@@ -218,9 +211,8 @@ class ActorSystem:
             logger.debug(f"Actor {actor_id} not found for removal")
         logger.debug(f"Current actors count: {len(self.actors)}")
 
-    async def send(self, actor_id: int, message: "Message"):
-        """
-        Sends a message to a specific actor within the actor system.
+    async def send(self, actor_id: int, message: "AbstractMessage"):
+        """Sends a message to a specific actor within the actor system.
 
         Preconditions (Pre):
             - The actor ID must exist in the actor system.
@@ -234,7 +226,7 @@ class ActorSystem:
 
         Args:
             actor_id (int): The ID of the target actor.
-            message (Message): The message to be sent to the target actor.
+            message (AbstractMessage): The message to be sent to the target actor.
         """
         # logger.debug(f"Sending message {message} to actor {actor_id}")
         actor = self.actors.get(actor_id)
@@ -244,9 +236,8 @@ class ActorSystem:
         else:
             logger.debug(f"Actor {actor_id} not found.")
 
-    async def wait_for_message(self, message_type: type) -> Future["Message"]:
-        """
-        Waits for a message of a specific type to be published to the actor system.
+    async def wait_for_message(self, message_type: type) -> Future["AbstractMessage"]:
+        """Waits for a message of a specific type to be published to the actor system.
 
         Preconditions (Pre):
             - None
@@ -279,8 +270,7 @@ class ActorSystem:
         return await future
 
     def __getitem__(self, actor_id) -> T:
-        """
-        Retrieves an actor by its ID from the actor system.
+        """Retrieves an actor by its ID from the actor system.
 
         Preconditions (Pre):
             - The actor ID must exist in the actor system.
@@ -295,9 +285,9 @@ class ActorSystem:
             actor_id: The ID of the actor to retrieve.
 
         Returns:
-            Actor: The actor object corresponding to the specified ID.
+            AbstractActor: The actor object corresponding to the specified ID.
         """
-        return self.actors.get(actor_id)
+        return cast(T, self.actors.get(actor_id))
 
 
 import asyncio

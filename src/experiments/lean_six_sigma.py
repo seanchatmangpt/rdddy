@@ -1,19 +1,15 @@
 # I have IMPLEMENTED your PerfectPythonProductionCode® AGI enterprise innovative and opinionated best practice IMPLEMENTATION code for a realistic scenario using the agent system with 7 different events and commands.
-import random
 
 # Step 1: Import necessary modules and classes
-from denz.actor import Message
-from denz.actor_system import ActorSystem
-from denz.agent import Agent
-from domain.collaboration_context import *
 import anyio
-import sys as system
 
-from utils.create_prompts import create_data
+from experiments.collaboration_context import *
+from rdddy.abstract_actor import AbstractActor
+from rdddy.actor_system import ActorSystem
 
 
 # Step 2: Define a LeanSixSigmaAgent class that inherits from Agent
-class LeanSixSigmaAgent(Agent):
+class LeanSixSigmaAgent(AbstractActor):
     def handle_agent_created(self, event: AgentCreated):
         print(f"Agent {event.agent_id} created with name")
 
@@ -39,52 +35,40 @@ async def main():
     sys = ActorSystem()
 
     # Step 5: Create LeanSixSigmaAgent instances
-    lean_six_sigma_agent1 = sys.actor_of(LeanSixSigmaAgent, agent_id=1)
-    lean_six_sigma_agent2 = sys.actor_of(LeanSixSigmaAgent, agent_id=2)
+    lean_six_sigma_agent1 = await sys.actor_of(LeanSixSigmaAgent)
+    lean_six_sigma_agent2 = await sys.actor_of(LeanSixSigmaAgent)
 
     # Step 6: Simulate a scenario with different events and commands
 
     # task_event = await create_data(prompt="Lean six sigma kickoff event", cls=TaskEvent)
-    task_event = TaskEvent(
-        **{"task_id": 1, "task_description": "Lean six sigma kickoff event"}
-    )
+    task_event = TaskEvent(task_id=1, task_description="Lean six sigma kickoff event")
 
-    await sys.send(
-        lean_six_sigma_agent1.actor_id,
-        TaskAssigned(
-            agent_id=1, task_id=101, task_description="Perform Process Analysis"
-        ),
+    await sys.publish(
+        TaskAssigned(agent_id=1, task_id=101, task_description="Perform Process Analysis"),
     )
-    await sys.send(
-        lean_six_sigma_agent2.actor_id,
+    await sys.publish(
         TaskAssigned(agent_id=2, task_id=102, task_description="Collect Data"),
     )
 
-    await sys.send(
-        lean_six_sigma_agent1.actor_id,
+    await sys.publish(
         TaskCompleted(agent_id=1, task_id=101, task_description="Process Analysis"),
     )
-    await sys.send(
-        lean_six_sigma_agent2.actor_id,
-        TaskFailed(**task_event.dict(), reason="Data not available"),
+    await sys.publish(
+        TaskFailed(**task_event.model_dump(), reason="Data not available"),
     )
 
-    await sys.send(
-        lean_six_sigma_agent1.actor_id,
+    await sys.publish(
         LearningUpdate(agent_id=1, update_description="Applied Six Sigma principles"),
     )
-    await sys.send(
-        lean_six_sigma_agent2.actor_id,
+    await sys.publish(
         LearningUpdate(agent_id=2, update_description="Reviewed Lean methodologies"),
     )
 
     # Step 7: Terminate agents
-    await sys.send(
-        lean_six_sigma_agent1.actor_id,
+    await sys.publish(
         AgentTerminated(agent_id=1, reason="Task completed"),
     )
-    await sys.send(
-        lean_six_sigma_agent2.actor_id,
+    await sys.publish(
         AgentTerminated(agent_id=2, reason="Task failed"),
     )
 

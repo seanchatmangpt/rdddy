@@ -7,8 +7,7 @@ from typetemp.environment.typed_environment import environment
 
 
 class TypedInjector:
-    """
-    Class for handling injections into existing files.
+    """Class for handling injections into existing files.
     Allows specifying injection properties like target_file, before, after, at_line, prepend, append, skip_if.
     """
 
@@ -28,16 +27,13 @@ class TypedInjector:
             raise TypeError("TypedInjector classes must be dataclasses.")
 
     def __post_init__(self):
-        """
-        After the instance is initialized, create the jinja2 environment and
+        """After the instance is initialized, create the jinja2 environment and
         template from the provided string.
         """
         self.env = environment
 
     def inject(self):
-        """
-        Public method to handle the injection based on the specified properties.
-        """
+        """Public method to handle the injection based on the specified properties."""
         # Render the source template
         self.output = self.env.from_string(self.source).render(**self._properties())
 
@@ -65,11 +61,9 @@ class TypedInjector:
         return properties
 
     def _inject_prepend(self):
-        """
-        Private method to prepend the content at the beginning of the file.
-        """
+        """Private method to prepend the content at the beginning of the file."""
         # Read the existing content of the file
-        with open(self.to, "r") as file:
+        with open(self.to) as file:
             content = file.read()
 
         # Add the rendered source at the beginning of the file
@@ -80,11 +74,9 @@ class TypedInjector:
             file.write(content)
 
     def _inject_append(self):
-        """
-        Private method to append the content at the end of the file.
-        """
+        """Private method to append the content at the end of the file."""
         # Read the existing content of the file
-        with open(self.to, "r") as file:
+        with open(self.to) as file:
             content = file.read()
 
         # Add the rendered source at the end of the file
@@ -95,11 +87,9 @@ class TypedInjector:
             file.write(content)
 
     def _inject_at_line(self):
-        """
-        Private method to inject the content at the specified line number.
-        """
+        """Private method to inject the content at the specified line number."""
         # Read the existing content of the file
-        with open(self.to, "r") as file:
+        with open(self.to) as file:
             content_lines = file.readlines()
 
         # Find the line containing the pattern and insert the rendered source after it
@@ -113,11 +103,9 @@ class TypedInjector:
             file.writelines(content_lines)
 
     def _inject_before(self):
-        """
-        Private method to inject the content before the specified text or pattern.
-        """
+        """Private method to inject the content before the specified text or pattern."""
         # Read the existing content of the file
-        with open(self.to, "r") as file:
+        with open(self.to) as file:
             content_lines = file.readlines()
 
         # Find the line containing the pattern and add the rendered source before it
@@ -131,11 +119,9 @@ class TypedInjector:
             file.writelines(content_lines)
 
     def _inject_after(self):
-        """
-        Private method to inject the content before the specified text or pattern.
-        """
+        """Private method to inject the content before the specified text or pattern."""
         # Read the existing content of the file
-        with open(self.to, "r") as file:
+        with open(self.to) as file:
             content_lines = file.readlines()
 
         # Find the line containing the pattern and add the rendered source before it
@@ -149,9 +135,7 @@ class TypedInjector:
             file.writelines(content_lines)
 
     def _skip_if_exists(self):
-        """
-        Private method to check if the skip_if pattern exists in the file.
-        """
-        with open(self.to, "r") as file:
+        """Private method to check if the skip_if pattern exists in the file."""
+        with open(self.to) as file:
             content = file.read()
             return re.search(self.skip_if, content) is not None

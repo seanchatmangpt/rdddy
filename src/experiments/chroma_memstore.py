@@ -1,16 +1,15 @@
+import hashlib
+from typing import Optional
+
 import chromadb
 from chromadb.config import Settings
-import hashlib
 
 
 class ChromaMemStore:
-    """
-    A class used to represent a Memory Store
-    """
+    """A class used to represent a Memory Store"""
 
     def __init__(self, store_path: str):
-        """
-        Initialize the MemStore with a given store path.
+        """Initialize the MemStore with a given store path.
 
         Args:
             store_path (str): The path to the store.
@@ -20,8 +19,7 @@ class ChromaMemStore:
         )
 
     def add(self, collection_id: str, document: str, metadatas: dict) -> None:
-        """
-        Add a document to the MemStore.
+        """Add a document to the MemStore.
 
         Args:
             collection_id (str): The ID of the collection.
@@ -36,12 +34,11 @@ class ChromaMemStore:
         self,
         collection_id: str,
         query: str,
-        where: dict = None,
+        where: Optional[dict] = None,
         n_results: int = 10,
-        document_search: dict = None,
+        document_search: Optional[dict] = None,
     ) -> dict:
-        """
-        Query the MemStore.
+        """Query the MemStore.
 
         Args:
             collection_id (str): The ID of the collection.
@@ -67,9 +64,10 @@ class ChromaMemStore:
 
         return collection.query(**kwargs)
 
-    def get(self, collection_id: str, doc_ids: list = None, where: dict = None) -> dict:
-        """
-        Get documents from the MemStore.
+    def get(
+        self, collection_id: str, doc_ids: Optional[list] = None, where: Optional[dict] = None
+    ) -> dict:
+        """Get documents from the MemStore.
 
         Args:
             collection_id (str): The ID of the collection.
@@ -87,11 +85,8 @@ class ChromaMemStore:
             kwargs["where"] = where
         return collection.get(**kwargs)
 
-    def update(
-        self, collection_id: str, doc_ids: list, documents: list, metadatas: list
-    ):
-        """
-        Update documents in the MemStore.
+    def update(self, collection_id: str, doc_ids: list, documents: list, metadatas: list):
+        """Update documents in the MemStore.
 
         Args:
             collection_id (str): The ID of the collection.
@@ -103,8 +98,7 @@ class ChromaMemStore:
         collection.update(ids=doc_ids, documents=documents, metadatas=metadatas)
 
     def delete(self, collection_id: str, doc_id: str):
-        """
-        Delete a document from the MemStore.
+        """Delete a document from the MemStore.
 
         Args:
             collection_id (str): The ID of the collection.

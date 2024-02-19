@@ -1,9 +1,9 @@
-from rdddy.actor import Actor
+from experiments.collaboration_context import *
+from rdddy.abstract_actor import AbstractActor
 from rdddy.actor_system import ActorSystem
-from slss.domain.collaboration_context import *
 
 
-class CollaborativeAgent(Actor):
+class CollaborativeAgent(AbstractActor):
     def handle_agent_created(self, event: AgentCreated):
         print(f"Agent {event.agent_id} created with name: {event.agent_name}")
 
@@ -27,14 +27,10 @@ class CollaborativeAgent(Actor):
         print(f"Agent completed a task (ID: {event.task_id}): {event.task_description}")
 
     def handle_task_failed(self, event: TaskFailed):
-        print(
-            f"Agent failed to complete a task (ID: {event.task_id}). Reason: {event.reason}"
-        )
+        print(f"Agent failed to complete a task (ID: {event.task_id}). Reason: {event.reason}")
 
     def handle_decision_made(self, event: DecisionMade):
-        print(
-            f"Agent {event.agent_id} made a significant decision: {event.decision_description}"
-        )
+        print(f"Agent {event.agent_id} made a significant decision: {event.decision_description}")
 
     def handle_resource_allocation(self, event: ResourceAllocation):
         print(
@@ -47,9 +43,7 @@ class CollaborativeAgent(Actor):
         )
 
     def handle_state_change(self, event: StateChange):
-        print(
-            f"Agent {event.agent_id} experienced a state change. New state: {event.new_state}"
-        )
+        print(f"Agent {event.agent_id} experienced a state change. New state: {event.new_state}")
 
     def handle_collaboration_initiated(self, event: CollaborationInitiated):
         agents_involved = ", ".join(map(str, event.agents_involved))
@@ -89,9 +83,7 @@ async def main():
 
     await sys.send(
         agent1.actor_id,
-        LearningUpdate(
-            agent_id=agent1.actor_id, update_description="Two agents are learning"
-        ),
+        LearningUpdate(agent_id=agent1.actor_id, update_description="Two agents are learning"),
     )
 
 

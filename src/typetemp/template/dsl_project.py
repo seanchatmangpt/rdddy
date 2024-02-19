@@ -1,7 +1,7 @@
 # Here is your PerfectPythonProductionPEP8® AGI code you requested:
 import os
 from dataclasses import asdict, dataclass, field
-from typing import List, Optional
+from typing import Optional
 
 import yaml
 
@@ -10,9 +10,7 @@ from typetemp.template.typed_prompt import TypedPrompt
 
 @dataclass
 class TypedTitleDescriptionPrompt(TypedPrompt):
-    """
-    Class for the Title Description step.
-    """
+    """Class for the Title Description step."""
 
     title: str = ""
     description: str = ""
@@ -20,26 +18,22 @@ class TypedTitleDescriptionPrompt(TypedPrompt):
 
 @dataclass
 class TypedRequirementAnalysisPrompt(TypedTitleDescriptionPrompt):
-    """
-    Class for the Requirement Analysis step.
-    """
+    """Class for the Requirement Analysis step."""
 
-    stakeholders: List[str] = field(default_factory=list)
-    core_functionalities: List[str] = field(default_factory=list)
-    constraints: List[str] = field(default_factory=list)
-    technologies: List[str] = field(default_factory=list)
+    stakeholders: list[str] = field(default_factory=list)
+    core_functionalities: list[str] = field(default_factory=list)
+    constraints: list[str] = field(default_factory=list)
+    technologies: list[str] = field(default_factory=list)
     timeframe: str = ""
     source: str = "Gather detailed requirements that the DSL needs to fulfill. Identify core functionalities, consult with {{ stakeholders }}, consider {{ constraints }}, choose appropriate {{ technologies }}, within the timeframe of {{ timeframe }}."
 
 
 @dataclass
 class TypedDesignArchitecturePrompt(TypedTitleDescriptionPrompt):
-    """
-    Class for the Design Architecture step.
-    """
+    """Class for the Design Architecture step."""
 
-    components: List[str] = field(default_factory=list)
-    interactions: List[str] = field(default_factory=list)
+    components: list[str] = field(default_factory=list)
+    interactions: list[str] = field(default_factory=list)
     syntax: str = ""
     scalability: str = ""
     modularity: str = ""
@@ -48,85 +42,73 @@ class TypedDesignArchitecturePrompt(TypedTitleDescriptionPrompt):
 
 @dataclass
 class TypedBuildCoreComponentsPrompt(TypedTitleDescriptionPrompt):
-    """
-    Class for the Build Core Components step.
-    """
+    """Class for the Build Core Components step."""
 
-    parsers: List[str] = field(default_factory=list)
-    methods: List[str] = field(default_factory=list)
-    classes: List[str] = field(default_factory=list)
+    parsers: list[str] = field(default_factory=list)
+    methods: list[str] = field(default_factory=list)
+    classes: list[str] = field(default_factory=list)
     error_handling: str = ""
-    performance_metrics: List[str] = field(default_factory=list)
+    performance_metrics: list[str] = field(default_factory=list)
     source: str = "Develop parsers {{ parsers }} for the YAML configurations. Implement classes {{ classes }} and methods {{ methods }} for functionalities. Include {{ error_handling }} and consider {{ performance_metrics }}."
 
 
 @dataclass
 class TypedImplementBusinessLogicPrompt(TypedTitleDescriptionPrompt):
-    """
-    Class for the Implement Business Logic step.
-    """
+    """Class for the Implement Business Logic step."""
 
     team_composition: str = ""
     goal_setting: str = ""
-    data_models: List[str] = field(default_factory=list)
-    algorithms: List[str] = field(default_factory=list)
-    optimization_criteria: List[str] = field(default_factory=list)
+    data_models: list[str] = field(default_factory=list)
+    algorithms: list[str] = field(default_factory=list)
+    optimization_criteria: list[str] = field(default_factory=list)
     source: str = "Add logic for team composition {{ team_composition }}, goal setting {{ goal_setting }}, use data models {{ data_models }}, apply algorithms {{ algorithms }}, and meet optimization criteria {{ optimization_criteria }}."
 
 
 @dataclass
 class TypedTestingPrompt(TypedTitleDescriptionPrompt):
-    """
-    Class for the Testing step.
-    """
+    """Class for the Testing step."""
 
-    unit_tests: List[str] = field(default_factory=list)
-    integration_tests: List[str] = field(default_factory=list)
-    stress_tests: List[str] = field(default_factory=list)
-    test_data: List[str] = field(default_factory=list)
-    test_environments: List[str] = field(default_factory=list)
+    unit_tests: list[str] = field(default_factory=list)
+    integration_tests: list[str] = field(default_factory=list)
+    stress_tests: list[str] = field(default_factory=list)
+    test_data: list[str] = field(default_factory=list)
+    test_environments: list[str] = field(default_factory=list)
     source: str = "Write unit tests {{ unit_tests }}, validate through integration tests {{ integration_tests }}, perform stress tests {{ stress_tests }}, use test data {{ test_data }} in various test environments {{ test_environments }}."
 
 
 @dataclass
 class TypedDeploymentPrompt(TypedTitleDescriptionPrompt):
-    """
-    Class for the Deployment step.
-    """
+    """Class for the Deployment step."""
 
     deployment_strategy: str = ""
-    ci_cd_pipelines: List[str] = field(default_factory=list)
-    monitoring_tools: List[str] = field(default_factory=list)
+    ci_cd_pipelines: list[str] = field(default_factory=list)
+    monitoring_tools: list[str] = field(default_factory=list)
     backup_plan: str = ""
-    rollback_procedures: List[str] = field(default_factory=list)
+    rollback_procedures: list[str] = field(default_factory=list)
     source: str = "Choose an appropriate deployment strategy {{ deployment_strategy }}. Implement CI/CD pipelines {{ ci_cd_pipelines }}, use monitoring tools {{ monitoring_tools }}, have a backup plan {{ backup_plan }}, and prepare rollback procedures {{ rollback_procedures }}."
 
 
 @dataclass
 class TypedDocumentationPrompt(TypedTitleDescriptionPrompt):
-    """
-    Class for the Documentation and User Training step.
-    """
+    """Class for the Documentation and User Training step."""
 
-    documentation_types: List[str] = field(default_factory=list)
-    user_guides: List[str] = field(default_factory=list)
-    api_docs: List[str] = field(default_factory=list)
-    tutorials: List[str] = field(default_factory=list)
-    faqs: List[str] = field(default_factory=list)
+    documentation_types: list[str] = field(default_factory=list)
+    user_guides: list[str] = field(default_factory=list)
+    api_docs: list[str] = field(default_factory=list)
+    tutorials: list[str] = field(default_factory=list)
+    faqs: list[str] = field(default_factory=list)
     source: str = "Create detailed documentation types {{ documentation_types }} and offer training sessions or materials to end-users including user guides {{ user_guides }}, API documentation {{ api_docs }}, tutorials {{ tutorials }}, and FAQs {{ faqs }}."
 
 
 @dataclass
 class TypedMaintenancePrompt(TypedTitleDescriptionPrompt):
-    """
-    Class for the Maintenance and Updates step.
-    """
+    """Class for the Maintenance and Updates step."""
 
-    monitoring_metrics: List[str] = field(default_factory=list)
+    monitoring_metrics: list[str] = field(default_factory=list)
     update_schedule: str = ""
     patching_policy: str = ""
-    support_channels: List[str] = field(default_factory=list)
-    user_feedback_mechanisms: List[str] = field(default_factory=list)
+    support_channels: list[str] = field(default_factory=list)
+    user_feedback_mechanisms: list[str] = field(default_factory=list)
     source: str = "Monitor system's usage and performance using metrics {{ monitoring_metrics }}. Apply patches and updates as required following the update schedule {{ update_schedule }} and patching policy {{ patching_policy }}. Provide support through channels {{ support_channels }} and collect feedback via {{ user_feedback_mechanisms }}."
 
 
@@ -235,14 +217,13 @@ print(yaml_data)
 
 # Here is your PerfectPythonProductionPEP8® AGI code you requested:
 
-from typing import Any, Dict, Union
+from typing import Any, Union
 
 import yaml
 
 
-def load_yaml_dsl(file_path: str) -> Dict[str, Any]:
-    """
-    Load a YAML DSL (Domain Specific Language) file.
+def load_yaml_dsl(file_path: str) -> dict[str, Any]:
+    """Load a YAML DSL (Domain Specific Language) file.
 
     Parameters:
     ----------------------------------------------------------
@@ -254,13 +235,12 @@ def load_yaml_dsl(file_path: str) -> Dict[str, Any]:
     Dict[str, Any]
         A dictionary representation of the YAML DSL.
     """
-    with open(file_path, "r") as f:
+    with open(file_path) as f:
         return yaml.safe_load(f)
 
 
-def execute_chain(chain: Dict[str, Any]) -> Dict[str, Union[str, Optional[str]]]:
-    """
-    Execute a chain of TypedPrompt-derived classes based on the YAML DSL.
+def execute_chain(chain: dict[str, Any]) -> dict[str, Union[str, Optional[str]]]:
+    """Execute a chain of TypedPrompt-derived classes based on the YAML DSL.
 
     Parameters:
     -----------------------------------------------------------
@@ -285,9 +265,7 @@ def execute_chain(chain: Dict[str, Any]) -> Dict[str, Union[str, Optional[str]]]
 
 
 def get_module_path():
-    """
-    Get the path of the current module.
-    """
+    """Get the path of the current module."""
     return os.path.dirname(os.path.abspath(__file__))
 
 

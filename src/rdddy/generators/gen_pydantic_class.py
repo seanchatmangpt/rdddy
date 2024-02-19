@@ -1,13 +1,10 @@
-import dspy
 import inflection
-import jinja2
-from dspy import Signature, OutputField, InputField
 from pydantic import BaseModel, Field
-from typetemp.functional import render
 
+import dspy
+from dspy import InputField, OutputField, Signature
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 from typetemp.functional import render
-from typing import List, Optional
 
 
 class FieldTemplateSpecificationModel(BaseModel):
@@ -34,10 +31,6 @@ class FieldTemplateSpecificationModel(BaseModel):
 
 
 class ConfigTemplateSpecificationModel(BaseModel):
-    class Config:
-        title = "Model Configuration"
-        description = "Configuration settings for a Pydantic BaseModel."
-
     title: str = Field(
         ...,
         description="The title for the BaseModel configuration.",
@@ -71,7 +64,7 @@ class ValidatorTemplateSpecificationModel(BaseModel):
         title="Description",
         description="A detailed description of the validator's purpose and usage.",
     )
-    parameters: List[str] = Field(
+    parameters: list[str] = Field(
         [],
         title="Parameters",
         description="A list of parameter names accepted by the validator.",
@@ -87,7 +80,7 @@ class PydanticClassTemplateSpecificationModel(BaseModel):
         ...,
         description="A detailed description of the Pydantic model's purpose and usage.",
     )
-    fields: List[FieldTemplateSpecificationModel] = Field(
+    fields: list[FieldTemplateSpecificationModel] = Field(
         ...,
         description="A list of field specifications for the model. Each field specifies the name, type, default value, description, and constraints. 15 fields max.",
     )
@@ -127,9 +120,7 @@ def write_pydantic_class_to_file(class_str, filename):
 
 
 class PromptToPydanticInstanceSignature(Signature):
-    """
-    Converts a  prompt into Pydantic model initialization kwargs.
-    """
+    """Converts a  prompt into Pydantic model initialization kwargs."""
 
     root_pydantic_model_class_name = InputField(
         desc="Class name of the Pydantic model for which `kwargs` are being generated."
@@ -294,11 +285,11 @@ The Full Stack application will serve as a dynamic reporting tool for analyzing 
 ### DFLSS Integration Calculus
 
 - **Define Phase**: Define security and compliance requirements using domain models, calculating the alignment with business objectives.
-    - \( \text{Define}_{RDD} = \sum (\text{DomainModels} + \text{SecurityAnnotations} + \text{ComplianceConstraints}) \)
+    - \\( \text{Define}_{RDD} = \\sum (\text{DomainModels} + \text{SecurityAnnotations} + \text{ComplianceConstraints}) \\)
 - **Measure Phase**: Instrument the system to log key performance metrics, identifying and addressing security vulnerabilities and compliance deviations.
-    - \( \text{Measure}_{RDD} = \int (\text{DomainEvents} \rightarrow \text{Log}( \text{PerformanceMetrics} + \text{SecurityVulnerabilities} + \text{ComplianceAdherence})) \,dt \)
+    - \\( \text{Measure}_{RDD} = \\int (\text{DomainEvents} \rightarrow \text{Log}( \text{PerformanceMetrics} + \text{SecurityVulnerabilities} + \text{ComplianceAdherence})) \\,dt \\)
 - **Explore Phase**: Conduct domain-driven experiments to explore security configurations and compliance scenarios for system optimization.
-    - \( \text{Explore}_{RDD} = \text{DomainExperiments}( \text{SecurityConfigurations} \times \text{ComplianceScenarios
+    - \\( \text{Explore}_{RDD} = \text{DomainExperiments}( \text{SecurityConfigurations} \times \text{ComplianceScenarios
 """
 
     model_module = GenPydanticInstance(root_model=GRDDDFLSSFramework)

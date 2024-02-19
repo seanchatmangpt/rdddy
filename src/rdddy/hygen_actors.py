@@ -1,21 +1,25 @@
 import asyncio
-import dspy
-from pydantic import Extra, Field
-from loguru import logger
+from typing import Optional
 
+from loguru import logger
+from pydantic import Field
+
+import dspy
+from rdddy.abstract_actor import AbstractActor
 from rdddy.actor_system import ActorSystem
-from rdddy.actor import Actor
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 from rdddy.messages import *
 
 
-class GenerateDashboardEvent(Event):
+class GenerateDashboardEvent(AbstractEvent):
     page_name: str
     widget_type: str
 
 
 class HygenCLIArgs(BaseModel):
     """The arguments for the Hygen CLI"""
+
+    model_config = ConfigDict(extra="allow")
 
     name: str = Field(
         ...,
@@ -31,27 +35,21 @@ class HygenCLIArgs(BaseModel):
         description="A string representing items or configurations specific to the generation process.",
     )
 
-    class Config:
-        extra = "allow"  # Allows for additional fields beyond those explicitly defined.
-
 
 class HygenTemplateModel(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
     generator: str = Field(
         ..., description="Specifies the Hygen generator to be used for code generation."
     )
-    action: str = Field(
-        ..., description="Defines the action that the generator should perform."
-    )
+    action: str = Field(..., description="Defines the action that the generator should perform.")
     cli_args: HygenCLIArgs = Field(
         ...,
         description="Additional key-value pairs providing specific arguments for the template generation process.",
     )
 
-    class Config:
-        extra = "allow"  # Permits additional fields, offering flexibility for extending the model as needed.
 
-
-class DashboardGeneratorActor(Actor):
+class DashboardGeneratorActor(AbstractActor):
     def __init__(self, actor_system: ActorSystem, actor_id=None):
         super().__init__(actor_system, actor_id=actor_id)
         # Retrieve NextJS project root:
@@ -66,9 +64,7 @@ class DashboardGeneratorActor(Actor):
         # ... Logic will come later ...
         print(f"Received generation request: {event}")
         try:
-            module = GenPydanticInstance(
-                root_model=HygenTemplateModel, child_models=[HygenCLIArgs]
-            )
+            module = GenPydanticInstance(root_model=HygenTemplateModel, child_models=[HygenCLIArgs])
             hygen_inst = module.forward(
                 "I need a hygen template to create an about component, use the page generator. and the 'new' action. the route is about"
             )
@@ -80,10 +76,9 @@ class DashboardGeneratorActor(Actor):
 
 
 async def run_hygen_async(
-    template_params: HygenTemplateModel, cwd: str = None, overwrite: bool = True
+    template_params: HygenTemplateModel, cwd: Optional[str] = None, overwrite: bool = True
 ):  # Use the new model
     """Executes a Hygen command asynchronously... (Same docstring as earlier)"""
-
     hygen_command = ["hygen", template_params.generator, template_params.action]
 
     for (
@@ -114,9 +109,7 @@ async def run_hygen_async(
         if (
             process.returncode != 0 or "Error" in stdout.decode()
         ):  # Check for non-zero exit code from Hygen
-            raise ChildProcessError(
-                f"Hygen failed with error:\n{stderr.decode()}{stdout.decode()}"
-            )
+            raise ChildProcessError(f"Hygen failed with error:\n{stderr.decode()}{stdout.decode()}")
         else:
             return stdout.decode()
     except ChildProcessError as e:

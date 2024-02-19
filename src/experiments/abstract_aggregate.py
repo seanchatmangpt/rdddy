@@ -1,7 +1,7 @@
-from slss.actor import Actor
+from rdddy.abstract_actor import AbstractActor
 
 
-class AbstractAggregate(Actor):
+class AbstractAggregate(AbstractActor):
     def __init__(self, actor_system, actor_id=None):
         super().__init__(actor_system, actor_id)
 

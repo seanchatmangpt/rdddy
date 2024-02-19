@@ -1,11 +1,10 @@
 from _ast import stmt
 from ast import parse
 from dataclasses import dataclass
-from typing import List
+from typing import Optional
 
 from typetemp.environment.typed_environment import TypedEnvironment
 from typetemp.environment.typed_native_environment import TypedNativeEnvironment
-from typetemp.functional import render_function as render_func
 from typetemp.template.render_mixin import RenderMixin
 
 _env = TypedEnvironment()
@@ -14,8 +13,7 @@ _native_env = TypedNativeEnvironment()
 
 @dataclass
 class TypedPythonSource(RenderMixin):
-    """
-    Base class for creating templated classes. Uses the jinja2 templating engine
+    """Base class for creating templated classes. Uses the jinja2 templating engine
     to render templates. Allows for usage of macros and filters.
     """
 
@@ -25,9 +23,7 @@ class TypedPythonSource(RenderMixin):
     output: str = None  # The rendered output
 
     def __post_init__(self):
-        """
-        After the instance is initialized, set the environment
-        """
+        """After the instance is initialized, set the environment"""
         # Use NativeEnvironment when use_native is True, else use default Environment
         self.env = _native_env if self.use_native else _env
 
@@ -35,8 +31,7 @@ class TypedPythonSource(RenderMixin):
         return self._render(**kwargs)
 
     def render_function(self, **kwargs) -> stmt:
-        """
-        Renders the function template and returns its AST object.
+        """Renders the function template and returns its AST object.
 
         :param kwargs: The keyword arguments to be used in rendering
         :return: The AST object of the rendered function
@@ -44,9 +39,8 @@ class TypedPythonSource(RenderMixin):
         rendered_func = self._render(**kwargs)
         return parse(rendered_func).body[0]
 
-    def render_class(self, func_tmpls: List[str] = None, **kwargs):
-        """
-        Renders the class template and returns the compiled class, optionally including methods.
+    def render_class(self, func_tmpls: Optional[list[str]] = None, **kwargs):
+        """Renders the class template and returns the compiled class, optionally including methods.
 
         :param func_tmpls: A list of template strings for functions to be included in the class
         :param kwargs: The keyword arguments to be used in rendering
@@ -59,7 +53,7 @@ class TypedPythonSource(RenderMixin):
         # If function templates are provided, render and add them to the class
         if func_tmpls:
             for func_tmpl in func_tmpls:
-                function_ast = render_func(func_tmpl, **kwargs)
+                function_ast = None  #  render_function(func_tmpl, **kwargs)
                 class_ast.body[-1].body.append(function_ast)
 
         # Compile the class AST

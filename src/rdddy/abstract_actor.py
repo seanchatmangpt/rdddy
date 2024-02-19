@@ -1,5 +1,4 @@
-"""
-The Actor Module for Reactive Domain-Driven Design (RDDDY) Framework
+r"""The AbstractActor Module for Reactive Domain-Driven Design (RDDDY) Framework
 ---------------------------------------------------------------------
 
 This module implements the core Actor abstraction within the RDDDY framework, providing a robust foundation for building reactive, domain-driven systems that are scalable, maintainable, and capable of handling complex, concurrent interactions. The Actor model encapsulates both state and behavior, allowing for asynchronous message passing as the primary means of communication between actors, thus fostering loose coupling and enhanced system resilience.
@@ -51,11 +50,13 @@ This calculus not only specifies the expected behavior of actors in response to 
 Developers should implement actor behaviors in accordance with the outlined calculus, ensuring that each actor's implementation respects the preconditions, postconditions, and domain-specific assertions relevant to their system's domain logic. This approach facilitates the development of systems that are not only functionally correct but also domain-compliant, thereby enhancing the value and applicability of the RDDDY framework in real-world scenarios.
 """
 import asyncio
-from loguru import logger
-from reactivex.scheduler.eventloop import AsyncIOScheduler
-from typing import TYPE_CHECKING, Callable
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Optional, Type
+
 import reactivex as rx
+from loguru import logger
 from reactivex import operators as ops
+from reactivex.scheduler.eventloop import AsyncIOScheduler
 
 from rdddy.messages import *
 
@@ -63,9 +64,8 @@ if TYPE_CHECKING:
     from rdddy.actor_system import ActorSystem
 
 
-class Actor:
-    """
-    Represents an actor within the RDDDY framework.
+class AbstractActor:
+    """Represents an actor within the RDDDY framework.
 
     Actors are fundamental units of computation in the RDDDY framework, encapsulating both state and behavior.
     They communicate asynchronously through message passing, promoting loose coupling and system resilience.
@@ -91,15 +91,14 @@ class Actor:
         map_handlers(): Maps message types to corresponding handler methods.
     """
 
-    def __init__(self, actor_system: "ActorSystem", actor_id: int = None):
+    def __init__(self, actor_system: "ActorSystem", actor_id: Optional[int] = None):
         self.actor_system = actor_system
         self.actor_id = actor_id or id(self)
         self.mailbox = rx.subject.Subject()
         self.handlers = self.map_handlers()
 
     async def start(self, scheduler: AsyncIOScheduler):
-        """
-        Initiates the processing loop for the actor's mailbox, ensuring asynchronous message handling.
+        """Initiates the processing loop for the actor's mailbox, ensuring asynchronous message handling.
 
         Preconditions (Pre):
             - The actor's mailbox must be initialized.
@@ -122,9 +121,8 @@ class Actor:
         )
         logger.info(f"Actor {self.actor_id} started")
 
-    def on_next(self, message: Message):
-        """
-        Handles the next incoming message in the actor's mailbox.
+    def on_next(self, message: AbstractMessage):
+        """Handles the next incoming message in the actor's mailbox.
 
         Preconditions (Pre):
             - The incoming message must be a valid instance of the Message class.
@@ -136,15 +134,14 @@ class Actor:
             - The incoming message has been processed by the actor.
 
         Args:
-            message (Message): The incoming message to be processed.
+            message (AbstractMessage): The incoming message to be processed.
         """
         # Schedule the async handler as a new task
         # logger.debug(f"Actor {self.actor_id} received message: {message}")
         asyncio.create_task(self.receive(message))
 
     def on_error(self, error):
-        """
-        Handles errors that occur in the actor's mailbox processing.
+        """Handles errors that occur in the actor's mailbox processing.
 
         Preconditions (Pre):
             - None
@@ -161,8 +158,7 @@ class Actor:
         logger.error(f"Error in actor {self.actor_id} mailbox: {error}")
 
     def on_completed(self):
-        """
-        Handles the completion of the actor's mailbox stream.
+        """Handles the completion of the actor's mailbox stream.
 
         Preconditions (Pre):
             - None
@@ -175,9 +171,8 @@ class Actor:
         """
         # logger.debug(f"Actor {self.actor_id} mailbox stream completed")
 
-    async def receive(self, message: Message):
-        """
-        Processes an incoming message received by the actor.
+    async def receive(self, message: AbstractMessage):
+        """Processes an incoming message received by the actor.
 
         Preconditions (Pre):
             - The incoming message must be a valid instance of the Message class.
@@ -189,7 +184,7 @@ class Actor:
             - The incoming message has been successfully processed by the actor.
 
         Args:
-            message (Message): The incoming message to be processed.
+            message (AbstractMessage): The incoming message to be processed.
         """
         try:
             handler = self.handlers.get(type(message))
@@ -199,12 +194,11 @@ class Actor:
         except Exception as e:
             error_message = f"Error in actor {self.actor_id} processing message: {e}"
             # Broadcast an error event through the actor system
-            await self.publish(Event(content=error_message))
+            await self.publish(AbstractEvent(content=error_message))
             logger.error(error_message)
 
-    async def publish(self, message: Message):
-        """
-        Publishes a message to the actor system for distribution.
+    async def publish(self, message: AbstractMessage):
+        """Publishes a message to the actor system for distribution.
 
         Preconditions (Pre):
             - The message must be a valid instance of the Message class.
@@ -216,16 +210,15 @@ class Actor:
             - The message has been successfully published to the actor system.
 
         Args:
-            message (Message): The message to be published.
+            message (AbstractMessage): The message to be published.
         """
         if message.actor_id == -1:
             message.actor_id = self.actor_id
 
         await self.actor_system.publish(message)
 
-    def map_handlers(self) -> dict[Type[Message], Callable]:
-        """
-        Maps message types to corresponding handler methods.
+    def map_handlers(self) -> dict[Type[AbstractMessage], Callable]:
+        """Maps message types to corresponding handler methods.
 
         Preconditions (Pre):
             - None
@@ -243,9 +236,9 @@ class Actor:
                 annotations = method.__annotations__
                 for arg in annotations.values():
                     try:
-                        if issubclass(arg, Message):
+                        if issubclass(arg, AbstractMessage):
                             handlers[arg] = method
                     except TypeError:
                         pass
-        del handlers[Message]
+        del handlers[AbstractMessage]
         return handlers

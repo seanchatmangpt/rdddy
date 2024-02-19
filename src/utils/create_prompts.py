@@ -1,36 +1,26 @@
-import ast
 import inspect
 import json
+from collections.abc import Callable
 from json import JSONDecodeError
 from textwrap import dedent
-from typing import Callable
+from typing import Optional
 
-import anyio
-import inflection
 import loguru
-import pyperclip
-from icontract import require, ensure
+from icontract import ensure, require
 
 from typetemp.template.typed_template import TypedTemplate
 from utils.complete import achat, create
-from utils.create_primatives import (
-    create_list,
-    create_python_primitive,
-    create_dict,
-    extract_dict,
-)
-from utils.file_tools import write, extract_code
+from utils.file_tools import write
 from utils.models import get_model
 from utils.radon_workbench import fix_code
 
-
 create_jinja_template = """
 Objective:
-Transform the given input (whether it's template data, text, or another form of structured data) 
-into a Jinja2 template that follows best practices and is easy to maintain. Ensure it leverages 
+Transform the given input (whether it's template data, text, or another form of structured data)
+into a Jinja2 template that follows best practices and is easy to maintain. Ensure it leverages
 Jinja2's features effectively. Use Jinja2's template syntax and filters appropriately.
 
-You are generating a Jinja2 template for a specific task. The template should be ready to be used 
+You are generating a Jinja2 template for a specific task. The template should be ready to be used
 in a production environment.
 
 ```prompt
@@ -41,9 +31,7 @@ in a production environment.
 
 
 def create_jinja(prompt, max_tokens=2500, model=None, filepath=None, temperature=0.7):
-    """
-    Generate a Jinja2 template based on the given prompt.
-    """
+    """Generate a Jinja2 template based on the given prompt."""
     create_prompt = TypedTemplate(source=create_python_template, prompt=prompt)()
 
     return __create(
@@ -96,8 +84,8 @@ __create_template = """
 
 create_python_template = """
 Objective:
-Transform the given input (whether it's Python code, project documentation, or another form of structured data) 
-into PYTHON CODE that aligns with the Pythonic practices Luciano Ramalho would advocate for based on his 
+Transform the given input (whether it's Python code, project documentation, or another form of structured data)
+into PYTHON CODE that aligns with the Pythonic practices Luciano Ramalho would advocate for based on his
 teachings in "Fluent Python". Ensure it's idiomatic, concise, and leverages Python's features effectively.
 Use the standard library and built-in functions unless the library is specified in the prompt.
 Use functional programming without classes. Do not use the keyword pass.
@@ -114,9 +102,7 @@ ready to be deployed to a production environment.
 
 
 def create_python(prompt, max_tokens=2500, model=None, filepath=None, temperature=0.7):
-    """
-    Generate Python code based on the given prompt.
-    """
+    """Generate Python code based on the given prompt."""
     create_prompt = TypedTemplate(source=create_python_template, prompt=prompt)()
 
     return __create(
@@ -195,10 +181,7 @@ def __chat(
 
 
 def spr(prompt, encode=True, model="3i", max_tokens=250, temperature=0.0):
-    """
-    Create a Sparse Priming Representation (SPR) from the given prompt.
-    """
-
+    """Create a Sparse Priming Representation (SPR) from the given prompt."""
     encode_prompt = dedent(
         f"""
 # INSTRUCTIONS: You are tasked with generating a Sparse Priming Representation (SPR) from the provided text. SPRs encapsulate information in a highly compressed format. Your objective is to condense the given content, focusing on its essence, and represent it within a fraction of its original length. Abide by the following principles:
@@ -207,7 +190,7 @@ def spr(prompt, encode=True, model="3i", max_tokens=250, temperature=0.0):
 - Maintain critical relationships and underlying principles.
 - Use succinct, clear language, aiming for maximum compression with minimum loss of essential content.
 
-Do not include any references or content outside of the given input. 
+Do not include any references or content outside of the given input.
 Your output should be a distilled SPR, 5x than the original text. Use emergent properties within the model to generate the SPR.
 It is not intended to be human readable. Use these techniques to achieve the desired compression:
 Symbolic Representation
@@ -267,11 +250,11 @@ Do not reference any external content; rely solely on the SPR for your expansion
 
 
 create_evo_template = """
-# Task: Automatically generate a YAML configuration for the prompt. 
-This configuration must be based on Domain-Driven Design principles, 
+# Task: Automatically generate a YAML configuration for the prompt.
+This configuration must be based on Domain-Driven Design principles,
 outlining Entities, Value Objects, and Business Functions.
 
-# Instructions: 
+# Instructions:
 
 # Step 1: Define Value Objects
 # These are elements without identity, describing characteristics. They are immutable.
@@ -288,7 +271,7 @@ value_objects:
 entities:
   - name: "EntityName"
     definition: "Provide a clear, concise description."
-    value_objects: 
+    value_objects:
       - "List associated Value Objects by name"
 
 # Step 3: Describe Business Functions
@@ -312,9 +295,9 @@ additional_info:
   - key: "Specify the context topic"
     value: "Give detailed information or instructions"
 
-# Reminder: Replace all placeholder text with actual, relevant information. 
-Ensure data consistency and accuracy, adhering to the YAML hierarchical 
-structure for successful parsing. 
+# Reminder: Replace all placeholder text with actual, relevant information.
+Ensure data consistency and accuracy, adhering to the YAML hierarchical
+structure for successful parsing.
 
 # Step 5: Generate YAML Configuration from Prompt following the schema exactly
 that means that the output should be a valid YAML file that follows the schema above.
@@ -350,16 +333,16 @@ def create_evo(prompt, max_tokens=2500, model=None, filepath=None, temperature=0
 
 
 def main2():
-    satisfy = """Recent efforts have augmented large language models (LLMs) with external resources (e.g., 
-    the Internet) or internal control flows (e.g., prompt chaining) for tasks requiring grounding or reasoning, 
-    leading to a new class of language agents. While these agents have achieved substantial empirical success, 
-    we lack a systematic framework to organize existing agents and plan future developments. In this paper, 
-    we draw on the rich history of cognitive science and symbolic artificial intelligence to propose Cognitive 
-    Architectures for Language Agents (CoALA). CoALA describes a language agent with modular memory components, 
-    a structured action space to interact with internal memory and external environments, and a generalized 
-    decision-making process to choose actions. We use CoALA to retrospectively survey and organize a large body of 
-    recent work, and prospectively identify actionable directions towards more capable agents. Taken together, 
-    CoALA contextualizes today's language agents within the broader history of AI and outlines a path towards 
+    satisfy = """Recent efforts have augmented large language models (LLMs) with external resources (e.g.,
+    the Internet) or internal control flows (e.g., prompt chaining) for tasks requiring grounding or reasoning,
+    leading to a new class of language agents. While these agents have achieved substantial empirical success,
+    we lack a systematic framework to organize existing agents and plan future developments. In this paper,
+    we draw on the rich history of cognitive science and symbolic artificial intelligence to propose Cognitive
+    Architectures for Language Agents (CoALA). CoALA describes a language agent with modular memory components,
+    a structured action space to interact with internal memory and external environments, and a generalized
+    decision-making process to choose actions. We use CoALA to retrospectively survey and organize a large body of
+    recent work, and prospectively identify actionable directions towards more capable agents. Taken together,
+    CoALA contextualizes today's language agents within the broader history of AI and outlines a path towards
     language-based general intelligence."""
 
     enc = spr(satisfy)
@@ -370,8 +353,8 @@ def main2():
 
     # print(dec)
 
-    action_space = """ CoALA also includes a structured action space. This refers to the set of 
-    actions that an agent can take in response to a given situation. By organizing these actions in a structured 
+    action_space = """ CoALA also includes a structured action space. This refers to the set of
+    actions that an agent can take in response to a given situation. By organizing these actions in a structured
     manner, CoALA agents are able to make more informed decisions and carry out more complex tasks."""
 
     # evo = create_evo(dec, filepath="coala_evo.yaml")
@@ -382,8 +365,8 @@ def main2():
 
 def gen_evo():
     """ """
-    action_space = """ CoALA also includes a structured action space. This refers to the set of 
-    actions that an agent can take in response to a given situation. By organizing these actions in a structured 
+    action_space = """ CoALA also includes a structured action space. This refers to the set of
+    actions that an agent can take in response to a given situation. By organizing these actions in a structured
     manner, CoALA agents are able to make more informed decisions and carry out more complex tasks."""
 
     # evo = create_evo(dec, filepath="coala_evo.yaml")
@@ -398,7 +381,7 @@ Use large, readable typography and include visually appealing separators between
 
 The component should be fully responsive, ensuring a seamless experience on all devices, including tablets and smartphones.
 
-Ensure the design follows best practices for web accessibility, 
+Ensure the design follows best practices for web accessibility,
 such as alt text for visual elements, keyboard navigation, and proper contrast ratios.
 
 ```prompt
@@ -444,7 +427,7 @@ def create_tailwind_landing(
         temperature=temperature,
     )
 
-    markup = f"""<!DOCTYPE html>
+    markup = """<!DOCTYPE html>
          <html lang="en">
          <head>
            <meta charset="UTF-8">
@@ -460,12 +443,9 @@ def create_tailwind_landing(
 @require(lambda prompt: isinstance(prompt, str))
 @require(lambda cls: issubclass(cls, object))
 def create_data(
-    prompt: str, cls: type, model: str = None, max_tokens: int = 2000
+    prompt: str, cls: type, model: Optional[str] = None, max_tokens: int = 2000
 ) -> dict:
-    """
-    Create a dict of data from a prompt that can be passed to the given class as kwargs
-    """
-
+    """Create a dict of data from a prompt that can be passed to the given class as kwargs"""
     instructions = dedent(
         f"""Create a JSON response that contains data corresponding to the class {cls.__name__} based on the prompt.
     The json loads like this: json.loads(response)
@@ -486,9 +466,7 @@ def create_data(
     )
 
     # print(instructions)
-    result = create(
-        prompt=instructions, stop=["```", "\n\n"], max_tokens=max_tokens, model=model
-    )
+    result = create(prompt=instructions, stop=["```", "\n\n"], max_tokens=max_tokens, model=model)
 
     # Safely evaluate to expected type
     try:
@@ -504,7 +482,7 @@ def create_data(
             f"""You are a JSON fixing assistant.
         Please fix the following json so that it can be used to
         create an instance of {cls.__name__}:\n\n{result}\n\n
-        
+
         ```json
         {{"""
         )
@@ -521,16 +499,13 @@ def create_data(
 @require(lambda cabal: isinstance(cabal, Callable))
 @ensure(lambda result: isinstance(result, dict))
 def create_kwargs(prompt: str, cabal: Callable) -> dict:
-    """
-    Create a dict of data from a prompt that can be passed to the given class as kwargs
-    """
-
+    """Create a dict of data from a prompt that can be passed to the given class as kwargs"""
     instructions = dedent(
         f"""
     Create a JSON object that contains data corresponding to the kwargs {cabal.__name__} based on the prompt.
     Do not add any additional information to the JSON. Only use the information provided in the prompt.
     This is going to be used to call of {cabal.__name__}. It will crash if you add any additional information.
-    Provide values for all the fields in the class. 
+    Provide values for all the fields in the class.
     After the JSON, provide a doctoral thesis explaining your thought process.
 
     ```python
@@ -583,13 +558,14 @@ def create_kwargs(prompt: str, cabal: Callable) -> dict:
 
 
 def create_pydantic_class(
-    prompt: str, class_name: str = None, min_fields=2, max_fields=5, file_path=None
+    prompt: str, class_name: Optional[str] = None, min_fields=2, max_fields=5, file_path=None
 ) -> str:
-    """
-    Generate a Pydantic class based on a prompt.
+    """Generate a Pydantic class based on a prompt.
+
     Args:
         prompt (str): The prompt describing the class fields.
         class_name (str): The name for the generated Pydantic class.
+
     Returns:
         type: The generated Pydantic class.
     """
@@ -618,23 +594,23 @@ The name is: """
     # # print(class_name)
     instructions = dedent(
         f"""You are a expert Pydantic class assistant.
-        
+
         Define a Pydantic class `{class_name}` with the on the prompt:
-        
+
         Only use the Field class not primitives
-        
+
         The class should have between {min_fields} and {max_fields} fields. It will crash if you do not follow constraints.
 
         ```prompt
         {prompt}
         ```
-        
+
         Complete the following code block, make sure to stay within constraints:
         ```python
         # I have made sure there are only primitives in the dict, no classes or functions.
         # I have made sure there are {min_fields} to {max_fields} fields.
         from pydantic import BaseModel
-        
+
         class {class_name}(BaseModel):
             '''The total number of fields is"""
     )
@@ -657,9 +633,9 @@ The name is: """
 
 
 create_git_patch_template = """You are a git patch assistant. Create a git patch from the prompt.
-The format is the same as if running the command `git format-patch -1 HEAD`. 
+The format is the same as if running the command `git format-patch -1 HEAD`.
 After the patch, provide a doctoral thesis explaining your thought process.
-    
+
 ```prompt
 {{ prompt }}
 ```
@@ -668,9 +644,7 @@ After the patch, provide a doctoral thesis explaining your thought process.
 
 
 def create_git_patch(prompt: str, max_tokens=2500, model=None, filepath=None):
-    """
-    Generate a git patch based on a prompt.
-    """
+    """Generate a git patch based on a prompt."""
     create_prompt = TypedTemplate(source=create_git_patch_template, prompt=prompt)()
 
     result = __create(
@@ -706,12 +680,12 @@ def main2():
 
 
 import subprocess
+
 import typer
 
 
 def create_cli_arguments(prompt: str) -> list:
-    """
-    Create a list of command-line arguments for a subcommand with optional options.
+    """Create a list of command-line arguments for a subcommand with optional options.
     Example usage: create_cli_arguments("subcommand_name", {"--option": "value"})
     """
     instructions = f"""Create a JSON list that contains arguments to be used in a command line interface (CLI) invocation
@@ -750,7 +724,7 @@ USER JSON Argument List:
             raise TypeError(f"Expected dict, got {type(extracted_dict)}.")
 
         return extracted_dict
-    except (SyntaxError, TypeError, JSONDecodeError) as e:
+    except (SyntaxError, TypeError, JSONDecodeError):
         fix_instructions = dedent(
             f"""You are a JSON fixing assistant.
             Please fix the following json so that it can be used to
@@ -770,8 +744,7 @@ USER JSON Argument List:
 
 
 def create_cli_invocation(prompt, command=None):
-    """
-    Create a CLI invocation command with the given command and arguments.
+    """Create a CLI invocation command with the given command and arguments.
     Example usage: create_cli_invocation("your_app.py", ["subcommand", "--option", "value"])
     """
     try:

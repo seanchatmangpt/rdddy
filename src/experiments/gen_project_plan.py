@@ -1,8 +1,6 @@
 from jinja2 import Template
 from pydantic import BaseModel
 
-from utils.create_prompts import create_data
-
 
 class ProjectDetails(BaseModel):
     project_name: str
@@ -90,10 +88,11 @@ For more information on how our platform can revolutionize your competitive stra
 
 
 async def main():
-    data = await create_data(prompt=pr, cls=ProjectDetails)
-    details = ProjectDetails(**data)
-    project_template = render_project_template(details)
-    print(project_template)
+    pass
+    # data = await create_data(prompt=pr, cls=ProjectDetails)
+    # details = ProjectDetails(**data)
+    # project_template = render_project_template(details)
+    # print(project_template)
 
 
 if __name__ == "__main__":

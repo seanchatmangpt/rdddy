@@ -1,5 +1,4 @@
-"""
-Module: Enhanced Actor System for Page Generation
+"""Module: Enhanced Actor System for Page Generation
 =================================================
 
 Overview
@@ -24,56 +23,53 @@ ECCN Specification
 
 #### Actor Initialization
 
-\[ AS.init() \rightarrow PM \oplus FSD \]
+\\[ AS.init() \rightarrow PM \\oplus FSD \\]
 
 #### Command Generation and Event Handling
 
 - **Command Generation (CG)**:
 
-  \[ CG(PM, "Homepage", "/") \rightarrow cmd_{GeneratePage} \]
+  \\[ CG(PM, "Homepage", "/") \rightarrow cmd_{GeneratePage} \\]
 
 - **Page Generation (PG)**:
 
-  \[ PG(FSD, cmd_{GeneratePage}) \Rightarrow \left\{ \begin{array}{ll} Pre: & cmd_{GeneratePage}.name = "Homepage" \\ Action: & generate\_page(cmd_{GeneratePage}) \\ Post: & PageGeneratedEvent(name = "Homepage") \end{array} \right. \]
+  \\[ PG(FSD, cmd_{GeneratePage}) \\Rightarrow \\left\\{ \begin{array}{ll} Pre: & cmd_{GeneratePage}.name = "Homepage" \\ Action: & generate\\_page(cmd_{GeneratePage}) \\ Post: & PageGeneratedEvent(name = "Homepage") \\end{array} \right. \\]
 
 - **Error Handling (EH)**:
 
-  \[ EH(FSD, cmd_{GeneratePage}) \Rightarrow \left\{ \begin{array}{ll} Pre: & cmd_{GeneratePage}.name = "Homepage" \\ Action: & generate\_page(cmd_{GeneratePage}) \rightarrow \text{Exception} \\ Post: & GenerationErrorEvent(error\_message) \end{array} \right. \]
+  \\[ EH(FSD, cmd_{GeneratePage}) \\Rightarrow \\left\\{ \begin{array}{ll} Pre: & cmd_{GeneratePage}.name = "Homepage" \\ Action: & generate\\_page(cmd_{GeneratePage}) \rightarrow \text{Exception} \\ Post: & GenerationErrorEvent(error\\_message) \\end{array} \right. \\]
 
 #### Invariant Maintenance
 
-\[ SI(FSD, cmd_{GeneratePage}) \Leftrightarrow (PageGeneratedEvent \vee GenerationErrorEvent) \]
+\\[ SI(FSD, cmd_{GeneratePage}) \\Leftrightarrow (PageGeneratedEvent \vee GenerationErrorEvent) \\]
 
 Implementation Details
 ----------------------
 
 The system leverages asynchronous programming paradigms and the actor model
 """
+import asyncio
 from typing import Optional
 
-import asyncio
-import dspy
-from pydantic import Extra, Field
 from loguru import logger
+from pydantic import Field
 
+from rdddy.abstract_actor import AbstractActor
 from rdddy.actor_system import ActorSystem
-from rdddy.actor import Actor
-from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 from rdddy.hygen_actors import *
 from rdddy.messages import *
 
 # ... (HygenCLIArgs, HygenTemplateModel remain unchanged)
 
-nextjs_root = (
-    "/Users/candacechatman/dev/nextjs-dashboard"  # Retrieve in your actual system
-)
+nextjs_root = "/Users/candacechatman/dev/nextjs-dashboard"  # Retrieve in your actual system
 
 
 from typing import Optional
-from pydantic import BaseModel, Field
+
+from pydantic import Field
 
 
-class GeneratePageCommand(Command):
+class GeneratePageCommand(AbstractCommand):
     """Command to generate a new page within the project."""
 
     name: str = Field(
@@ -94,7 +90,7 @@ class GeneratePageCommand(Command):
     )
 
 
-class PageGeneratedEvent(Event):
+class PageGeneratedEvent(AbstractEvent):
     """Event published when a page is successfully generated."""
 
     name: str = Field(
@@ -103,7 +99,7 @@ class PageGeneratedEvent(Event):
     )
 
 
-class GenerationErrorEvent(Event):
+class GenerationErrorEvent(AbstractEvent):
     """Event published when an error occurs during page generation."""
 
     error_message: str = Field(
@@ -112,9 +108,8 @@ class GenerationErrorEvent(Event):
     )
 
 
-class ProjectManager(Actor):
-    """
-    Manages the lifecycle of a project within the software development process.
+class ProjectManager(AbstractActor):
+    """Manages the lifecycle of a project within the software development process.
 
     ECCN Specification:
     -------------------
@@ -138,8 +133,7 @@ class ProjectManager(Actor):
         self.nextjs_root = nextjs_root  # Retrieve in your actual system
 
     async def initiate_project(self):
-        """
-        Initiates the project setup process and issues a `GeneratePageCommand`.
+        """Initiates the project setup process and issues a `GeneratePageCommand`.
 
         ECCN Action:
             Generates a `GeneratePageCommand` with predefined attributes
@@ -149,15 +143,12 @@ class ProjectManager(Actor):
         """
         # Project setup... (if there are steps prior to generation)
         await self.publish(
-            GeneratePageCommand(
-                name="Homepage", route="/test/", description="Hello World"
-            )
+            GeneratePageCommand(name="Homepage", route="/test/", description="Hello World")
         )
 
 
-class FullStackDeveloper(Actor):
-    """
-    Implements the logic for generating new pages based on commands received.
+class FullStackDeveloper(AbstractActor):
+    """Implements the logic for generating new pages based on commands received.
 
     ECCN Specification:
     -------------------
@@ -174,8 +165,7 @@ class FullStackDeveloper(Actor):
     """
 
     def __init__(self, actor_system: ActorSystem, actor_id=None):
-        """
-        Initializes the FullStackDeveloper actor within the ActorSystem.
+        """Initializes the FullStackDeveloper actor within the ActorSystem.
 
         ECCN Action:
             Initializes the FullStackDeveloper with a reference to the ActorSystem
@@ -186,15 +176,14 @@ class FullStackDeveloper(Actor):
             - Actor Initialization (AI):
                 AI(FullStackDeveloper) -> Initializes FullStackDeveloper with actor_system and actor_id.
 
-            Pre: \[ \text{actor\_system} \neq \emptyset \]
-            Post: \[ \text{self.project\_root} = \text{nextjs\_root} \]
+            Pre: \\[ \text{actor\\_system} \neq \\emptyset \\]
+            Post: \\[ \text{self.project\\_root} = \text{nextjs\\_root} \\]
         """
         super().__init__(actor_system, actor_id=actor_id)
         self.project_root = nextjs_root  # Will be populated once project setup occurs
 
     async def generate_page(self, command: GeneratePageCommand):
-        """
-        Generates a page based on the received GeneratePageCommand.
+        """Generates a page based on the received GeneratePageCommand.
 
         ECCN Action:
             Receives a GeneratePageCommand and attempts to generate a new page
@@ -203,9 +192,9 @@ class FullStackDeveloper(Actor):
 
             - Page Generation (PG):
                 PG(self, command) => {
-                    Pre: \[ \text{command} \text{ is an instance of } GeneratePageCommand \]
+                    Pre: \\[ \text{command} \text{ is an instance of } GeneratePageCommand \\]
                     Action: Generates a new page based on command parameters.
-                    Post: \left\{ \begin{array}{ll} \text{on success: } & \text{Publishes PageGeneratedEvent(name = command.name)} \\ \text{on failure: } & \text{Publishes GenerationErrorEvent(error\_message = str(e))} \end{array} \right.
+                    Post: \\left\\{ \begin{array}{ll} \text{on success: } & \text{Publishes PageGeneratedEvent(name = command.name)} \\ \text{on failure: } & \text{Publishes GenerationErrorEvent(error\\_message = str(e))} \\end{array} \right.
                 }
 
         Args:
@@ -221,8 +210,7 @@ class FullStackDeveloper(Actor):
             await self.publish(GenerationErrorEvent(error_message=str(e)))
 
     def construct_hygen_model(self, command: GeneratePageCommand):
-        """
-        Constructs the HygenTemplateModel for generating a page.
+        """Constructs the HygenTemplateModel for generating a page.
 
         ECCN Action:
             Based on the provided GeneratePageCommand, constructs a HygenTemplateModel
@@ -230,9 +218,9 @@ class FullStackDeveloper(Actor):
 
             - Model Construction (MC):
                 MC(self, command) => {
-                    Pre: \[ \text{command} \text{ is an instance of } GeneratePageCommand \]
+                    Pre: \\[ \text{command} \text{ is an instance of } GeneratePageCommand \\]
                     Action: Constructs HygenTemplateModel from command parameters.
-                    Post: \[ \text{Returns HygenTemplateModel} \]
+                    Post: \\[ \text{Returns HygenTemplateModel} \\]
                 }
 
         Args:

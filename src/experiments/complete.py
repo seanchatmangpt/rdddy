@@ -1,10 +1,11 @@
+from dataclasses import dataclass, field
+from typing import Optional
+
 import openai
 import pyperclip
 from openai import AsyncOpenAI
-from slss.browser.chatgpt_browser_worker import *
-
-from dataclasses import dataclass, field
-from typing import Any, List, Optional
+from openai.resources.chat import AsyncCompletions
+from playwright.async_api import async_playwright
 
 from utils.models import get_model
 
@@ -20,7 +21,7 @@ class LLMConfig:
     top_p: float = 1.0
     frequency_penalty: float = 0.0
     presence_penalty: float = 0.0
-    stop: Optional[List[str]] = field(default=None)
+    stop: Optional[list[str]] = field(default=None)
 
     def update(self, **kwargs):
         for key, value in kwargs.items():
@@ -30,7 +31,7 @@ class LLMConfig:
                 raise ValueError(f"Invalid config key: {key}")
 
 
-def create(config: LLMConfig = None, **kwargs):
+def create(config: Optional[LLMConfig] = None, **kwargs):
     if config:
         config.update(**kwargs)
         prompt = config.prompt
@@ -72,9 +73,7 @@ async def count_response_buttons(page):
 
 async def extract_new_messages(page, last_count):
     # Get all messages by the assistant
-    elements = await page.query_selector_all(
-        'div[data-message-author-role="assistant"]'
-    )
+    elements = await page.query_selector_all('div[data-message-author-role="assistant"]')
     new_messages = []
 
     for element in elements[-last_count:]:  # Process only the last few messages
@@ -110,14 +109,6 @@ async def process_new_responses(page, copy_code=False):
 
 
 async def goto_chatgpt(prompt, copy_code=False, route=""):
-    if not is_command_running(command_to_check):
-        print("Starting linkedin browser worker")
-        process = await start_chrome_canary()
-    else:
-        print("Process already running")
-
-    await asyncio.sleep(2)
-
     async with async_playwright() as p:
         # Connect to an existing instance of Chrome using the connect_over_cdp method.
         browser = await p.chromium.connect_over_cdp("http://localhost:9222")
@@ -145,7 +136,7 @@ async def goto_chatgpt(prompt, copy_code=False, route=""):
         return response
 
 
-async def acreate(*, config: LLMConfig = None, **kwargs):
+async def acreate(*, config: Optional[LLMConfig] = None, **kwargs):
     if config:
         config.update(**kwargs)
         prompt = config.prompt
@@ -216,7 +207,6 @@ import json
 import os
 from dataclasses import dataclass
 from time import sleep
-from typing import Union
 
 from loguru import logger
 
@@ -243,9 +233,8 @@ def chat(
     raw_msg=False,
     write_path=None,
     mode="a+",
-) -> Union[str, dict]:
-    """
-    Customized completion function that interacts with the OpenAI API, capable of handling prompts, system messages,
+):
+    """Customized completion function that interacts with the OpenAI API, capable of handling prompts, system messages,
     and specific functions. If the content length is too long, it will shorten the content and retry.
 
     Parameters:
@@ -316,9 +305,7 @@ def chat(
             wait_time = initial_wait * (backoff_factor ** (retry - 1))
 
             # Print the error and wait before retrying
-            logger.warning(
-                f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}"
-            )
+            logger.warning(f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}")
             sleep(wait_time)
 
 
@@ -351,9 +338,8 @@ async def achat(
     raw_msg=False,
     write_path=None,
     mode="a+",
-) -> Union[str, dict]:
-    """
-    Customized completion function that interacts with the OpenAI API, capable of handling prompts, system messages,
+):
+    """Customized completion function that interacts with the OpenAI API, capable of handling prompts, system messages,
     and specific functions. If the content length is too long, it will shorten the content and retry.
     """
     openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -374,7 +360,7 @@ async def achat(
 
             if funcs:
                 res = get_response(
-                    await AsyncCompletions.chat.completions.create(**params),
+                    await AsyncCompletions.create(**params),
                     raw_msg=raw_msg,
                     funcs=funcs,
                 )
@@ -406,9 +392,7 @@ async def achat(
 
             wait_time = initial_wait * (backoff_factor ** (retry - 1))
 
-            print(
-                f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}"
-            )
+            print(f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}")
             await asyncio.sleep(wait_time)
 
 

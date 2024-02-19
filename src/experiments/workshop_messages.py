@@ -1,8 +1,7 @@
 from datetime import datetime
-from pydantic import BaseModel
 from enum import Enum
 
-from denz.actor import Message
+from rdddy.messages import AbstractMessage
 
 
 # Define an enumeration for workshop statuses
@@ -13,7 +12,7 @@ class WorkshopStatus(str, Enum):
 
 
 # Base class for messages
-class WorkshopMessage(Message):
+class WorkshopMessage(AbstractMessage):
     workshop_id: int
 
 

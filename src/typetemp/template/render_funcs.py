@@ -1,10 +1,11 @@
-import jinja2
 from typing import Any
 
-from ..environment.typed_environment import environment, async_environment
+import jinja2
+
+from ..environment.typed_environment import async_environment, environment
 from ..environment.typed_native_environment import (
-    native_environment,
     async_native_environment,
+    native_environment,
 )
 
 

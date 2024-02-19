@@ -1,5 +1,4 @@
 import asyncio
-
 import os
 
 import typer
@@ -9,18 +8,17 @@ from rdddy.async_typer import AsyncTyper
 
 app = AsyncTyper()
 
-from rdddy.actor import Actor
+from rdddy.abstract_actor import AbstractActor
 from rdddy.messages import *
+from rdddy.messages import AbstractEvent  # We likely still need this at the base
 
-from rdddy.messages import Event  # We likely still need this at the base
 
-
-class GenerateDashboardEvent(Event):
+class GenerateDashboardEvent(AbstractEvent):
     page_name: str
     widget_type: str
 
 
-class DashboardGeneratorActor(Actor):
+class DashboardGeneratorActor(AbstractActor):
     def __init__(self, actor_system: ActorSystem, actor_id=None):
         super().__init__(actor_system, actor_id=actor_id)
         # Retrieve NextJS project root:
@@ -70,13 +68,9 @@ class DashboardGeneratorActor(Actor):
         # Error – Hygen likely didn't succeed, or your Hygen template is misconfigured
 
     @app.command()
-    async def generate_dashboard(
-        page_name: str = "overview", widget_type: str = "line_chart"
-    ):
+    async def generate_dashboard(page_name: str = "overview", widget_type: str = "line_chart"):
         # ... Logic will come later ....
-        typer.echo(
-            f"Generating a page page named '{page_name}' with a '{widget_type}' widget!"
-        )
+        typer.echo(f"Generating a page page named '{page_name}' with a '{widget_type}' widget!")
         actor_system = ActorSystem()
         generator_actor = await actor_system.actor_of(DashboardGeneratorActor)
         await actor_system.publish(

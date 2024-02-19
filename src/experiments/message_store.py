@@ -1,8 +1,8 @@
-from datetime import datetime
-import pickle
 import os
+import pickle
+from datetime import datetime
 
-from experiment.messages import *
+from experiments.workshop_messages import *
 
 
 class MessageStore:
@@ -11,22 +11,16 @@ class MessageStore:
         self.messages = []
 
     def add_message(self, message):
-        """
-        Add a message to the message store.
-        """
+        """Add a message to the message store."""
         self.messages.append(message)
 
     def save_messages_to_disk(self):
-        """
-        Save messages to disk using pickle serialization.
-        """
+        """Save messages to disk using pickle serialization."""
         with open(self.filename, "wb") as file:
             pickle.dump(self.messages, file)
 
     def load_messages_from_disk(self):
-        """
-        Load messages from disk and deserialize using pickle.
-        """
+        """Load messages from disk and deserialize using pickle."""
         if os.path.exists(self.filename):
             with open(self.filename, "rb") as file:
                 self.messages = pickle.load(file)
@@ -47,9 +41,7 @@ class WorkshopSimulator:
         self.process_message(schedule_message)
 
         # Assign a presenter
-        assign_presenter_message = AssignPresenter(
-            workshop_id=1, presenter_name="John Doe"
-        )
+        assign_presenter_message = AssignPresenter(workshop_id=1, presenter_name="John Doe")
         self.process_message(assign_presenter_message)
 
         # Send invitations
@@ -72,28 +64,20 @@ class WorkshopSimulator:
         self.process_message(update_details_message)
 
         # Cancel the workshop
-        cancel_workshop_message = CancelWorkshop(
-            workshop_id=1, reason="Cancellation Reason"
-        )
+        cancel_workshop_message = CancelWorkshop(workshop_id=1, reason="Cancellation Reason")
         self.process_message(cancel_workshop_message)
 
     def process_message(self, message):
-        """
-        Process a message and add it to the message store.
-        """
+        """Process a message and add it to the message store."""
         print(f"Processing message: {message}")
         self.message_store.add_message(message)
 
     def save_messages_to_disk(self):
-        """
-        Save messages to disk.
-        """
+        """Save messages to disk."""
         self.message_store.save_messages_to_disk()
 
     def load_messages_from_disk(self):
-        """
-        Load messages from disk.
-        """
+        """Load messages from disk."""
         self.message_store.load_messages_from_disk()
 
 

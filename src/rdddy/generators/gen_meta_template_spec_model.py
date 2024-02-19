@@ -1,14 +1,12 @@
-import dspy
+from typing import Any
+
 import inflection
 import jinja2
-
-from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
-from rdddy.generators.gen_python_primitive import GenList
-from typetemp.functional import render
-from typing import List, Optional, Any
-
 from pydantic import BaseModel, Field
-from typing import List, Type
+
+import dspy
+from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
+from typetemp.functional import render
 
 
 class TemplateSpecificationBaseModel(BaseModel):
@@ -54,7 +52,7 @@ class MetaTemplateSpecificationBaseModel(TemplateSpecificationBaseModel):
         ...,
         description="A detailed docstring of the model's purpose and usage.",
     )
-    fields: List[MetaTemplateSpecificationFieldModel] = Field(
+    fields: list[MetaTemplateSpecificationFieldModel] = Field(
         ...,
         description="A list of MetaFieldTemplateSpecificationModel instances defining the fields of the model.",
     )
@@ -75,9 +73,7 @@ class {{ model.class_name }}(TemplateSpecificationBaseModel):
 
 class RootModel(BaseModel):
     root_model_class_name: str = Field(..., description="The name of the root model")
-    child_model_class_names: list[str] = Field(
-        ..., description="The names of the child models"
-    )
+    child_model_class_names: list[str] = Field(..., description="The names of the child models")
 
 
 def gen_model_tree():
@@ -128,7 +124,9 @@ def generate_icalendar_models():
         print(f"{entity}: {answer}")
 
         # Define a Pydantic class dynamically for each entity
-        model_prompt = f"I need a model named {entity}Model that has all of the relevant fields {description}"
+        model_prompt = (
+            f"I need a model named {entity}Model that has all of the relevant fields {description}"
+        )
 
         model_module = GenPydanticInstance(
             root_model=MetaTemplateSpecificationBaseModel,
@@ -163,8 +161,8 @@ def write_pydantic_class_to_file(class_str, filename):
 
 # Example usage
 def main():
-    model_prompt = """I need a class named DSLTemplateSpecificationBaseModel, 
-    so that I can create Pydantic models for Domain Specific Languages. Come up with 
+    model_prompt = """I need a class named DSLTemplateSpecificationBaseModel,
+    so that I can create Pydantic models for Domain Specific Languages. Come up with
     field names that fit a DSL template."""
 
     model_module = GenPydanticInstance(

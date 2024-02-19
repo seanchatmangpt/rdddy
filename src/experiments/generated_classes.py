@@ -1,73 +1,37 @@
 from rdddy.messages import *
 
 
-class CreateNewRoute(Event):
-    """
-    Event triggered by CreateNewRoute.
-    """
-
-    pass
+class CreateNewRoute(AbstractEvent):
+    """Event triggered by CreateNewRoute."""
 
 
-class InjectHandler(Event):
-    """
-    Event triggered by InjectHandler.
-    """
-
-    pass
+class InjectHandler(AbstractEvent):
+    """Event triggered by InjectHandler."""
 
 
-class ExecuteHealthCheck(Event):
-    """
-    Event triggered by ExecuteHealthCheck.
-    """
-
-    pass
+class ExecuteHealthCheck(AbstractEvent):
+    """Event triggered by ExecuteHealthCheck."""
 
 
-class ExecuteShazamOperation(Event):
-    """
-    Event triggered by ExecuteShazamOperation.
-    """
-
-    pass
+class ExecuteShazamOperation(AbstractEvent):
+    """Event triggered by ExecuteShazamOperation."""
 
 
-class ExecuteHygenRouteNew(Command):
-    """
-    Command to execute ExecuteHygenRouteNew.
-    """
-
-    pass
+class ExecuteHygenRouteNew(AbstractCommand):
+    """Command to execute ExecuteHygenRouteNew."""
 
 
-class LoadModules(Command):
-    """
-    Command to execute LoadModules.
-    """
-
-    pass
+class LoadModules(AbstractCommand):
+    """Command to execute LoadModules."""
 
 
-class ConstructRoutes(Command):
-    """
-    Command to execute ConstructRoutes.
-    """
-
-    pass
+class ConstructRoutes(AbstractCommand):
+    """Command to execute ConstructRoutes."""
 
 
-class RetrieveHealthStatus(Query):
-    """
-    Query to retrieve RetrieveHealthStatus.
-    """
-
-    pass
+class RetrieveHealthStatus(AbstractQuery):
+    """Query to retrieve RetrieveHealthStatus."""
 
 
-class RetrieveShazamOperation(Query):
-    """
-    Query to retrieve RetrieveShazamOperation.
-    """
-
-    pass
+class RetrieveShazamOperation(AbstractQuery):
+    """Query to retrieve RetrieveShazamOperation."""

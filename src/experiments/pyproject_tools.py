@@ -4,7 +4,7 @@ import toml
 
 
 def load_pyproject():
-    with open(f"{project_root()}/pyproject.toml", "r") as pyproject_file:
+    with open(f"{project_root()}/pyproject.toml") as pyproject_file:
         pyproject_data = toml.load(pyproject_file)
 
     return pyproject_data

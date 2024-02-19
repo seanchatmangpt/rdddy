@@ -1,5 +1,3 @@
-import pytest
-
 from practice.shortest_path_weighted_graph import WeightedGraph, dijkstra_with_min_edges
 
 

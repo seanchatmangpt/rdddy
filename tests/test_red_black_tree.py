@@ -1,6 +1,6 @@
 import pytest
 
-from practice.red_black_tree import RedBlackTree, Node
+from practice.red_black_tree import RedBlackTree
 
 
 def test_insertion_and_tree_structure():

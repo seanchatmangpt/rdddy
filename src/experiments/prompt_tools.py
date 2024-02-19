@@ -1,14 +1,14 @@
 import functools
 import itertools
 import time
+from collections.abc import Iterable
+from typing import Optional
 
 # import anyio
-from typing import Iterable, List, Dict
-
 from icontract import ensure, require
 
 from utils.complete import acreate
-from utils.models import ok_models, instruct_models
+from utils.models import instruct_models, ok_models
 
 
 def timer(func):
@@ -25,10 +25,8 @@ def timer(func):
 
 
 # 1. Model Selection
-def model_generator(models: List[str]):
-    """
-    A generator that yields models in a round-robin fashion using itertools.cycle.
-    """
+def model_generator(models: list[str]):
+    """A generator that yields models in a round-robin fashion using itertools.cycle."""
     return itertools.cycle(models)
 
 
@@ -64,12 +62,12 @@ async def prompt_map(
     prompts_iterable: Iterable[str],
     base_prompt: str = "",
     max_tokens: int = 50,
-    model_list: List[str] = None,
+    model_list: Optional[list[str]] = None,
     prefix: str = "",
     suffix: str = "",
-    stop: List[str] = None,
+    stop: Optional[list[str]] = None,
     temperature: float = 0.0,
-) -> List[str]:
+) -> list[str]:
     model_gen = model_generator(model_list or instruct_models)
     responses = []
 
@@ -101,16 +99,14 @@ async def batched_prompt_map(
     prompts_iterable: Iterable[str],
     base_prompt: str = "",
     max_tokens: int = 50,
-    model_list: List[str] = None,
+    model_list: Optional[list[str]] = None,
     prefix: str = "",
     suffix: str = "",
-    stop: List[str] = None,
+    stop: Optional[list[str]] = None,
     temperature: float = 0.0,
     batch_size: int = 5,
 ):
-    """
-    This function takes a batch size and kwargs and returns a list of responses.
-    """
+    """This function takes a batch size and kwargs and returns a list of responses."""
     responses = []
     for i in range(0, len(prompts_iterable), batch_size):
         batch = prompts_iterable[i : i + batch_size]
@@ -129,15 +125,15 @@ async def batched_prompt_map(
 
 
 async def prompt_dict(
-    prompts_dict: Dict[str, str],
+    prompts_dict: dict[str, str],
     base_prompt: str = "",
     max_tokens: int = 50,
-    model_list: List[str] = None,
+    model_list: Optional[list[str]] = None,
     prefix: str = "",
     suffix: str = "",
-    stop: List[str] = None,
+    stop: Optional[list[str]] = None,
     temperature: float = 0.0,
-) -> Dict[str, str]:
+) -> dict[str, str]:
     model_gen = model_generator(model_list or instruct_models)
     responses = {}
 
@@ -176,11 +172,10 @@ async def prompt_dict(
 async def prompt_filter(
     base_prompt: str,
     prompts_iterable: Iterable[str],
-    model_list: List[str] = None,
+    model_list: Optional[list[str]] = None,
     max_tokens: int = 50,
-) -> List[str]:
-    """
-    This function takes a base prompt and filters an iterable based on responses from OpenAI.
+) -> list[str]:
+    """This function takes a base prompt and filters an iterable based on responses from OpenAI.
 
     Args:
         base_prompt (str): The base prompt for generating boolean responses.
@@ -191,7 +186,6 @@ async def prompt_filter(
     Returns:
         list: A list of items from the iterable that pass the condition specified by the prompt.
     """
-
     filterable = [
         f"Create a Python bool based on the prompt: '{prompt}'."
         f"\nPlease complete the following code block:\n"
@@ -205,7 +199,7 @@ async def prompt_filter(
     responses = await prompt_map(filterable, base_prompt, max_tokens, model_list)
     results = [
         item
-        for item, resp in zip(prompts_iterable, responses)
+        for item, resp in zip(prompts_iterable, responses, strict=False)
         if "true" in resp.lower()
     ]
 
@@ -225,7 +219,7 @@ statements = [
 # filtered_statements = anyio.run(prompt_filter, filter_prompt, statements)
 # print("Positive statements:", filtered_statements)
 
-from typing import Callable, Iterable, List
+from collections.abc import Callable, Iterable
 
 import anyio
 
@@ -233,12 +227,11 @@ import anyio
 async def prompt_reduce(
     base_prompt: str,
     prompts_iterable: Iterable[str],
-    reducer: Callable[[List[str]], List[str]],
-    model_list: List[str] = None,
+    reducer: Callable[[list[str]], list[str]],
+    model_list: Optional[list[str]] = None,
     max_tokens: int = 50,
-) -> List[str]:
-    """
-    Uses the prompt_map function to collect responses and then reduces the responses based on a given reducer function.
+) -> list[str]:
+    """Uses the prompt_map function to collect responses and then reduces the responses based on a given reducer function.
 
     Args:
         base_prompt (str): The base prompt for generating responses.
@@ -250,7 +243,6 @@ async def prompt_reduce(
     Returns:
         A reduced list of responses based on the reducer function.
     """
-
     # First, we generate the responses based on the iterable and the base prompt
     responses = await prompt_map(prompts_iterable, base_prompt, max_tokens, model_list)
 
@@ -259,11 +251,9 @@ async def prompt_reduce(
 
 
 async def create_python_class_from_function_names(
-    class_name: str, function_names: List[str]
+    class_name: str, function_names: list[str]
 ) -> str:
-    """
-    Creates a Python class string from a list of function names using OpenAI for method content.
-    """
+    """Creates a Python class string from a list of function names using OpenAI for method content."""
     function_strs = []
     for fname in function_names:
         prompt = f"Generate Python code for a class method named {fname}."
@@ -287,10 +277,10 @@ async def prompt_matrix(
     x_prompts_iterable: Iterable[str],
     y_prompts_iterable: Iterable[str],
     base_prompt: str = "",
-    model: str = None,
+    model: Optional[str] = None,
     temperature: float = 0.7,
     max_tokens: int = 50,
-) -> List[str]:
+) -> list[str]:
     responses = []
 
     async def generate_response(index, prompt) -> None:
@@ -318,30 +308,21 @@ async def prompt_matrix(
 async def main():
     x_prompts = ["Create a python function for", "Create a python class for"]
     y_prompts = ["sorting an array", "finding the maximum element"]
-    result = await prompt_matrix(
-        x_prompts, y_prompts, "You are an agent", max_tokens=50
-    )
+    result = await prompt_matrix(x_prompts, y_prompts, "You are an agent", max_tokens=50)
     print(result)
-
-
-from typing import List
 
 
 # I have IMPLEMENTED your PerfectPythonProductionCode® AGI enterprise innovative and opinionated best practice IMPLEMENTATION code of your requirements.
 
 
 class Verifiers:
-    """
-    A class designed to judge the validity of thoughts and answers produced by language models. This verifier can assess if a thought is a valid form of reasoning for deriving an answer from a question and if the answer is correct.
-    """
+    """A class designed to judge the validity of thoughts and answers produced by language models. This verifier can assess if a thought is a valid form of reasoning for deriving an answer from a question and if the answer is correct."""
 
     def __init__(self):
         pass
 
-    async def generate_solutions(self, problem: str) -> List[str]:
-        """
-        Generates solutions for a given problem leveraging OpenAI prompts, inspired by the idea of adding explicit "thought" variables to improve model performance.
-        """
+    async def generate_solutions(self, problem: str) -> list[str]:
+        """Generates solutions for a given problem leveraging OpenAI prompts, inspired by the idea of adding explicit "thought" variables to improve model performance."""
         base_prompt = f"Given the concept of 'Self-Taught Reasoner' and 'rationale generation with rationalization', propose solutions for: {problem}"
         solutions = await prompt_map(
             [problem for _ in range(5)],
@@ -352,24 +333,18 @@ class Verifiers:
         print("Generated solutions:", solutions)
         return solutions
 
-    async def verify_solutions(self, solutions: List[str]) -> List[str]:
-        """
-        Validates the provided solutions based on the concept of "verification" labels, which determine if a solution is derived through valid reasoning.
-        """
+    async def verify_solutions(self, solutions: list[str]) -> list[str]:
+        """Validates the provided solutions based on the concept of "verification" labels, which determine if a solution is derived through valid reasoning."""
         base_prompt = "Is this useful to an expert?"
         verified_solutions = await prompt_filter(base_prompt, solutions)
         return verified_solutions
 
-    async def pick_best_solution(self, verified_solutions: List[str]) -> str:
-        """
-        Chooses the best solution among the verified ones, leveraging the notion of ranking solutions by their validity.
-        """
-        base_prompt = f"Using the idea of 'N-step reasoning' and 'verification model', identify the best solution among the following verified solutions:"
+    async def pick_best_solution(self, verified_solutions: list[str]) -> str:
+        """Chooses the best solution among the verified ones, leveraging the notion of ranking solutions by their validity."""
+        base_prompt = "Using the idea of 'N-step reasoning' and 'verification model', identify the best solution among the following verified solutions:"
         combined_solutions = "\n".join(verified_solutions)
         best_solution = await prompt_map([combined_solutions], base_prompt)
-        return best_solution[
-            0
-        ]  # Return the first item as it should contain the best solution
+        return best_solution[0]  # Return the first item as it should contain the best solution
 
 
 # async def main():

@@ -1,18 +1,17 @@
+from unittest.mock import MagicMock, patch
+
+# replace with the actual import
 import pytest
-from unittest.mock import patch
+
+from dspy import OpenAI, settings
 from rdddy.generators.gen_python_primitive import (
     GenPythonPrimitive,
-)  # replace with the actual import
-import pytest
-from unittest.mock import patch, MagicMock
-from dspy import ChainOfThought, settings, OpenAI
+)
 
 
-@pytest.fixture
+@pytest.fixture()
 def gen_python_primitive():
-    with patch.object(settings, "configure"), patch.object(
-        OpenAI, "__init__", return_value=None
-    ):
+    with patch.object(settings, "configure"), patch.object(OpenAI, "__init__", return_value=None):
         yield GenPythonPrimitive(list)
 
 
@@ -39,9 +38,7 @@ def test_forward_syntax_error(
     mock_predict.return_value.get.return_value = "{'Jupiter', 'Saturn'}"
     mock_chain_of_thought.side_effect = [
         MagicMock(get=MagicMock(return_value="{'Jupiter', 'Saturn'}")),  # initial call
-        MagicMock(
-            get=MagicMock(return_value="{'Jupiter', 'Saturn'}")
-        ),  # correction call
+        MagicMock(get=MagicMock(return_value="{'Jupiter', 'Saturn'}")),  # correction call
     ]
     # Call the method and expect an error
     with pytest.raises(ValueError):
@@ -49,9 +46,8 @@ def test_forward_syntax_error(
 
 
 import inspect
+from typing import Optional
 
-
-from typing import List, Optional
 from pydantic import BaseModel
 
 from rdddy.generators.gen_python_primitive import GenPythonPrimitive
@@ -70,16 +66,16 @@ class Employee(BaseModel):
     last_name: str
     age: int
     email: str
-    skills: List[str]
+    skills: list[str]
     address: Address
     is_manager: Optional[bool] = False
 
 
 # Complex string describing an Employee instance
 employee_description = f"""
-Alex Johnson is 35 years old. His email is alex.johnson@example.com. 
-He has skills in Python, JavaScript, and SQL. His address is 123 Main St, Springfield, IL, 62704, USA. 
-Alex is not a manager. 
+Alex Johnson is 35 years old. His email is alex.johnson@example.com.
+He has skills in Python, JavaScript, and SQL. His address is 123 Main St, Springfield, IL, 62704, USA.
+Alex is not a manager.
 {inspect.getsource(Address)}
 {inspect.getsource(Employee)}
 """

@@ -1,6 +1,8 @@
 import asyncio
+from typing import cast
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
 
 from rdddy.actor_system import ActorSystem
 from rdddy.browser.browser_domain import *
@@ -10,7 +12,7 @@ from rdddy.browser.browser_process_supervisor import BrowserProcessSupervisor
 class MockAsyncProcess:
     def __init__(self):
         self.returncode = None
-        self._populate_stderr()
+        # self._populate_stderr()
         self._mock_stderr = MagicMock()
         self._mock_stderr.readline.side_effect = self._simulate_errors()
 
@@ -36,18 +38,19 @@ class MockAsyncProcess:
         return await self._mock_stderr.get()
 
     def terminate(self):
-        self.returncode = 0
+        print("terminate")
+        self.returncode = -1
 
     def poll(self):
         return self.returncode
 
 
-@pytest.fixture
-def actor_system():
-    return ActorSystem()
+@pytest.fixture()
+def actor_system(event_loop):
+    return ActorSystem(event_loop)
 
 
-@pytest.mark.asyncio
+@pytest.mark.asyncio()
 async def test_chrome_browser_restart(actor_system):
     mock_process = MockAsyncProcess()
 
@@ -59,11 +62,21 @@ async def test_chrome_browser_restart(actor_system):
         # Allow time for the actor to process the logs and restart Chrome Browser
         await asyncio.sleep(0.1)  # Adjust sleep time if necessary
 
-        await actor_system.wait_for_message(RestartBrowserCommand)
+        mock_process.terminate()
 
-        assert supervisor.restart_count > 0, "Browser should have been restarted"
+        message: BrowserStatusEvent = cast(
+            BrowserStatusEvent, await actor_system.wait_for_message(BrowserStatusEvent)
+        )
 
-        # Verify that Chrome Browser was restarted
-        # This can be done by checking internal state of supervisor or using other appropriate method
+        assert message.status == "dead"
 
-        # Clean up
+        start_cmd = cast(
+            StartBrowserCommand,
+            await actor_system.wait_for_message(StartBrowserCommand),
+        )
+
+        mock_process.returncode = None
+
+        message = cast(BrowserStatusEvent, await actor_system.wait_for_message(BrowserStatusEvent))
+
+        assert message.status == "alive"

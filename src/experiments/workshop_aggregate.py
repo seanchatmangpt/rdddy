@@ -1,17 +1,16 @@
-from pydantic import BaseModel
 import asyncio
-from abc import ABC, abstractmethod
 
-from denz.actor import *
-from denz.actor_system import ActorSystem
+from experiments.abstract_aggregate import AbstractAggregate
+from rdddy.actor_system import ActorSystem
+from rdddy.messages import AbstractCommand, AbstractEvent
 
 
 # Domain Events
-class WorkshopStarted(Event):
+class WorkshopStarted(AbstractEvent):
     workshop_id: str
 
 
-class ParticipantAdded(Event):
+class ParticipantAdded(AbstractEvent):
     workshop_id: str
     participant_id: str
 
@@ -20,11 +19,11 @@ class ParticipantAdded(Event):
 
 
 # Domain Commands
-class StartWorkshop(Command):
+class StartWorkshop(AbstractCommand):
     workshop_id: str
 
 
-class AddParticipant(Command):
+class AddParticipant(AbstractCommand):
     workshop_id: str
     participant_id: str
 
@@ -49,9 +48,7 @@ class WorkshopAggregate(AbstractAggregate):
         # Add participant logic
         # Emit ParticipantAdded event
         self.emit_event(
-            ParticipantAdded(
-                workshop_id=command.workshop_id, participant_id=command.participant_id
-            )
+            ParticipantAdded(workshop_id=command.workshop_id, participant_id=command.participant_id)
         )
 
 
@@ -60,9 +57,7 @@ async def simulate_workshop():
     actor_system = ActorSystem()
 
     # Create WorkshopAggregate
-    workshop_aggregate = actor_system.actor_of(
-        WorkshopAggregate, workshop_id="workshop-123"
-    )
+    workshop_aggregate = await actor_system.actor_of(WorkshopAggregate, workshop_id="workshop-123")
 
     # Send commands to the aggregate
     start_command = StartWorkshop(workshop_id="workshop")

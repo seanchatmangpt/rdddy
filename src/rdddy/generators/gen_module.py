@@ -1,15 +1,14 @@
 import logging  # Import the logging module
-from dspy import Module, OpenAI, settings, ChainOfThought, Assert
-from pydantic import ValidationError
+from typing import Optional
+
+from dspy import ChainOfThought, Module, OpenAI, settings
 
 logger = logging.getLogger(__name__)  # Create a logger instance
-logger.setLevel(
-    logging.ERROR
-)  # Set the logger's level to ERROR or the appropriate level
+logger.setLevel(logging.ERROR)  # Set the logger's level to ERROR or the appropriate level
 
 
 class GenModule(Module):
-    def __init__(self, output_key, input_keys: list[str] = None, lm=None):
+    def __init__(self, output_key, input_keys: Optional[list[str]] = None, lm=None):
         if lm is None:
             lm = OpenAI(max_tokens=500)
             settings.configure(lm=lm)
@@ -25,9 +24,7 @@ class GenModule(Module):
 
         # Define the generation and correction queries based on generation_type
         self.signature = ", ".join(self.input_keys) + f" -> {self.output_key}"
-        self.correction_signature = (
-            ", ".join(self.input_keys) + f", error -> {self.output_key}"
-        )
+        self.correction_signature = ", ".join(self.input_keys) + f", error -> {self.output_key}"
 
         # DSPy modules for generation and correction
         self.generate = ChainOfThought(self.signature)

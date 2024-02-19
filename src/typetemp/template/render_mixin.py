@@ -1,5 +1,5 @@
 import os
-from typing import Any, Dict
+from typing import Any
 
 from ..environment.typed_environment import environment
 from ..environment.typed_native_environment import native_environment
@@ -7,14 +7,12 @@ from ..template.render_funcs import render_str
 
 
 class RenderMixin:
-    """
-    A mixin class that encapsulates the render and _render_vars functionality.
+    """A mixin class that encapsulates the render and _render_vars functionality.
     This class checks for the required properties 'source', 'env', 'to', and 'output'.
     """
 
     def _render(self, use_native=False, **kwargs) -> Any:
-        """
-        Render the template. Excludes instance variables that
+        """Render the template. Excludes instance variables that
         are not callable (i.e., methods) and don't start with "__".
         """
         env = native_environment if use_native else environment
@@ -44,10 +42,8 @@ class RenderMixin:
 
         return self.output
 
-    def _render_vars(self) -> Dict[str, Any]:
-        """
-        Get the instance variables (not including methods or dunder methods).
-        """
+    def _render_vars(self) -> dict[str, Any]:
+        """Get the instance variables (not including methods or dunder methods)."""
         # copy the self dict
         properties = self.__class__.__dict__.copy()
         properties.update(self.__dict__.copy())

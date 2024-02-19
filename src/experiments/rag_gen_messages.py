@@ -1,145 +1,73 @@
 from rdddy.messages import *
 
 
-class DatasetLoaded(Event):
-    """
-    Event triggered by DatasetLoaded.
-    """
-
-    pass
+class DatasetLoaded(AbstractEvent):
+    """Event triggered by DatasetLoaded."""
 
 
-class PipelineBuilt(Event):
-    """
-    Event triggered by PipelineBuilt.
-    """
-
-    pass
+class PipelineBuilt(AbstractEvent):
+    """Event triggered by PipelineBuilt."""
 
 
-class PipelineOptimized(Event):
-    """
-    Event triggered by PipelineOptimized.
-    """
-
-    pass
+class PipelineOptimized(AbstractEvent):
+    """Event triggered by PipelineOptimized."""
 
 
-class PipelineExecuted(Event):
-    """
-    Event triggered by PipelineExecuted.
-    """
-
-    pass
+class PipelineExecuted(AbstractEvent):
+    """Event triggered by PipelineExecuted."""
 
 
-class PipelineEvaluated(Event):
-    """
-    Event triggered by PipelineEvaluated.
-    """
-
-    pass
+class PipelineEvaluated(AbstractEvent):
+    """Event triggered by PipelineEvaluated."""
 
 
-class RetrievalEvaluated(Event):
-    """
-    Event triggered by RetrievalEvaluated.
-    """
-
-    pass
+class RetrievalEvaluated(AbstractEvent):
+    """Event triggered by RetrievalEvaluated."""
 
 
-class LoadDataset(Command):
-    """
-    Command to execute LoadDataset.
-    """
-
-    pass
+class LoadDataset(AbstractCommand):
+    """Command to execute LoadDataset."""
 
 
-class BuildPipeline(Command):
-    """
-    Command to execute BuildPipeline.
-    """
-
-    pass
+class BuildPipeline(AbstractCommand):
+    """Command to execute BuildPipeline."""
 
 
-class OptimizePipeline(Command):
-    """
-    Command to execute OptimizePipeline.
-    """
-
-    pass
+class OptimizePipeline(AbstractCommand):
+    """Command to execute OptimizePipeline."""
 
 
-class ExecutePipeline(Command):
-    """
-    Command to execute ExecutePipeline.
-    """
-
-    pass
+class ExecutePipeline(AbstractCommand):
+    """Command to execute ExecutePipeline."""
 
 
-class EvaluatePipeline(Command):
-    """
-    Command to execute EvaluatePipeline.
-    """
-
-    pass
+class EvaluatePipeline(AbstractCommand):
+    """Command to execute EvaluatePipeline."""
 
 
-class EvaluateRetrieval(Command):
-    """
-    Command to execute EvaluateRetrieval.
-    """
-
-    pass
+class EvaluateRetrieval(AbstractCommand):
+    """Command to execute EvaluateRetrieval."""
 
 
-class GetDataset(Query):
-    """
-    Query to retrieve GetDataset.
-    """
-
-    pass
+class GetDataset(AbstractQuery):
+    """Query to retrieve GetDataset."""
 
 
-class GetPipeline(Query):
-    """
-    Query to retrieve GetPipeline.
-    """
-
-    pass
+class GetPipeline(AbstractQuery):
+    """Query to retrieve GetPipeline."""
 
 
-class GetOptimizedPipeline(Query):
-    """
-    Query to retrieve GetOptimizedPipeline.
-    """
-
-    pass
+class GetOptimizedPipeline(AbstractQuery):
+    """Query to retrieve GetOptimizedPipeline."""
 
 
-class GetPipelineExecution(Query):
-    """
-    Query to retrieve GetPipelineExecution.
-    """
-
-    pass
+class GetPipelineExecution(AbstractQuery):
+    """Query to retrieve GetPipelineExecution."""
 
 
-class GetPipelineEvaluation(Query):
-    """
-    Query to retrieve GetPipelineEvaluation.
-    """
-
-    pass
+class GetPipelineEvaluation(AbstractQuery):
+    """Query to retrieve GetPipelineEvaluation."""
 
 
-class GetRetrievalEvaluation(Query):
-    """
-    Query to retrieve GetRetrievalEvaluation.
-    """
-
-    pass
+class GetRetrievalEvaluation(AbstractQuery):
+    """Query to retrieve GetRetrievalEvaluation."""

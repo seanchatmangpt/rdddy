@@ -1,12 +1,8 @@
 import pyperclip
-
 import typer
 
-from slss.subcommands.templates import smart_template_template, typed_template_template
 from typetemp.template.render_funcs import render_str
-
 from utils.create_prompts import spr
-
 
 app = typer.Typer()
 
@@ -45,12 +41,8 @@ def static(
     asyncio.run(_render_typed_template(name, paste))
 
 
-async def _render_smart_template(
-    name: str, prompt: str, max_tokens: int, output_format: str
-):
-    """
-    Renders a SmartTemplate to the filesystem
-    """
+async def _render_smart_template(name: str, prompt: str, max_tokens: int, output_format: str):
+    """Renders a SmartTemplate to the filesystem"""
     prompt = await spr(
         prompt=f"ChatGPT Assistant that {prompt}",
         encode=False,
@@ -60,29 +52,25 @@ async def _render_smart_template(
 
     template_name = render_str("{{ name | underscore }}_smart_template.py", name=name)
 
-    await smart_template_template.render(
-        name,
-        prompt=prompt,
-        # config=LLMConfig(max_tokens=max_tokens, model="chatgpt"),
-        output_format=output_format,
-        to=template_name,
-    )
+    # await smart_template_template.render(
+    #     name,
+    #     prompt=prompt,
+    #     # config=LLMConfig(max_tokens=max_tokens, model="chatgpt"),
+    #     output_format=output_format,
+    #     to=template_name,
+    # )
 
     typer.echo(f"Created {template_name}.")
 
 
 async def _render_typed_template(name, paste):
-    """
-    Renders a TypedTemplate to the filesystem
-    """
+    """Renders a TypedTemplate to the filesystem"""
     template_name = render_str("{{ name | underscore }}_typed_template.py", name=name)
 
     if paste is not None:
         content = pyperclip.paste()
     else:
         content = None
-
-    typed_template_template.render(name=template_name, content=content)
 
     typer.echo(f"Created {template_name}.")
 

@@ -1,6 +1,4 @@
-import aiofiles
-import os
-from typing import Any, Dict
+from typing import Any
 
 import anyio
 
@@ -12,19 +10,18 @@ from utils.file_tools import write
 
 
 class AsyncRenderMixin:
-    """
-    An async mixin class that encapsulates the render and _render_vars functionality.
-    """
+    """An async mixin class that encapsulates the render and _render_vars functionality."""
+
+    def __init__(self):
+        self.source = ""
+        self.to = ""
+        self.config = None
 
     async def _render(self, use_native=False, **kwargs) -> Any:
-        """
-        Render the template.
-        """
+        """Render the template."""
         self._env = async_native_environment if use_native else async_environment
 
-        template = self._env.from_string(
-            self.source
-        )  # Assuming self.env is a jinja2.Environment
+        template = self._env.from_string(self.source)  # Assuming self.env is a jinja2.Environment
 
         render_dict = kwargs.copy()
         render_dict.update(await self._render_vars())
@@ -46,7 +43,7 @@ class AsyncRenderMixin:
 
         return self.output
 
-    async def _render_vars(self) -> Dict[str, Any]:
+    async def _render_vars(self) -> dict[str, Any]:
         properties = self.__class__.__dict__.copy()
         properties.update(self.__dict__.copy())
         # print(properties)
@@ -61,14 +58,12 @@ class AsyncRenderMixin:
         return properties
 
     async def _concurrent_render(
-        self, name: str, value: "AsyncRenderMixin", properties: Dict[str, Any]
+        self, name: str, value: "AsyncRenderMixin", properties: dict[str, Any]
     ):
         properties[name] = await value._render()
 
     async def _llm_call(self):
-        """
-        Use a LLM to render the template as a prompt.
-        """
+        """Use a LLM to render the template as a prompt."""
         if self.config:
             # print(self.output)
             self.output = await acreate(prompt=self.output, config=self.config)

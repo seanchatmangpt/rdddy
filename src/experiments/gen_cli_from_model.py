@@ -1,28 +1,22 @@
-import inspect
-
 from jinja2 import Environment, FileSystemLoader
-
-
 from pydantic import BaseModel, Field
-from typing import List
 
+import dspy
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
 
-class Command(BaseModel):
+class TyperCommand(BaseModel):
     name: str = Field(..., min_length=1, description="The name of the command")
     help: str = Field(..., min_length=1, description="The help text for the command")
 
 
 class TyperCLI(BaseModel):
     name: str = Field(..., min_length=1, description="The name of the CLI application")
-    commands: List[Command] = Field(
-        ..., description="The commands of the CLI application"
-    )
+    commands: list[TyperCommand] = Field(..., description="The commands of the CLI application")
 
 
 # Example description for testing
-cli_description = f"""
+cli_description = """
 
 
 We are building a Typer CLI application named 'DSPyGenerator'. It should include the following commands:
@@ -50,57 +44,63 @@ We are building a Typer CLI application named 'DSPyGenerator'. It should include
 
 """
 
-model = GenPydanticInstance(root_model=TyperCLI, child_models=[Command]).forward(
-    cli_description
-)
 
-# Example CLI data
-cli_data = model
+def main():
+    lm = dspy.OpenAI(max_tokens=3000)
+    dspy.settings.configure(lm=lm)
+
+    model = GenPydanticInstance(root_model=TyperCLI, child_models=[TyperCommand]).forward(
+        cli_description
+    )
+
+    # Example CLI data
+    cli_data = model
+
+    # --- Jinja Templates ---
+    cli_template = """
+    import typer
+    app = typer.Typer()
+
+    {% for command in cli_data.commands %}
+    @app.command(name="{{ command.name }}")
+    def {{ command.name }}():
+        \"\"\"{{ command.help }}\"\"\"
+        # Command logic goes here
+        print("This is the {{ command.name }} command.")
+
+    {% endfor %}
+
+    if __name__ == "__main__":
+        app()
 
 
-# --- Jinja Templates ---
-cli_template = """
-import typer
-app = typer.Typer()
+    """
 
-{% for command in cli_data.commands %}
-@app.command(name="{{ command.name }}")
-def {{ command.name }}():
-    \"\"\"{{ command.help }}\"\"\"
-    # Command logic goes here
-    print("This is the {{ command.name }} command.")
+    pytest_template = """
+    import pytest
+    from typer.testing import CliRunner
+    from metadspy.cli import app  # Updated import statement
 
-{% endfor %}
+    runner = CliRunner()
+
+    {% for command in cli_data.commands %}
+    def test_{{ command.name }}():
+        result = runner.invoke(app, ["{{ command.name }}"])
+        assert result.exit_code == 0
+        assert "This is the {{ command.name }} command." in result.output  # Replace with specific expected output
+
+    {% endfor %}
+    """
+
+    # --- Render Templates ---
+    env = Environment(loader=FileSystemLoader("."))
+    env.from_string(cli_template).stream(cli_data=cli_data.model_dump()).dump("generated_cli.py")
+    env.from_string(pytest_template).stream(cli_data=cli_data.model_dump()).dump(
+        "test_generated_cli.py"
+    )
+
+    print("CLI application and tests generated.")
+
 
 if __name__ == "__main__":
-    app()
-
-
-"""
-
-pytest_template = """
-import pytest
-from typer.testing import CliRunner
-from metadspy.cli import app  # Updated import statement
-
-runner = CliRunner()
-
-{% for command in cli_data.commands %}
-def test_{{ command.name }}():
-    result = runner.invoke(app, ["{{ command.name }}"])
-    assert result.exit_code == 0
-    assert "This is the {{ command.name }} command." in result.output  # Replace with specific expected output
-
-{% endfor %}
-"""
-
-# --- Render Templates ---
-env = Environment(loader=FileSystemLoader("."))
-env.from_string(cli_template).stream(cli_data=cli_data.model_dump()).dump(
-    "generated_cli.py"
-)
-env.from_string(pytest_template).stream(cli_data=cli_data.model_dump()).dump(
-    "test_generated_cli.py"
-)
-
-print("CLI application and tests generated.")
+    main()

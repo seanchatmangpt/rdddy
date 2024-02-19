@@ -1,34 +1,28 @@
-import sys
-
-import json
-
-import subprocess
-
 import asyncio
-
+import json
+import subprocess
+import sys
 from textwrap import dedent
-
-from slss.async_typer import AsyncTyper
-from typetemp.template.async_render_mixin import AsyncRenderMixin
-from utils.complete import LLMConfig
 
 import typer
 
+from rdddy.async_typer import AsyncTyper
+from typetemp.template.async_render_mixin import AsyncRenderMixin
+from utils.complete import LLMConfig
 from utils.file_tools import write
 
 app = AsyncTyper()
 
 
 class SmartTemplate(AsyncRenderMixin):
-    """
-    Base class for creating templated classes. Uses the jinja2 templating engine
+    """Base class for creating templated classes. Uses the jinja2 templating engine
     to render templates. Allows for usage of macros and filters.
     """
 
-    config: LLMConfig = None  # The LLMConfig object
+    config: LLMConfig  # The LLMConfig object
     source: str  # The string template to be rendered
-    to: str = None  # The "to" property for rendering destination
-    output: str = None  # The rendered output
+    to: str  # The "to" property for rendering destination
+    output: str  # The rendered output
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
@@ -93,7 +87,7 @@ async def main(
     if sh:
         typer.echo(f"Executing shell command: {sh}")
         stdout, stderr = await run_shell_command(sh)
-        typer.echo(f"Shell command result:")
+        typer.echo("Shell command result:")
         typer.echo(f"STDOUT: {stdout.decode()}")
         typer.echo(f"STDERR: {stderr.decode()}")
 

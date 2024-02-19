@@ -2,6 +2,7 @@ import ast
 import logging
 import os
 from ast import NodeTransformer, fix_missing_locations, parse
+from textwrap import dedent
 
 import astor
 import autopep8
@@ -231,52 +232,52 @@ class MyClass:
 # print(corrected_code_str)
 
 
-# if __name__ == "__main__":
-#     with open("demo_module3.py", "w") as f:
-#         f.write("")
-#
-#     module = PyModule("demo_module3.py")
-#
-#     module.HelloWorld = dedent(
-#         """class HelloWorld():
-#         def __init__(self, value):
-#             self.name = value
-#
-#         def hello_world(self):
-#             print("Hello, world 123!")
-#     """
-#     )
-#
-#     # my_class = module.MyClass
-#
-#     module.HelloWorld.hello_world = dedent(
-#         """def hello_world(self):
-#         print("Hello, world 123!")
-#     """
-#     )
-#
-#     module.HelloWorld.hello_world2 = dedent(
-#         """def hello_world2(self):
-#         print("Hello, world 123!")
-#     """
-#     )
-#
-#     module.HelloWorld.hello_world3 = dedent(
-#         """def hello_world2(self):
-#         print("Hello, world 123!")
-#     """
-#     )
-#
-#     module.HelloWorld.replace_method(
-#         "__init__",
-#         dedent(
-#             """def __init__(self, value):
-#         self.name = value
-#         self.age = 3089234324
-#     """
-#         ),
-#     )
-#
-#     # print(module.HelloWorld)
-#
-#     print(module)
+if __name__ == "__main__":
+    with open("demo_module3.py", "w") as f:
+        f.write("")
+
+    module = PyModule("demo_module3.py")
+
+    module.HelloWorld = dedent(
+        """class HelloWorld():
+        def __init__(self, value):
+            self.name = value
+
+        def hello_world(self):
+            print("Hello, world 123!")
+    """
+    )
+
+    # my_class = module.MyClass
+
+    module.HelloWorld.hello_world = dedent(
+        """def hello_world(self):
+        print("Hello, world 123!")
+    """
+    )
+
+    module.HelloWorld.hello_world2 = dedent(
+        """def hello_world2(self):
+        print("Hello, world 123!")
+    """
+    )
+
+    module.HelloWorld.hello_world3 = dedent(
+        """def hello_world2(self):
+        print("Hello, world 123!")
+    """
+    )
+
+    module.HelloWorld.replace_method(
+        "__init__",
+        dedent(
+            """def __init__(self, value):
+        self.name = value
+        self.age = 3089234324
+    """
+        ),
+    )
+
+    # print(module.HelloWorld)
+
+    print(module)

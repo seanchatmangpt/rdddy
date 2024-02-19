@@ -1,15 +1,16 @@
 import asyncio
 import logging
-from datetime import datetime
 
-from denz.actor import ActorSystem, AbstractAggregate, Event
+from experiments.abstract_aggregate import AbstractAggregate
+from rdddy.actor_system import ActorSystem
+from rdddy.messages import AbstractEvent
 
 # Define the AggregateMixin and Actor classes (as provided in the previous code)
 
 logger = logging.getLogger(__name__)
 
 
-class OrderCreated(Event):
+class OrderCreated(AbstractEvent):
     def __init__(self, order_id, customer_id, total_amount):
         super().__init__()
         self.order_id = order_id
@@ -17,7 +18,7 @@ class OrderCreated(Event):
         self.total_amount = total_amount
 
 
-class OrderItemAdded(Event):
+class OrderItemAdded(AbstractEvent):
     def __init__(self, order_id, product_id, quantity, unit_price):
         super().__init__()
         self.order_id = order_id
@@ -26,7 +27,7 @@ class OrderItemAdded(Event):
         self.unit_price = unit_price
 
 
-class OrderCancelled(Event):
+class OrderCancelled(AbstractEvent):
     def __init__(self, order_id):
         super().__init__()
         self.order_id = order_id
@@ -102,7 +103,7 @@ async def main():
     actor_system = ActorSystem()
 
     # Create an Order actor
-    order_actor = actor_system.actor_of(Order, order_id="123", customer_id="456")
+    order_actor = await actor_system.actor_of(Order, order_id="123", customer_id="456")
 
     # Simulate order processing
     await order_actor.create_order()

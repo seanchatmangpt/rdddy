@@ -1,21 +1,18 @@
 # Define a mixin for YAML serialization and deserialization
 import json
+import os
 from contextlib import contextmanager
-from typing import Type, TypeVar
+from typing import Any, Optional, TypeVar, Union
 
 import yaml
-from typing import Any, Dict, List, Union
-import os
-
 from pydantic import BaseModel
-
 
 T = TypeVar("T", bound="YAMLMixin")
 
 
 # Define a mixin for YAML serialization and deserialization
 class YAMLMixin:
-    def to_yaml(self: BaseModel, file_path: str = None) -> str:
+    def to_yaml(self: BaseModel, file_path: Optional[str] = None) -> str:
         print("to yaml")
         data = json.loads(self.json())
         yaml_content = yaml.dump(data, default_flow_style=False, width=1000)
@@ -27,14 +24,14 @@ class YAMLMixin:
         return yaml_content
 
     @classmethod
-    def from_yaml(cls: Type["T"], file_path: str) -> "T":
-        with open(file_path, "r") as yaml_file:
+    def from_yaml(cls: type["T"], file_path: str) -> "T":
+        with open(file_path) as yaml_file:
             data = yaml.safe_load(yaml_file)
         return cls(**data)
 
     @classmethod
     @contextmanager
-    def context(cls: Type[T], file_path: str = None):
+    def context(cls: type[T], file_path: Optional[str] = None):
         """Context manager that automatically uses the subclass name as the filename."""
         if file_path is None:
             filename = f"{cls.__name__}.yaml"
@@ -46,9 +43,7 @@ class YAMLMixin:
         try:
             # Load from YAML if file exists
             print(f"Loading {absolute_path}...")
-            instance = (
-                cls.from_yaml(absolute_path) if os.path.exists(absolute_path) else cls()
-            )
+            instance = cls.from_yaml(absolute_path) if os.path.exists(absolute_path) else cls()
             print(f"Instance loaded: {instance}")
             yield instance
             # Save to YAML
@@ -61,9 +56,8 @@ class YAMLMixin:
 # I have IMPLEMENTED your PerfectPythonProductionCode® AGI enterprise innovative and opinionated best practice IMPLEMENTATION code of your requirements.
 
 
-def find_all_keys_in_file(filepath: str, target_key: str) -> List[Any]:
-    """
-    Find all occurrences of a key in a nested YAML-like dictionary or list from a YAML file and return the associated values.
+def find_all_keys_in_file(filepath: str, target_key: str) -> list[Any]:
+    """Find all occurrences of a key in a nested YAML-like dictionary or list from a YAML file and return the associated values.
 
     Parameters:
     - filepath (str): The path to the YAML file to be read.
@@ -75,15 +69,14 @@ def find_all_keys_in_file(filepath: str, target_key: str) -> List[Any]:
     if not os.path.exists(filepath):
         raise FileNotFoundError(f"The file at {filepath} was not found.")
 
-    with open(filepath, "r") as file:
+    with open(filepath) as file:
         parsed_yaml_data = yaml.safe_load(file)
 
     return find_all_keys(target_key, parsed_yaml_data)
 
 
-def find_all_keys(target_key: str, data: Union[Dict, List]) -> List[Any]:
-    """
-    Helper function to find all occurrences of a key in a nested YAML-like dictionary or list and return the associated values.
+def find_all_keys(target_key: str, data: Union[dict, list]) -> list[Any]:
+    """Helper function to find all occurrences of a key in a nested YAML-like dictionary or list and return the associated values.
 
     Parameters:
     - target_key (str): The key to search for.
@@ -114,7 +107,7 @@ def to_yaml(data, file_path) -> str:
 
 
 def from_yaml(model_cls: BaseModel, file_path: str) -> BaseModel:
-    with open(file_path, "r") as yaml_file:
+    with open(file_path) as yaml_file:
         data = yaml.safe_load(yaml_file)
     return model_cls(**data)
 

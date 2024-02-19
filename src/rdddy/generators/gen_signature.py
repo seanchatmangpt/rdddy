@@ -1,12 +1,11 @@
-import dspy
 from jinja2 import Template
-import os
 
+import dspy
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 from rdddy.signature_factory import (
-    SignatureTemplateSpecModel,
     InputFieldTemplateSpecModel,
     OutputFieldTemplateSpecModel,
+    SignatureTemplateSpecModel,
 )
 
 

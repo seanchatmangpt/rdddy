@@ -1,7 +1,6 @@
 import ast
 
 from dspy import Assert
-
 from rdddy.generators.gen_module import GenModule
 
 
@@ -23,7 +22,7 @@ class GenPythonPrimitive(GenModule):
     def validate_primitive(self, output) -> bool:
         try:
             return isinstance(ast.literal_eval(output), self.primitive_type)
-        except SyntaxError as error:
+        except SyntaxError:
             return False
 
     def validate_output(self, output):

@@ -4,122 +4,122 @@ from rdddy.messages import *
 
 
 # Define commands and events
-class StartBrowserCommand(Command):
+class StartBrowserCommand(AbstractCommand):
     browser_id: str = "default"
-    custom_args: list[str] = None
+    custom_args: list[str] = []
 
 
-class BrowserStartedEvent(Event):
+class BrowserStartedEvent(AbstractEvent):
     pass
 
 
-class StopBrowserCommand(Command):
+class StopBrowserCommand(AbstractCommand):
     browser_id: str = "default"
 
 
-class RestartBrowserCommand(Command):
+class RestartBrowserCommand(AbstractCommand):
     browser_id: str = "default"
 
 
 # Example command class for updating configuration
-class UpdateBrowserConfigCommand(Command):
+class UpdateBrowserConfigCommand(AbstractCommand):
     browser_id: str = "default"
     new_args: dict = {}
 
 
-class BrowserStatusEvent(Event):
+class BrowserStatusEvent(AbstractEvent):
     status: str
 
 
-class Click(Command):
+class Click(AbstractCommand):
     """Matches the pyppeteer component click exactly"""
 
     selector: str
-    options: dict = None
+    options: dict
 
 
-class Goto(Command):
+class Goto(AbstractCommand):
     """Matches the pyppeteer component goto exactly"""
 
     url: str
-    options: dict = None
+    options: dict
 
 
-class TypeText(Command):
+class TypeText(AbstractCommand):
     """Matches the pyppeteer component type exactly"""
 
     selector: str
     text: str
-    options: dict = None
+    options: dict
 
 
-class SendChatGPT(Command):
+class SendChatGPT(AbstractCommand):
     prompt: str
     page: Page
 
 
-class ChatGPTResponse(Event):
+class ChatGPTResponse(AbstractEvent):
     """Contents are the response from the site"""
 
 
-class FindElement(Command):
+class FindElement(AbstractCommand):
     """Find an element by selector"""
 
     selector: str
 
 
-class ElementFound(Event):
+class ElementFound(AbstractEvent):
     """Element found in the component"""
 
 
-class NavigateBack(Command):
+class NavigateBack(AbstractCommand):
     """Navigate back in the browser history"""
 
 
-class NavigateForward(Command):
+class NavigateForward(AbstractCommand):
     """Navigate forward in the browser history"""
 
 
-class ReloadPage(Command):
+class ReloadPage(AbstractCommand):
     """Reload the current component"""
 
 
-class GetPageContent(Command):
+class GetPageContent(AbstractCommand):
     """Get the HTML content of the current component"""
 
 
-class PageContent(Event):
+class PageContent(AbstractEvent):
     """HTML content of the component"""
 
     content: str
 
 
-class ExecuteScript(Command):
+class ExecuteScript(AbstractCommand):
     """Execute JavaScript code on the component"""
 
     script: str
 
 
-class ScriptResult(Event):
+class ScriptResult(AbstractEvent):
     """Result of the executed JavaScript code"""
 
     result: Any  # You can specify the data type based on the expected result
 
 
-class CloseBrowser(Command):
+class CloseBrowser(AbstractCommand):
     """Close the browser"""
 
 
-class BrowserClosed(Event):
+class BrowserClosed(AbstractEvent):
     """Browser has been closed"""
 
 
-class SetViewportSize(Command):
+class SetViewportSize(AbstractCommand):
     """Set the viewport size of the browser"""
 
     width: int
     height: int
 
 
-class ViewportSizeSet(Event):
+class ViewportSizeSet(AbstractEvent):
     """Viewport size has been set successfully"""

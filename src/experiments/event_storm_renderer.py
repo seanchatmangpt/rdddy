@@ -1,8 +1,7 @@
+from jinja2 import Environment
+
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 from rdddy.messages import *
-
-
-from jinja2 import Environment, Template
 
 # Jinja template as a string
 template_str = '''
@@ -120,7 +119,7 @@ class RAG(dspy.Module):
 
         self.retrieve = dspy.Retrieve(k=num_passages)
         self.generate_answer = dspy.ChainOfThought(GenerateAnswer)
-    
+
     def forward(self, question):
         context = self.retrieve(question).passages
         prediction = self.generate_answer(context=context, question=question)
@@ -268,35 +267,138 @@ GitHub
 
 We want to build a closed loop system that builds these RAG systems.
 
-You are a Event Storm assistant that comes up with Events, Commands, and Queries for Reactive Domain Driven Design based on the ```prompt```
-
-The format to return is FooEvent, HelloCommand, PingQuery. So I can use it with Jinja templates
+You are a Event Storm assistant that simulates the event storm workshops hosted by Alberto Brandolini.
+Pay close attention to the description field of the Pydantic model and make sure that all fields are filled
+with names that match the description and domain we are modeling. Class names are CamelCase and unique.
 '''
+
+esm = EventStormModel(
+    domain_event_classnames=[
+        "LanguageModelSetup",
+        "RetrievalModelSetup",
+        "DatasetLoading",
+    ],
+    external_event_classnames=[
+        "TutorialAccessed",
+        "DocumentationRead",
+        "APIReferenceChecked",
+    ],
+    command_classnames=["ConfigureLM", "ConfigureRM", "LoadDataset"],
+    query_classnames=["GetAnswer", "InspectHistory", "EvaluatePipeline"],
+    aggregate_classnames=["RAGPipeline", "PipelineOptimization", "PipelineExecution"],
+    policy_classnames=[
+        "AnswerGenerationPolicy",
+        "ContextRetrievalPolicy",
+        "PipelineEvaluationPolicy",
+    ],
+    read_model_classnames=[
+        "AnswerReadModel",
+        "ContextReadModel",
+        "EvaluationReadModel",
+    ],
+    view_classnames=["AnswerView", "ContextView", "EvaluationView"],
+    ui_event_classnames=["QuestionAsked", "AnswerReceived", "EvaluationChecked"],
+    saga_classnames=["RAGSetupSaga", "PipelineBuildingSaga", "PipelineExecutionSaga"],
+    integration_event_classnames=[
+        "LMIntegrationEvent",
+        "RMIntegrationEvent",
+        "DatasetIntegrationEvent",
+    ],
+    exception_classnames=[
+        "LMConfigurationException",
+        "RMConfigurationException",
+        "DatasetLoadingException",
+    ],
+    value_object_classnames=[
+        "AnswerValueObject",
+        "ContextValueObject",
+        "EvaluationValueObject",
+    ],
+    task_classnames=["ConfigureLMTask", "ConfigureRMTask", "LoadDatasetTask"],
+)
 
 
 def main():
     import dspy
-    from rdddy.messages import EventStormModel, Event, Command, Query
+    from rdddy.messages import (
+        EventStormModel,
+    )
 
     # lm = dspy.OpenAI(max_tokens=3000)
-    lm = dspy.OpenAI(max_tokens=4000, model="gpt-4")
+    lm = dspy.OpenAI(max_tokens=4500, model="gpt-4")
     dspy.settings.configure(lm=lm)
     # Create a Jinja environment and render the template
     env = Environment()
 
     print("Generating EventStorm")
 
-    event_storm_model = GenPydanticInstance(
-        root_model=EventStormModel
-    )(prompt=prompt)
+    event_storm_model = GenPydanticInstance(root_model=EventStormModel)(prompt=prompt)
 
     print(f"Event Storm Model {event_storm_model}")
 
-    # event_storm_model = EventStormModel(
-    #     events=['CreateNewRoute', 'InjectHandler', 'ExecuteHealthCheck', 'ExecuteShazamOperation'],
-    #     commands=['ExecuteHygenRouteNew', 'LoadModules', 'ConstructRoutes'],
-    #     queries=['RetrieveHealthStatus', 'RetrieveShazamOperation']
-    # )
+    event_storm_model = EventStormModel(
+        domain_event_classnames=[
+            "QuestionAsked",
+            "AnswerGenerated",
+            "ContextRetrieved",
+        ],
+        external_event_classnames=[
+            "NewDatasetLoaded",
+            "ModelUpdated",
+            "NewQuestionReceived",
+        ],
+        command_classnames=["LoadDataset", "GenerateAnswer", "RetrieveContext"],
+        query_classnames=[
+            "GetQuestionDetails",
+            "ListAvailableModels",
+            "CheckDatasetSize",
+        ],
+        aggregate_classnames=[
+            "QuestionAggregate",
+            "AnswerAggregate",
+            "ContextAggregate",
+        ],
+        policy_classnames=[
+            "AnswerGenerationPolicy",
+            "ContextRetrievalPolicy",
+            "DatasetLoadingPolicy",
+        ],
+        read_model_classnames=[
+            "QuestionReadModel",
+            "AnswerReadModel",
+            "ContextReadModel",
+        ],
+        view_classnames=["QuestionView", "AnswerView", "ContextView"],
+        ui_event_classnames=["QuestionSubmitted", "AnswerViewed", "ContextInspected"],
+        saga_classnames=[
+            "AnswerGenerationSaga",
+            "ContextRetrievalSaga",
+            "DatasetLoadingSaga",
+        ],
+        integration_event_classnames=[
+            "QuestionReceivedIntegrationEvent",
+            "AnswerGeneratedIntegrationEvent",
+            "ContextRetrievedIntegrationEvent",
+        ],
+        exception_classnames=[
+            "QuestionNotFoundException",
+            "AnswerGenerationFailedException",
+            "ContextRetrievalFailedException",
+        ],
+        value_object_classnames=[
+            "QuestionValueObject",
+            "AnswerValueObject",
+            "ContextValueObject",
+        ],
+        task_classnames=[
+            "LoadDatasetTask",
+            "GenerateAnswerTask",
+            "RetrieveContextTask",
+        ],
+    )
+
+    print(f'prompt:\n{lm.history[0].get("prompt")}')
+    print(f'response:\n{lm.history[0]["response"].choices[0]["text"]}')
 
     # template = env.from_string(template_str)
     # rendered_classes = template.render(

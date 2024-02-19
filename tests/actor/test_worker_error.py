@@ -1,10 +1,11 @@
 import asyncio
-from rdddy.actor import Actor
+
+from rdddy.abstract_actor import AbstractActor
 from rdddy.actor_system import ActorSystem
-from rdddy.messages import Message, ExceptionMessage, TerminationMessage
+from rdddy.messages import ExceptionMessage, TerminationMessage
 
 
-class WorkerActor(Actor):
+class WorkerActor(AbstractActor):
     async def start_working(self):
         try:
             # Simulate some work
@@ -13,12 +14,10 @@ class WorkerActor(Actor):
             raise RuntimeError("Worker encountered an error.")
         except Exception as e:
             await self.publish(ExceptionMessage(content=str(e)))
-            await self.publish(
-                TerminationMessage(content=str(e), actor_id=self.actor_id)
-            )
+            await self.publish(TerminationMessage(content=str(e), actor_id=self.actor_id))
 
 
-class SupervisorActor(Actor):
+class SupervisorActor(AbstractActor):
     def __init__(self, actor_system, actor_id=None):
         super().__init__(actor_system, actor_id)
         self.worker_actor = None
@@ -35,7 +34,7 @@ class SupervisorActor(Actor):
         await self.worker_actor.start_working()
 
 
-class RootSupervisorActor(Actor):
+class RootSupervisorActor(AbstractActor):
     def __init__(self, actor_system, actor_id=None):
         super().__init__(actor_system, actor_id)
         self.supervisor_actor = None
@@ -55,15 +54,16 @@ class RootSupervisorActor(Actor):
 
 
 import pytest
+
 from rdddy.actor_system import ActorSystem
 
 
-@pytest.fixture
+@pytest.fixture()
 def actor_system(event_loop):
     return ActorSystem(event_loop)
 
 
-@pytest.mark.asyncio
+@pytest.mark.asyncio()
 async def test_worker_restart(actor_system):
     root_supervisor = await actor_system.actor_of(RootSupervisorActor)
     await root_supervisor.start_supervisor()

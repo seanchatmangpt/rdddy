@@ -17,10 +17,7 @@ You are a pydantic assistant. You convert plaintext into pydantic models
 
 
 async def render(prompt: str, max_tokens=2000):
-    """
-    Generate a pydantic based on a prompt.
-    """
-
+    """Generate a pydantic based on a prompt."""
     return await Template(
         prompt=prompt, config=LLMConfig(max_tokens=max_tokens, stop=["```"])
     ).render()

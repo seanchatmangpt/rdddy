@@ -16,9 +16,7 @@ class GenerateHygenTemplate(dspy.Signature):
     (version <%= version %>)
     """
 
-    requirements = dspy.InputField(
-        desc="Specifications or requirements for the Hygen template"
-    )
+    requirements = dspy.InputField(desc="Specifications or requirements for the Hygen template")
     template = dspy.OutputField(desc="Generated Hygen template code")
 
 
@@ -41,7 +39,7 @@ def main():
 
     # Define your requirements here. This should be a detailed description of what the Hygen template needs to do.
 
-    requirements = """Generate a React component with props, state, and a basic render function. The component should be a functional 
+    requirements = """Generate a React component with props, state, and a basic render function. The component should be a functional
     component using React Hooks. """
 
     # Generate the Hygen template

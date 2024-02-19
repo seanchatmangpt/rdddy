@@ -51,3 +51,11 @@ You will be penalized for not returning only a list for list_python_primitive_st
 2024-01-31 20:44:23,458 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
 2024-01-31 20:44:33,108 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
 2024-01-31 20:44:33,109 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+2024-02-17 12:32:46,029 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+
+            Validation error:
+None
+2024-02-17 12:32:56,970 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for APIEndpoint
+
+            Validation error:
+None

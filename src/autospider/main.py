@@ -1,16 +1,15 @@
 import asyncio
 
-from autospider.messages import StartScrapingCommand
-from rdddy.actor_system import ActorSystem
-
 # Assuming the actor classes are defined in a module named `autospider_actors`
 from autospider.actors import (
+    CompletionActor,
+    ExecutionActor,
     InitiationActor,
     PreconditionActor,
     ProcessingActor,
-    ExecutionActor,
-    CompletionActor,
 )
+from autospider.messages import StartScrapingCommand
+from rdddy.actor_system import ActorSystem
 
 
 async def setup_and_run():
@@ -28,6 +27,7 @@ async def setup_and_run():
     # Replace 'http://example.com' with the actual URL you want to scrape
     await actor_system.publish(StartScrapingCommand(url="http://example.com"))
     await asyncio.sleep(60)
+
 
 async def main():
     await setup_and_run()

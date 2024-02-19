@@ -1,22 +1,15 @@
-from typing import Optional
 import anyio
-
-import pyperclip
 from bs4 import BeautifulSoup
-import yaml
 from pydantic import BaseModel
 
-from utils.complete import acreate
-from utils.create_prompts import spr
-from utils.file_tools import write
 from utils.yaml_tools import YAMLMixin
 
 
 class HTMLTag(BaseModel, YAMLMixin):
     tag_name: str
     attributes: dict = {}
-    inner_text: str = None
-    selector: str = None
+    inner_text: str = ""
+    selector: str = ""
     children: list["HTMLTag"] = []
 
     def __str__(self):
@@ -26,7 +19,7 @@ class HTMLTag(BaseModel, YAMLMixin):
 def export_html_to_yaml(yaml_file_path):
     # Get HTML content from clipboard
     # html_content = pyperclip.paste()
-    with open("source.html", "r", encoding="utf-8") as f:
+    with open("source.html", encoding="utf-8") as f:
         html_content = f.read()
 
     # Parse the HTML using BeautifulSoup
@@ -51,9 +44,7 @@ def export_html_to_yaml(yaml_file_path):
             selector += f'[{attr}="{aria_value}"]'
             tag.selector = selector
             tag.attributes[attr] = aria_value
-        inner_text = element.get_text(
-            strip=True
-        )  # Get inner text without extra whitespace
+        inner_text = element.get_text(strip=True)  # Get inner text without extra whitespace
         if inner_text:
             selector += f'{{text: "{inner_text}"}}'
         selectors_with_text.append(selector)

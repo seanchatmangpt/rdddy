@@ -27,8 +27,7 @@ def dijkstra_with_min_edges(graph, src, target):
             distance = current_distance + weight
 
             if distance < distances[neighbor] or (
-                distance == distances[neighbor]
-                and current_edges + 1 < edges_count[neighbor]
+                distance == distances[neighbor] and current_edges + 1 < edges_count[neighbor]
             ):
                 distances[neighbor] = distance
                 edges_count[neighbor] = current_edges + 1
@@ -50,6 +49,4 @@ graph.add_edge(4, 5, 1)
 src = 0
 target = 5
 distance, edges = dijkstra_with_min_edges(graph, src, target)
-print(
-    f"Shortest path from {src} to {target} has distance {distance} using {edges} edges."
-)
+print(f"Shortest path from {src} to {target} has distance {distance} using {edges} edges.")

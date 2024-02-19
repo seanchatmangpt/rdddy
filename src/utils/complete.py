@@ -1,7 +1,7 @@
-import openai
-
 from dataclasses import dataclass, field
-from typing import Any, List, Optional
+from typing import Optional
+
+import openai
 
 
 @dataclass
@@ -13,7 +13,7 @@ class LLMConfig:
     top_p: float = 1.0
     frequency_penalty: float = 0.0
     presence_penalty: float = 0.0
-    stop: Optional[List[str]] = field(default=None)
+    stop: Optional[list[str]] = field(default=None)
 
     def update(self, **kwargs):
         for key, value in kwargs.items():
@@ -23,7 +23,7 @@ class LLMConfig:
                 raise ValueError(f"Invalid config key: {key}")
 
 
-def create(config: LLMConfig = None, **kwargs):
+def create(config: Optional[LLMConfig] = None, **kwargs):
     if config:
         config.update(**kwargs)
         prompt = config.prompt
@@ -57,7 +57,7 @@ def create(config: LLMConfig = None, **kwargs):
     return response.choices[0].text.strip()
 
 
-async def acreate(*, config: LLMConfig = None, **kwargs):
+async def acreate(*, config: Optional[LLMConfig] = None, **kwargs):
     if config:
         config.update(**kwargs)
         prompt = config.prompt
@@ -83,9 +83,7 @@ async def acreate(*, config: LLMConfig = None, **kwargs):
     if model == "llama":
         from llama_cpp import Llama
 
-        llm = Llama(
-            model_path="/Users/candacechatman/dev/models/codellama-7b.Q4_0.gguf"
-        )
+        llm = Llama(model_path="/Users/candacechatman/dev/models/codellama-7b.Q4_0.gguf")
 
         response = llm(
             model=model,
@@ -152,8 +150,7 @@ def chat(
     write_path=None,
     mode="a+",
 ) -> Union[str, dict]:
-    """
-    Customized completion function that interacts with the OpenAI API, capable of handling prompts, system messages,
+    """Customized completion function that interacts with the OpenAI API, capable of handling prompts, system messages,
     and specific functions. If the content length is too long, it will shorten the content and retry.
 
     Parameters:
@@ -224,9 +221,7 @@ def chat(
             wait_time = initial_wait * (backoff_factor ** (retry - 1))
 
             # Print the error and wait before retrying
-            logger.warning(
-                f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}"
-            )
+            logger.warning(f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}")
             sleep(wait_time)
 
 
@@ -260,8 +255,7 @@ async def achat(
     write_path=None,
     mode="a+",
 ) -> Union[str, dict]:
-    """
-    Customized completion function that interacts with the OpenAI API, capable of handling prompts, system messages,
+    """Customized completion function that interacts with the OpenAI API, capable of handling prompts, system messages,
     and specific functions. If the content length is too long, it will shorten the content and retry.
     """
     openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -314,9 +308,7 @@ async def achat(
 
             wait_time = initial_wait * (backoff_factor ** (retry - 1))
 
-            print(
-                f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}"
-            )
+            print(f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}")
             await asyncio.sleep(wait_time)
 
 

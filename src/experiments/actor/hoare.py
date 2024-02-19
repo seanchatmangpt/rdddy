@@ -1,9 +1,9 @@
-from rdddy.actor import Actor
-from rdddy.actor_system import ActorSystem
 from experiments.actor.messages import *
+from rdddy.abstract_actor import AbstractActor
+from rdddy.actor_system import ActorSystem
 
 
-class InitiationActor(Actor):
+class InitiationActor(AbstractActor):
     async def handle_start_phase_command(self, message: StartPhaseCommand):
         print(f"Starting phase: {message.phase_name}")
         # Simulate checking a condition to decide if we proceed
@@ -14,14 +14,10 @@ class InitiationActor(Actor):
             )
         else:
             await self.publish(
-                PhaseErrorEvent(
-                    phase_name=message.phase_name, error_message="Precondition failed"
-                )
+                PhaseErrorEvent(phase_name=message.phase_name, error_message="Precondition failed")
             )
 
-    async def handle_evaluate_precondition_query(
-        self, message: EvaluatePreconditionQuery
-    ):
+    async def handle_evaluate_precondition_query(self, message: EvaluatePreconditionQuery):
         # Directly using the message content to decide success or failure here for simplicity
         if message.phase_name == "Hello":
             await self.publish(
@@ -29,16 +25,12 @@ class InitiationActor(Actor):
             )
         else:
             await self.publish(
-                PhaseErrorEvent(
-                    phase_name=message.phase_name, error_message="Precondition failed"
-                )
+                PhaseErrorEvent(phase_name=message.phase_name, error_message="Precondition failed")
             )
 
 
-class CompletionActor(Actor):
-    async def handle_evaluate_postcondition_query(
-        self, message: EvaluatePostconditionQuery
-    ):
+class CompletionActor(AbstractActor):
+    async def handle_evaluate_postcondition_query(self, message: EvaluatePostconditionQuery):
         # If message is "Hello", the postcondition check passes
         if message.phase_name == "Hello":
             await self.publish(
@@ -48,9 +40,7 @@ class CompletionActor(Actor):
         # If message is "Goodbye", the postcondition check fails
         elif message.phase_name == "Goodbye":
             await self.publish(
-                PhaseErrorEvent(
-                    phase_name=message.phase_name, error_message="Postcondition failed"
-                )
+                PhaseErrorEvent(phase_name=message.phase_name, error_message="Postcondition failed")
             )
 
 

@@ -1,10 +1,11 @@
 import ast
-import logging
 import inspect
+import logging
+from typing import Optional, TypeVar
 
-from typing import Type, TypeVar
-from dspy import Assert, Module, ChainOfThought, Signature, InputField, OutputField
 from pydantic import BaseModel, ValidationError
+
+from dspy import Assert, ChainOfThought, InputField, Module, OutputField, Signature
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -16,17 +17,14 @@ def eval_dict_str(dict_str: str) -> dict:
 
 
 class PromptToPydanticInstanceSignature(Signature):
-    """
-    Synthesize the prompt into the kwargs fit the model.
+    """Synthesize the prompt into the kwargs fit the model.
     Do not duplicate the field descriptions
     """
 
     root_pydantic_model_class_name = InputField(
         desc="The class name of the pydantic model to receive the kwargs"
     )
-    pydantic_model_definitions = InputField(
-        desc="Pydantic model class definitions as a string"
-    )
+    pydantic_model_definitions = InputField(desc="Pydantic model class definitions as a string")
     prompt = InputField(
         desc="The prompt to be synthesized into data. Do not duplicate descriptions"
     )
@@ -44,9 +42,7 @@ class PromptToPydanticInstanceErrorSignature(Signature):
     root_pydantic_model_class_name = InputField(
         desc="The class name of the pydantic model to receive the kwargs"
     )
-    pydantic_model_definitions = InputField(
-        desc="Pydantic model class definitions as a string"
-    )
+    pydantic_model_definitions = InputField(desc="Pydantic model class definitions as a string")
     prompt = InputField(desc="The prompt to be synthesized into data")
     root_model_kwargs_dict = OutputField(
         prefix="kwargs_dict = ",
@@ -58,8 +54,7 @@ T = TypeVar("T", bound=BaseModel)
 
 
 class GenPydanticInstance(Module):
-    """
-    A module for generating and validating Pydantic model instances based on prompts.
+    """A module for generating and validating Pydantic model instances based on prompts.
 
     Usage:
         To use this module, instantiate the GenPydanticInstance class with the desired
@@ -69,8 +64,8 @@ class GenPydanticInstance(Module):
 
     def __init__(
         self,
-        root_model: Type[T],
-        child_models: list[Type[BaseModel]] = None,
+        root_model: type[T],
+        child_models: Optional[list[type[BaseModel]]] = None,
         generate_sig=PromptToPydanticInstanceSignature,
         correct_generate_sig=PromptToPydanticInstanceErrorSignature,
     ):
@@ -85,9 +80,7 @@ class GenPydanticInstance(Module):
         self.root_model = root_model
 
         # Concatenate source code of models for use in generation/correction logic
-        self.model_sources = "\n".join(
-            [inspect.getsource(model) for model in self.models]
-        )
+        self.model_sources = "\n".join([inspect.getsource(model) for model in self.models])
 
         # Initialize DSPy ChainOfThought modules for generation and correction
         self.generate = ChainOfThought(generate_sig)
@@ -115,8 +108,7 @@ class GenPydanticInstance(Module):
         return self.root_model.model_validate(eval_dict_str(output))
 
     def forward(self, prompt) -> T:
-        """
-        Takes a prompt as input and generates a Python dictionary that represents an instance of the
+        """Takes a prompt as input and generates a Python dictionary that represents an instance of the
         root Pydantic model. It also handles error correction and validation.
         """
         output = self.generate(
@@ -130,7 +122,7 @@ class GenPydanticInstance(Module):
         try:
             return self.validate_output(output)
         except (AssertionError, ValueError, TypeError) as error:
-            logger.error(f"Error {str(error)}\nOutput:\n{output}")
+            logger.error(f"Error {error!s}\nOutput:\n{output}")
 
             # Correction attempt
             corrected_output = self.correct_generate(
@@ -148,7 +140,12 @@ class GenPydanticInstance(Module):
 
 def main():
     import dspy
-    from rdddy.messages import EventStormModel, Event, Command, Query
+    from rdddy.messages import (
+        AbstractCommand,
+        AbstractEvent,
+        AbstractQuery,
+        EventStormModel,
+    )
 
     lm = dspy.OpenAI(max_tokens=3000, model="gpt-4")
     dspy.settings.configure(lm=lm)
@@ -200,13 +197,14 @@ before: "module.exports = app"
 ---
 app.<%= method %>('/<%= name %>', <%= name %>)
 Note how we're anchoring this inject to before: "module.exports = app". If in previous occasions we appended content to a given line, we're now prepending it.
-```    
-    
+```
+
 You are a Event Storm assistant that comes up with Events, Commands, and Queries for Reactive Domain Driven Design based on the ```prompt```
     """
 
     model_module = GenPydanticInstance(
-        root_model=EventStormModel, child_models=[Event, Command, Query]
+        root_model=EventStormModel,
+        child_models=[AbstractEvent, AbstractCommand, AbstractQuery],
     )
     model_inst = model_module(prompt=prompt)
     print(model_inst)

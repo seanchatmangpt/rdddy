@@ -1,48 +1,48 @@
 import asyncio
 
 from experiments.actor.messages import PhaseErrorEvent
-from rdddy.actor import Actor
+from rdddy.abstract_actor import AbstractActor
 from rdddy.actor_system import ActorSystem
 from rdddy.messages import *
 
 
 # Define the messages for each step in the scenario
-class RequirementSpecificationCommand(Command):
+class RequirementSpecificationCommand(AbstractCommand):
     requirements: dict[str, str]
 
 
-class ModelGeneratedEvent(Event):
+class ModelGeneratedEvent(AbstractEvent):
     mdl_id: str
 
 
-class ModelValidatedEvent(Event):
+class ModelValidatedEvent(AbstractEvent):
     mdl_id: str
     validation_status: bool
 
 
-class ModelAdaptationCommand(Command):
+class ModelAdaptationCommand(AbstractCommand):
     mdl_id: str
     external_inputs: dict[str, str]
 
 
-class DecisionMadeEvent(Event):
+class DecisionMadeEvent(AbstractEvent):
     mdl_id: str
     decision_actions: list[str]
 
 
-class OptimizationCompletedEvent(Event):
+class OptimizationCompletedEvent(AbstractEvent):
     mdl_id: str
 
 
-class DeploymentStartedCommand(Command):
+class DeploymentStartedCommand(AbstractCommand):
     mdl_id: str
 
 
-class ModelDeployedEvent(Event):
+class ModelDeployedEvent(AbstractEvent):
     mdl_id: str
 
 
-class ModelMonitoringCommand(Command):
+class ModelMonitoringCommand(AbstractCommand):
     mdl_id: str
 
 
@@ -50,7 +50,7 @@ class ModelMonitoringCommand(Command):
 # For brevity, only the structure of actors is outlined
 
 
-class ProjectManagementActor(Actor):
+class ProjectManagementActor(AbstractActor):
     async def handle_requirement_specification_command(
         self, message: RequirementSpecificationCommand
     ):
@@ -59,16 +59,14 @@ class ProjectManagementActor(Actor):
         await self.publish(ModelGeneratedEvent(mdl_id="model_123"))
 
 
-class ModelGenerationActor(Actor):
+class ModelGenerationActor(AbstractActor):
     async def handle_model_generated_event(self, message: ModelGeneratedEvent):
         # Generate model based on received event (simulate model generation)
         print(f"Model {message.mdl_id} generated.")
-        await self.publish(
-            ModelValidatedEvent(mdl_id=message.mdl_id, validation_status=True)
-        )
+        await self.publish(ModelValidatedEvent(mdl_id=message.mdl_id, validation_status=True))
 
 
-class ModelValidationActor(Actor):
+class ModelValidationActor(AbstractActor):
     async def handle_model_validated_event(self, message: ModelValidatedEvent):
         # Validate the model (simulation)
         print(f"Model {message.mdl_id} validation status: {message.validation_status}")
@@ -78,20 +76,18 @@ class ModelValidationActor(Actor):
             )
         else:
             await self.publish(
-                PhaseErrorEvent(
-                    phase_name="Validation", error_message="Validation Failed"
-                )
+                PhaseErrorEvent(phase_name="Validation", error_message="Validation Failed")
             )
 
 
-class AdaptationActor(Actor):
+class AdaptationActor(AbstractActor):
     async def handle_model_adaptation_command(self, message: ModelAdaptationCommand):
         # Adapt the model based on external inputs (simulate adaptation)
         print(f"Adapting model {message.mdl_id} with inputs: {message.external_inputs}")
         await self.publish(OptimizationCompletedEvent(mdl_id=message.mdl_id))
 
 
-class DecisionMakingActor(Actor):
+class DecisionMakingActor(AbstractActor):
     async def handle_decision_made_event(self, message: DecisionMadeEvent):
         # Make decision based on DMN (simulate decision-making)
         print(f"Decision for model {message.mdl_id}: {message.decision_actions}")
@@ -99,25 +95,21 @@ class DecisionMakingActor(Actor):
             await self.publish(DeploymentStartedCommand(mdl_id=message.mdl_id))
 
 
-class OptimizationActor(Actor):
-    async def handle_optimization_completed_event(
-        self, message: OptimizationCompletedEvent
-    ):
+class OptimizationActor(AbstractActor):
+    async def handle_optimization_completed_event(self, message: OptimizationCompletedEvent):
         # Optimization logic (simulation)
         print(f"Optimization completed for model {message.mdl_id}.")
         await self.publish(ModelDeployedEvent(mdl_id=message.mdl_id))
 
 
-class DeploymentActor(Actor):
-    async def handle_deployment_started_command(
-        self, message: DeploymentStartedCommand
-    ):
+class DeploymentActor(AbstractActor):
+    async def handle_deployment_started_command(self, message: DeploymentStartedCommand):
         # Handle deployment (simulate deployment process)
         print(f"Deployment started for model {message.mdl_id}.")
         await self.publish(ModelMonitoringCommand(mdl_id=message.mdl_id))
 
 
-class MonitoringActor(Actor):
+class MonitoringActor(AbstractActor):
     async def handle_model_monitoring_command(self, message: ModelMonitoringCommand):
         # Monitor the model (simulate monitoring)
         print(f"Monitoring initiated for model {message.mdl_id}.")
@@ -143,9 +135,7 @@ async def setup_and_run():
     # Example: project_management_actor = await actor_system.actor_of(ProjectManagementActor)
     # Trigger the start of the scenario by sending a RequirementSpecificationCommand
     await actor_system.publish(
-        RequirementSpecificationCommand(
-            requirements={"model-deployment-started": "hello"}
-        )
+        RequirementSpecificationCommand(requirements={"model-deployment-started": "hello"})
     )
 
 

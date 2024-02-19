@@ -2,20 +2,19 @@ from typetemp.template.render_mixin import RenderMixin
 
 
 class TypedTemplate(RenderMixin):
-    """
-    Base class for creating templated classes. Uses the jinja2 templating engine
+    """Base class for creating templated classes. Uses the jinja2 templating engine
     to render templates. Allows for usage of macros and filters.
     """
 
-    template_path: str = None  # The path to the file
-    source: str = None  # The string template to be rendered
-    to: str = None  # The "to" property for rendering destination
-    output: str = None  # The rendered output
+    template_path: str = ""  # The path to the file
+    source: str = ""  # The string template to be rendered
+    to: str = ""  # The "to" property for rendering destination
+    output: str = ""  # The rendered output
 
     def __init__(self, **kwargs):
         if kwargs.get("template_path"):
             # Read the template to the source string
-            with open(kwargs.get("template_path"), "r") as f:
+            with open(kwargs.get("template_path")) as f:
                 self.source = f.read()
 
         self.__dict__.update(kwargs)

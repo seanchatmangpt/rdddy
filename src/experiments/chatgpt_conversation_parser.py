@@ -1,12 +1,12 @@
 import ijson
-import tiktoken
 
 # Define the path to your large JSON file
 json_file_path = "/Users/candacechatman/dev/rdddy/data/conversations.json"
 
 
-from pydantic import BaseModel, Field, ValidationError
-from typing import List, Optional, Any
+from typing import Optional
+
+from pydantic import BaseModel, ValidationError
 
 
 class Author(BaseModel):
@@ -17,7 +17,7 @@ class Author(BaseModel):
 
 class ContentPart(BaseModel):
     content_type: str
-    parts: List[str] | None
+    parts: list[str] | None
 
 
 class Message(BaseModel):
@@ -32,7 +32,7 @@ class Data(BaseModel):
     id: str
     message: Message | None
     parent: str | None
-    children: List[str]
+    children: list[str]
 
 
 class Conversation(BaseModel):
@@ -43,8 +43,6 @@ class Conversation(BaseModel):
 # Function to process each conversation chunk
 def process_conversations_chunk(chunk):
     # Define Pydantic models as before
-    from pydantic import BaseModel
-    from typing import List
 
     # Process each conversation in the chunk
     for chunked in chunk:
@@ -61,7 +59,7 @@ def process_conversations_chunk(chunk):
                         # encoding = tiktoken.encoding_for_model("text-embedding-ada-002")
                         # print(len(encoding.encode(part)))
                         # print(part)
-        except ValidationError as e:
+        except ValidationError:
             # print(e)
             pass
 

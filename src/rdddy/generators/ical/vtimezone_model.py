@@ -1,6 +1,6 @@
-from pydantic import BaseModel, Field, validator, root_validator, EmailStr, UrlStr
-from typing import List, Optional
 from datetime import datetime
+
+from pydantic import *
 
 
 class VTIMEZONEModel(BaseModel):

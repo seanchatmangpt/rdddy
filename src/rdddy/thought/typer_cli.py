@@ -1,11 +1,9 @@
-import dspy
-import json
-
 from pydantic import BaseModel, Field
 
+import dspy
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
-cli_description = f"""
+cli_description = """
 
 We are building a Typer CLI application named 'DSPyGenerator'. It should include the following commands:
 
@@ -44,9 +42,7 @@ class TyperCLI(BaseModel):
     """Typer CLI name and commands"""
 
     name: str = Field(..., min_length=1, description="The name of the CLI application")
-    commands: list[Command] = Field(
-        ..., description="The commands of the CLI application"
-    )
+    commands: list[Command] = Field(..., description="The commands of the CLI application")
 
 
 def main():

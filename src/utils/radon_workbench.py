@@ -9,6 +9,7 @@ from radon.metrics import h_visit, mi_visit
 from radon.raw import analyze
 
 from utils.complete import create
+from utils.py_module import PyModule
 
 
 def get_cyclomatic_complexity(source_code: str) -> dict:
@@ -118,24 +119,24 @@ def refactor_code(sample_code):
         return fix_code(sample_code)
 
 
-# if __name__ == "__main__":
-#     # result = "GPT-3.5-turbo Analysis: There appears to be a bug in the add function, where it is returning the wrong value (a - b instead of a + b). To fix this, we can simply change the return statement to return a + b."
-#     result = refactor_code(bad_largest)
-#     # result = refactor_code(bad_add)
-#     print("GPT-3.5-turbo Analysis:", result)
-#
-#     module = PyModule(source=result)
-#
-#     # print("Module:", module)
-#     # print("Functions:", module.functions)
-#
-#     # add_fixed = dedent("""def add(a, b):
-#     # return a + b""")
-#     add_fixed = fix_code(result)
-#
-#     module.add = add_fixed
-#
-#     print(str(module))
-#
-#     module.filepath = "demo_module.py"
-#     module.save()
+if __name__ == "__main__":
+    # result = "GPT-3.5-turbo Analysis: There appears to be a bug in the add function, where it is returning the wrong value (a - b instead of a + b). To fix this, we can simply change the return statement to return a + b."
+    result = refactor_code(bad_largest)
+    # result = refactor_code(bad_add)
+    print("GPT-3.5-turbo Analysis:", result)
+
+    module = PyModule(source=result, filepath="demo_module.py")
+
+    # print("Module:", module)
+    # print("Functions:", module.functions)
+
+    # add_fixed = dedent("""def add(a, b):
+    # return a + b""")
+    add_fixed = fix_code(result)
+
+    module.add = add_fixed
+
+    print(str(module))
+
+    module.filepath = "demo_module.py"
+    module.save()

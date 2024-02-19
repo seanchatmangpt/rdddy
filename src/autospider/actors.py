@@ -1,56 +1,69 @@
-from rdddy.actor import Actor
-from rdddy.actor_system import ActorSystem
 from autospider.messages import (
-    StartScrapingCommand,
-    EvaluateScrapingPreconditionQuery,
-    ScrapingPreconditionEvaluatedEvent,
-    ExecuteScrapingCommand,
-    ScrapingErrorEvent,
     EvaluateScrapingPostconditionQuery,
-    ScrapingPostconditionEvaluatedEvent,
+    EvaluateScrapingPreconditionQuery,
+    ExecuteScrapingCommand,
     ScrapingCompletedEvent,
+    ScrapingErrorEvent,
+    ScrapingPostconditionEvaluatedEvent,
+    ScrapingPreconditionEvaluatedEvent,
+    StartScrapingCommand,
 )
+from rdddy.abstract_actor import AbstractActor
 
 
-class InitiationActor(Actor):
+class InitiationActor(AbstractActor):
     async def handle_start_scraping_command(self, message: StartScrapingCommand):
         print(f"Received StartScrapingCommand: Starting scraping for URL {message.url}")
         # Example: Trigger precondition evaluation
         await self.publish(EvaluateScrapingPreconditionQuery(url=message.url))
 
 
-class PreconditionActor(Actor):
-    async def handle_evaluate_scraping_precondition_query(self, message: EvaluateScrapingPreconditionQuery):
+class PreconditionActor(AbstractActor):
+    async def handle_evaluate_scraping_precondition_query(
+        self, message: EvaluateScrapingPreconditionQuery
+    ):
         print(f"Evaluating scraping precondition for URL {message.url}")
         # Example: Pretend the precondition is always met
         await self.publish(ScrapingPreconditionEvaluatedEvent(url=message.url, result=True))
 
 
-class ProcessingActor(Actor):
-    async def handle_scraping_precondition_evaluated_event(self, message: ScrapingPreconditionEvaluatedEvent):
+class ProcessingActor(AbstractActor):
+    async def handle_scraping_precondition_evaluated_event(
+        self, message: ScrapingPreconditionEvaluatedEvent
+    ):
         if message.result:
             print(f"Precondition met for URL {message.url}, executing scraping...")
             await self.publish(ExecuteScrapingCommand(url=message.url))
         else:
             print(f"Precondition not met for URL {message.url}, aborting...")
-            await self.publish(ScrapingErrorEvent(url=message.url, error_message="Precondition failed"))
+            await self.publish(
+                ScrapingErrorEvent(url=message.url, error_message="Precondition failed")
+            )
 
 
-class ExecutionActor(Actor):
+class ExecutionActor(AbstractActor):
     async def handle_execute_scraping_command(self, message: ExecuteScrapingCommand):
         print(f"Executing scraping for URL {message.url}")
         # Example: After execution, evaluate postconditions
         await self.publish(EvaluateScrapingPostconditionQuery(url=message.url))
 
-    async def handle_evaluate_scraping_post_condition_query(self, message:EvaluateScrapingPostconditionQuery):
+    async def handle_evaluate_scraping_post_condition_query(
+        self, message: EvaluateScrapingPostconditionQuery
+    ):
         await self.publish(ScrapingPostconditionEvaluatedEvent(url=message.url, result=True))
 
 
-class CompletionActor(Actor):
-    async def handle_scraping_postcondition_evaluated_event(self, message: ScrapingPostconditionEvaluatedEvent):
+class CompletionActor(AbstractActor):
+    async def handle_scraping_postcondition_evaluated_event(
+        self, message: ScrapingPostconditionEvaluatedEvent
+    ):
         if message.result:
             print(f"Scraping completed successfully for URL {message.url}.")
-            await self.publish(ScrapingCompletedEvent(url=message.url, scraped_data={"hello": "world"}))
+            await self.publish(
+                ScrapingCompletedEvent(url=message.url, scraped_data={"hello": "world"})
+            )
         else:
             print(f"Postconditions not met for URL {message.url}.")
-            await self.publish(ScrapingErrorEvent(url=message.url, error_message="Postcondition failed"))
+            await self.publish(
+                ScrapingErrorEvent(url=message.url, error_message="Postcondition failed")
+            )

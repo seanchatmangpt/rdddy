@@ -2,8 +2,7 @@ import dspy
 
 
 class GenJinjaSignature(dspy.Signature):
-    """
-    This signature transforms source code into Jinja templates, adhering to best practices for template creation.
+    """This signature transforms source code into Jinja templates, adhering to best practices for template creation.
     It is designed to take a source code snippet, analyze its structure, and produce a corresponding Jinja template.
     The output template will be well-structured, maintain readability, and include verbose instructions for clarity.
 

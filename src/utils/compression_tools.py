@@ -1,7 +1,5 @@
-import os
-
 import inspect
-
+import os
 import re
 
 
@@ -9,7 +7,7 @@ def remove_whitespace(input_data):
     if isinstance(input_data, str):
         # Check if filepath
         if os.path.exists(input_data):
-            with open(input_data, "r") as file:
+            with open(input_data) as file:
                 return remove_whitespace(file.read())
         else:
             # If the input is a string, remove whitespace characters

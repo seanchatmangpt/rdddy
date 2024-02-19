@@ -1,6 +1,6 @@
-import pytest
 from typer.testing import CliRunner
-from metadspy.cli import app  # Updated import statement
+
+from experiments.generated_cli import app
 
 runner = CliRunner()
 

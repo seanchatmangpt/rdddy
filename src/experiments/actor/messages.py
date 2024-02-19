@@ -1,44 +1,44 @@
 from rdddy.messages import *
 
 
-class StartPhaseCommand(Command):
+class StartPhaseCommand(AbstractCommand):
     phase_name: str
 
 
-class PhaseStartedEvent(Event):
+class PhaseStartedEvent(AbstractEvent):
     phase_name: str
 
 
-class EvaluatePreconditionQuery(Query):
+class EvaluatePreconditionQuery(AbstractQuery):
     phase_name: str
 
 
-class PreconditionEvaluatedEvent(Event):
-    phase_name: str
-    result: bool
-
-
-class ProcessPhaseCommand(Command):
-    phase_name: str
-
-
-class PhaseProcessedEvent(Event):
-    phase_name: str
-
-
-class EvaluatePostconditionQuery(Query):
-    phase_name: str
-
-
-class PostconditionEvaluatedEvent(Event):
+class PreconditionEvaluatedEvent(AbstractEvent):
     phase_name: str
     result: bool
 
 
-class PhaseCompletedEvent(Event):
+class ProcessPhaseCommand(AbstractCommand):
     phase_name: str
 
 
-class PhaseErrorEvent(Event):
+class PhaseProcessedEvent(AbstractEvent):
+    phase_name: str
+
+
+class EvaluatePostconditionQuery(AbstractQuery):
+    phase_name: str
+
+
+class PostconditionEvaluatedEvent(AbstractEvent):
+    phase_name: str
+    result: bool
+
+
+class PhaseCompletedEvent(AbstractEvent):
+    phase_name: str
+
+
+class PhaseErrorEvent(AbstractEvent):
     phase_name: str
     error_message: str

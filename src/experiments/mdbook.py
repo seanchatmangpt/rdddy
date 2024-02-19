@@ -1,8 +1,8 @@
-from denz.agent import MessageList
-from denz.agent_system import AgentSystem
-from denz.agent import Agent
-from denz.collaborative_agent import CollaborativeAgent
-from domain.collaboration_context import *
+from typing import cast
+
+from experiments.collaboration_context import *
+from experiments.collaborative_agent import CollaborativeAgent
+from rdddy.actor_system import ActorSystem
 
 
 class AlbertoBrandoliniAgent(CollaborativeAgent):
@@ -10,14 +10,10 @@ class AlbertoBrandoliniAgent(CollaborativeAgent):
         print(f"Alberto Brandolini created with name: {event.agent_name}")
 
     def handle_message_sent(self, event: MessageSent):
-        print(
-            f"Alberto Brandolini sent a message to Greg Young: {event.message_content}"
-        )
+        print(f"Alberto Brandolini sent a message to Greg Young: {event.message_content}")
 
     def handle_task_assigned(self, event: TaskAssigned):
-        print(
-            f"Alberto Brandolini assigned a task (ID: {event.task_id}): {event.task_description}"
-        )
+        print(f"Alberto Brandolini assigned a task (ID: {event.task_id}): {event.task_description}")
 
     def handle_task_completed(self, event: TaskCompleted):
         print(
@@ -25,9 +21,7 @@ class AlbertoBrandoliniAgent(CollaborativeAgent):
         )
 
     def handle_decision_made(self, event: DecisionMade):
-        print(
-            f"Alberto Brandolini made a significant decision: {event.decision_description}"
-        )
+        print(f"Alberto Brandolini made a significant decision: {event.decision_description}")
 
     def handle_resource_allocation(self, event: ResourceAllocation):
         print(
@@ -53,27 +47,19 @@ class AlbertoBrandoliniAgent(CollaborativeAgent):
 
 class GregYoungAgent(CollaborativeAgent):
     def handle_message_received(self, event: MessageReceived):
-        print(
-            f"Greg Young received a message from Alberto Brandolini: {event.message_content}"
-        )
+        print(f"Greg Young received a message from Alberto Brandolini: {event.message_content}")
 
     def handle_collaboration_initiated(self, event: CollaborationInitiated):
         agents_involved = ", ".join(map(str, event.agents_involved))
-        print(
-            f"Collaboration initiated by Alberto Brandolini and Greg Young: {agents_involved}"
-        )
+        print(f"Collaboration initiated by Alberto Brandolini and Greg Young: {agents_involved}")
 
     def handle_conflict_detected(self, event: ConflictDetected):
         conflicting_agents = ", ".join(map(str, event.conflicting_agents))
-        print(
-            f"Conflict detected among Alberto Brandolini and Greg Young: {conflicting_agents}"
-        )
+        print(f"Conflict detected among Alberto Brandolini and Greg Young: {conflicting_agents}")
 
     def handle_conflict_resolved(self, event: ConflictResolved):
         resolved_agents = ", ".join(map(str, event.resolved_agents))
-        print(
-            f"Conflict resolved among Alberto Brandolini and Greg Young: {resolved_agents}"
-        )
+        print(f"Conflict resolved among Alberto Brandolini and Greg Young: {resolved_agents}")
 
     def handle_emergency_shutdown(self, event: EmergencyShutdown):
         print(f"Emergency shutdown triggered. Reason: {event.reason}")
@@ -81,94 +67,74 @@ class GregYoungAgent(CollaborativeAgent):
 
 # Define the event storming results
 event_results = [
-    AgentCreated(agent_id=1, agent_name="AB"),
-    AgentCreated(agent_id=2, agent_name="GY"),
-    MessageSent(agent_id_id=1, recipient_id=2, message_content="Brainstorming ideas"),
-    MessageReceived(
-        agent_id_id=1, recipient_id=2, message_content="Received brainstorming ideas"
-    ),
+    AgentCreated(actor_id=1),
+    AgentCreated(actor_id=2),
+    MessageSent(recipient_id=2, message_content="Brainstorming ideas"),
+    MessageReceived(recipient_id=2, message_content="Received brainstorming ideas"),
     TaskAssigned(task_id=1, task_description="Write book content"),
     TaskCompleted(task_id=1, task_description="Completed writing chapter 1"),
-    DecisionMade(agent_id=1, decision_description="Select book cover design"),
-    ResourceAllocation(agent_id=1, resource_type="Design", amount=1),
-    ResourceDeallocation(agent_id=1, resource_type="Design", amount=1),
+    DecisionMade(actor_id=1, decision_description="Select book cover design"),
+    ResourceAllocation(actor_id=1, resource_type="Design", amount=1),
+    ResourceDeallocation(actor_id=1, resource_type="Design", amount=1),
     CollaborationInitiated(agents_involved=[1, 2]),
     ConflictDetected(conflicting_agents=[1, 2]),
     ConflictResolved(resolved_agents=[1, 2], conflicting_agents=[1, 2]),
     EmergencyShutdown(reason="Technical issue"),
-    FeedbackReceived(agent_id=1, feedback_content="Positive feedback received"),
-    LearningUpdate(agent_id=1, update_description="Improved writing style"),
+    FeedbackReceived(actor_id=1, feedback_content="Positive feedback received"),
+    LearningUpdate(actor_id=1, update_description="Improved writing style"),
     SystemHealthCheck(health_status="Healthy"),
 ]
 
 import anyio
 
 
-async def main():
-    sys = AgentSystem()
+class AgentSystem:
+    pass
 
-    alberto_brandolini = sys.agent_of(AlbertoBrandoliniAgent)
-    greg_young = sys.agent_of(GregYoungAgent)
+
+async def main():
+    sys = ActorSystem()
+
+    alberto_brandolini = cast(AlbertoBrandoliniAgent, await sys.actor_of(AlbertoBrandoliniAgent))
+    greg_young = cast(GregYoungAgent, await sys.actor_of(GregYoungAgent))
 
     event_results = [
-        AgentCreated(agent_id=alberto_brandolini.agent_id, agent_name="AB"),
-        AgentCreated(agent_id=greg_young.agent_id, agent_name="GY"),
+        AgentCreated(),
+        AgentCreated(),
         MessageSent(
-            agent_id_id=alberto_brandolini.agent_id,
-            recipient_id=greg_young.agent_id,
             message_content="Brainstorming ideas",
         ),
         MessageReceived(
-            agent_id_id=alberto_brandolini.agent_id,
-            recipient_id=greg_young.agent_id,
             message_content="Received brainstorming ideas",
         ),
         TaskAssigned(
-            agent_id=alberto_brandolini.agent_id,
             task_id=1,
             task_description="Write book content",
         ),
         TaskCompleted(
-            agent_id=alberto_brandolini.agent_id,
             task_id=1,
             task_description="Completed writing chapter 1",
         ),
         DecisionMade(
-            agent_id=alberto_brandolini.agent_id,
             decision_description="Select book cover design",
         ),
-        ResourceAllocation(
-            agent_id=alberto_brandolini.agent_id, resource_type="Design", amount=1
-        ),
-        ResourceDeallocation(
-            agent_id=alberto_brandolini.agent_id, resource_type="Design", amount=1
-        ),
-        CollaborationInitiated(
-            agents_involved=[alberto_brandolini.agent_id, greg_young.agent_id]
-        ),
-        ConflictDetected(
-            conflicting_agents=[alberto_brandolini.agent_id, greg_young.agent_id]
-        ),
-        ConflictResolved(
-            resolved_agents=[alberto_brandolini.agent_id, greg_young.agent_id]
-        ),
+        ResourceAllocation(resource_type="Design", amount=1),
+        ResourceDeallocation(resource_type="Design", amount=1),
+        CollaborationInitiated(agents_involved=[alberto_brandolini.actor_id, greg_young.actor_id]),
+        ConflictDetected(conflicting_agents=[alberto_brandolini.actor_id, greg_young.actor_id]),
+        ConflictResolved(resolved_agents=[alberto_brandolini.actor_id, greg_young.actor_id]),
         EmergencyShutdown(reason="Technical issue"),
         FeedbackReceived(
-            agent_id=alberto_brandolini.agent_id,
             feedback_content="Positive feedback received",
         ),
         LearningUpdate(
-            agent_id=alberto_brandolini.agent_id,
             update_description="Improved writing style",
         ),
         SystemHealthCheck(health_status="Healthy"),
     ]
 
     for event in event_results:
-        if event.agent_id == alberto_brandolini.agent_id:
-            await sys.send(alberto_brandolini.agent_id, event)
-        elif event.agent_id == greg_young.agent_id:
-            await sys.send(greg_young.agent_id, event)
+        await sys.publish(event)
 
 
 if __name__ == "__main__":

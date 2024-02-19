@@ -45,9 +45,7 @@ async def synthetic_log_generator():
                     "Control Plan",
                 ]
             )
-            yield SyntheticLog(
-                datetime.datetime.now(), f"LivingCharter automates {feature}."
-            )
+            yield SyntheticLog(datetime.datetime.now(), f"LivingCharter automates {feature}.")
 
         elif upgrading_component == "DomainDef":
             yield SyntheticLog(

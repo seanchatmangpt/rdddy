@@ -8,14 +8,10 @@ num_samples = 100
 customer_ids = np.arange(1, num_samples + 1)
 
 # Generate baseline satisfaction scores (before new design)
-baseline_scores = np.random.randint(
-    1, 6, num_samples
-)  # Assuming a 5-point satisfaction scale
+baseline_scores = np.random.randint(1, 6, num_samples)  # Assuming a 5-point satisfaction scale
 
 # Generate post-design satisfaction scores (after new design)
-post_design_scores = np.random.randint(
-    3, 6, num_samples
-)  # Higher scores after the design change
+post_design_scores = np.random.randint(3, 6, num_samples)  # Higher scores after the design change
 
 # Create a DataFrame to store the synthetic results
 synthetic_results = pd.DataFrame(
