@@ -9,7 +9,6 @@ from playwright.async_api import async_playwright
 
 from utils.models import get_model
 
-client = AsyncOpenAI()
 
 
 @dataclass
@@ -188,6 +187,8 @@ async def acreate(*, config: Optional[LLMConfig] = None, **kwargs):
         )
 
     else:
+        client = AsyncOpenAI()
+
         response = await client.completions.create(
             model=model,
             prompt=prompt,
@@ -525,6 +526,8 @@ By carefully planning and designing each subcommand and considering user needs, 
 
 
 async def main():
+    client = AsyncOpenAI()
+
     await acreate(
         prompt="Convert the CLI to Typer and use jinja withing the echo",
         model="chatgpt",
