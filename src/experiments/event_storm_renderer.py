@@ -324,8 +324,8 @@ def main():
         EventStormModel,
     )
 
-    # lm = dspy.OpenAI(max_tokens=3000)
-    lm = dspy.OpenAI(max_tokens=4500, model="gpt-4")
+    lm = dspy.OpenAI(max_tokens=3000)
+    # lm = dspy.OpenAI(max_tokens=4500, model="gpt-4")
     dspy.settings.configure(lm=lm)
     # Create a Jinja environment and render the template
     env = Environment()

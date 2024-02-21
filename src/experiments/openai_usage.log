@@ -1,0 +1,134 @@
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.2s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 9497 tokens (4997 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 1.0s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 9497 tokens (4997 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 2.0s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 9497 tokens (4997 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 1.0s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 9497 tokens (4997 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.6s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 9037 tokens (4537 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 1.1s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 9037 tokens (4537 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.8s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 9037 tokens (4537 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.6s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 8809 tokens (4309 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 2.0s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 8192 tokens. However, you requested 8809 tokens (4309 in the messages, 4500 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}})
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.5s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 6213 tokens (3213 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 1.2s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 6213 tokens (3213 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 2.6s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 6213 tokens (3213 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for RelevantDDDToGherkinModel
+
+            Validation error:
+malformed node or string on line 1: <ast.Subscript object at 0x147432950>
+Error You need to create a kwargs dict for RelevantDDDToGherkinModel
+
+            Validation error:
+malformed node or string on line 1: <ast.Subscript object at 0x147432950>
+Output:
+{ "domain_event_classnames": event_storm_model_data["domain_event_classnames"], "external_event_classnames": event_storm_model_data["external_event_classnames"], "command_classnames": event_storm_model_data["command_classnames"], "query_classnames": event_storm_model_data["query_classnames"], "aggregate_classnames": event_storm_model_data["aggregate_classnames"], "policy_classnames": event_storm_model_data["policy_classnames"], "read_model_classnames": event_storm_model_data["read_model_classnames"], "view_classnames": event_storm_model_data["view_classnames"], "ui_event_classnames": event_storm_model_data["ui_event_classnames"], "saga_classnames": event_storm_model_data["saga_classnames"], "integration_event_classnames": event_storm_model_data["integration_event_classnames"], "exception_classnames": event_storm_model_data["exception_classnames"], "value_object_classnames": event_storm_model_data["value_object_classnames"], "task_classnames": event_storm_model_data["task_classnames"], }
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.7s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4117 tokens (1117 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.6s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4117 tokens (1117 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.6s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4117 tokens (1117 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 4.3s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4117 tokens (1117 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 15.1s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4117 tokens (1117 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"

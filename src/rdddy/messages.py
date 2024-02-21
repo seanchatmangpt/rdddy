@@ -49,7 +49,6 @@ class EventStormModel(BaseModel):
     Event Storming, enhancing system responsiveness and process efficiency. This model educates on designing and
     verifying systems aligned with domain requirements and operational excellence. CamelCase only.
     """
-
     domain_event_classnames: list[str] = Field(
         ...,
         min_length=3,
@@ -121,8 +120,6 @@ class EventStormModel(BaseModel):
         description="List of task names needed to complete a process or workflow. Examples: 'ValidateOrderTask', 'AllocateInventoryTask', 'NotifyCustomerTask'.",
     )
 
-    class Config:
-        arbitrary_types_allowed = True
 
 
 class MessageList(YAMLMixin, BaseModel):

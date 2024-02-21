@@ -1,4 +1,4 @@
-r"""The AbstractActor Module for Reactive Domain-Driven Design (RDDDY) Framework
+"""The AbstractActor Module for Reactive Domain-Driven Design (RDDDY) Framework
 ---------------------------------------------------------------------
 
 This module implements the core Actor abstraction within the RDDDY framework, providing a robust foundation for building reactive, domain-driven systems that are scalable, maintainable, and capable of handling complex, concurrent interactions. The Actor model encapsulates both state and behavior, allowing for asynchronous message passing as the primary means of communication between actors, thus fostering loose coupling and enhanced system resilience.

@@ -147,7 +147,7 @@ def main():
         EventStormModel,
     )
 
-    lm = dspy.OpenAI(max_tokens=3000, model="gpt-4")
+    lm = dspy.OpenAI(max_tokens=2000, model="gpt-4")
     dspy.settings.configure(lm=lm)
     prompt = """
     ```prompt

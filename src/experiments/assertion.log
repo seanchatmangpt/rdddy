@@ -69,3 +69,7 @@ integration_event_classnames
 task_classnames
   List should have at least 3 items after validation, not 1 [type=too_short, input_value=['GenerateAnswer'], input_type=list]
     For further information visit https://errors.pydantic.dev/2.5/v/too_short
+2024-02-20 14:52:23,691 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for RelevantDDDToGherkinModel
+
+            Validation error:
+malformed node or string on line 1: <ast.Subscript object at 0x147432950>
