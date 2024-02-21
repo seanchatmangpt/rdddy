@@ -144,7 +144,7 @@ def main():
         AbstractCommand,
         AbstractEvent,
         AbstractQuery,
-        EventStormModel,
+        EventStormingDomainSpecificationModel,
     )
 
     lm = dspy.OpenAI(max_tokens=2000, model="gpt-4")
@@ -203,7 +203,7 @@ You are a Event Storm assistant that comes up with Events, Commands, and Queries
     """
 
     model_module = GenPydanticInstance(
-        root_model=EventStormModel,
+        root_model=EventStormingDomainSpecificationModel,
         child_models=[AbstractEvent, AbstractCommand, AbstractQuery],
     )
     model_inst = model_module(prompt=prompt)

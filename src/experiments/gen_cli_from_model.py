@@ -19,34 +19,74 @@ class TyperCLI(BaseModel):
 cli_description = """
 
 
-We are building a Typer CLI application named 'DSPyGenerator'. It should include the following commands:
+DSPy Framework CLI v1.0.0
+A Ruby on Rails-style framework CLI for streamlined AI application development.
 
-1. Command Name: generate_module
-   Help: Generates a new DSPy module with a specified name.
+USAGE:
+    dspy [SUBCOMMAND]
 
-2. Command Name: generate_signature
-   Help: Creates a new signature class for defining input-output behavior in DSPy modules.
+SUBCOMMANDS:
+    new             Create a new DSPy project with a default directory structure and configuration.
+    generate        Generate new components within your DSPy project (e.g., modules, datasets, models).
+    server          Start a local server for developing and testing your DSPy application.
+    test            Run tests on your DSPy application, including model evaluations and data validations.
+    deploy          Deploy your DSPy application to various environments (development, testing, production).
+    db              Database operations, such as migrations, seeding, and schema loading.
+    data            Manage your datasets, including import, export, and version control.
+    eval            Evaluate your models or entire pipelines with custom or predefined metrics.
+    help            Displays help information about the available commands.
 
-3. Command Name: generate_chainofthought
-   Help: Generates a ChainOfThought module with a standard question-answering signature.
+EXAMPLES:
+    # Create a new DSPy project named MyAIApp
+    dspy new MyAIApp
 
-4. Command Name: generate_retrieve
-   Help: Generates a Retrieve module for use in information retrieval tasks within DSPy.
+    # Generate a new data model within the project
+    dspy generate model MyNewModel
 
-5. Command Name: generate_teleprompter
-   Help: Creates a teleprompter setup for optimizing DSPy programs.
+    # Run the development server
+    dspy server
 
-6. Command Name: generate_example
-   Help: Generates an example structure for use in training and testing DSPy modules.
+    # Run tests
+    dspy test
 
-7. Command Name: generate_assertion
-   Help: Generates a template for creating LM Assertions in DSPy programs.
+    # Deploy your application to production
+    dspy deploy --environment=production
+
+    # Perform database migration
+    dspy db migrate
+
+    # Import a dataset from a file
+    dspy data import --source=./path/to/dataset.csv
+
+    # Evaluate a model with a specific metric
+    dspy eval --model=MyModel --metric=f1_score
+
+    # Display help for the 'generate' subcommand
+    dspy help generate
+
+For more information on a specific command, use 'dspy [subcommand] --help'.
+
+GLOBAL OPTIONS:
+    -h, --help       Prints help information
+    -v, --version    Prints version information
+
+ENVIRONMENT VARIABLES:
+    DSPY_ENV         Sets the environment for the DSPy CLI (default: development)
+
+CONFIGURATION:
+    Configuration for the DSPy CLI and projects can be set in `.dspy.yml` within your project directory or global configuration files.
+
+SUPPORT & DOCUMENTATION:
+    For more details, visit the official DSPy documentation at [DSPy Framework Documentation URL].
+    For support, reach out to the community forum or issue tracker on our GitHub repository.
+
+
 
 """
 
 
 def main():
-    lm = dspy.OpenAI(max_tokens=3000)
+    lm = dspy.OpenAI(max_tokens=3000, model="gpt-4")
     dspy.settings.configure(lm=lm)
 
     model = GenPydanticInstance(root_model=TyperCLI, child_models=[TyperCommand]).forward(
@@ -94,9 +134,9 @@ def main():
 
     # --- Render Templates ---
     env = Environment(loader=FileSystemLoader("."))
-    env.from_string(cli_template).stream(cli_data=cli_data.model_dump()).dump("generated_cli.py")
+    env.from_string(cli_template).stream(cli_data=cli_data.model_dump()).dump("ror_dspy.py")
     env.from_string(pytest_template).stream(cli_data=cli_data.model_dump()).dump(
-        "test_generated_cli.py"
+        "test_ror_dspy.py"
     )
 
     print("CLI application and tests generated.")

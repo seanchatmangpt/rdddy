@@ -79,7 +79,7 @@ class Feature(BaseModel):
 def main():
     import dspy
     from rdddy.messages import (
-        EventStormModel,
+        EventStormingDomainSpecificationModel,
     )
 
     # lm = dspy.OpenAI(max_tokens=3000)

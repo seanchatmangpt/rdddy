@@ -43,7 +43,7 @@ class AbstractQuery(AbstractMessage):
 from pydantic import BaseModel, Field
 
 
-class EventStormModel(BaseModel):
+class EventStormingDomainSpecificationModel(BaseModel):
     """Integrates Event Storming with RDDDY and DFLSS to capture and analyze domain complexities through events, commands,
     and queries, using Hoare logic for correctness. It serves as a repository for interactions identified in
     Event Storming, enhancing system responsiveness and process efficiency. This model educates on designing and

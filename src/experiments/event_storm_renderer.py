@@ -272,7 +272,7 @@ Pay close attention to the description field of the Pydantic model and make sure
 with names that match the description and domain we are modeling. Class names are CamelCase and unique.
 '''
 
-esm = EventStormModel(
+esm = EventStormingDomainSpecificationModel(
     domain_event_classnames=[
         "LanguageModelSetup",
         "RetrievalModelSetup",
@@ -321,7 +321,7 @@ esm = EventStormModel(
 def main():
     import dspy
     from rdddy.messages import (
-        EventStormModel,
+        EventStormingDomainSpecificationModel,
     )
 
     lm = dspy.OpenAI(max_tokens=3000)
@@ -332,11 +332,11 @@ def main():
 
     print("Generating EventStorm")
 
-    event_storm_model = GenPydanticInstance(root_model=EventStormModel)(prompt=prompt)
+    event_storm_model = GenPydanticInstance(root_model=EventStormingDomainSpecificationModel)(prompt=prompt)
 
     print(f"Event Storm Model {event_storm_model}")
 
-    event_storm_model = EventStormModel(
+    event_storm_model = EventStormingDomainSpecificationModel(
         domain_event_classnames=[
             "QuestionAsked",
             "AnswerGenerated",

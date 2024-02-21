@@ -2,7 +2,7 @@ from typetemp.template.typed_template import TypedTemplate
 
 from typetemp.template.render_funcs import render_str
 
-from rdddy.messages import EventStormModel
+from rdddy.messages import EventStormingDomainSpecificationModel
 
 base_class_mapping = {
     "domain_event_classnames": "Event",
@@ -35,7 +35,7 @@ class {{ classname }}({{ base_class_name }}):
 
 
 
-def generate_class_definitions(model: EventStormModel):
+def generate_class_definitions(model: EventStormingDomainSpecificationModel):
     for attr, base_class_name in base_class_mapping.items():
         classnames = getattr(model, attr, [])
         for classname in classnames:
@@ -64,7 +64,7 @@ def main():
         "task_classnames": ["ValidateOrder", "CalculateShippingCosts", "SendOrderConfirmationEmail"],
     }
 
-    event_storm_model = EventStormModel.model_validate(event_storm_model_data)
+    event_storm_model = EventStormingDomainSpecificationModel.model_validate(event_storm_model_data)
 
     generate_class_definitions(event_storm_model)
 

@@ -3,7 +3,7 @@ from typetemp.template.typed_template import TypedTemplate
 from typetemp.template.render_funcs import render_str
 import dspy
 
-from rdddy.messages import EventStormModel
+from rdddy.messages import EventStormingDomainSpecificationModel
 
 base_class_mapping = {
     "domain_event_classnames": "Event",
@@ -54,7 +54,7 @@ class VerboseDescriptionGenerator(dspy.Module):
         return prediction.description
 
 
-def generate_verbose_class_definitions(model: EventStormModel, description_generator: VerboseDescriptionGenerator):
+def generate_verbose_class_definitions(model: EventStormingDomainSpecificationModel, description_generator: VerboseDescriptionGenerator):
 
     for attr, base_class_name in base_class_mapping.items():
         role = attr.replace('_classnames', '')  # Simplified role name, adjust as needed
@@ -86,7 +86,7 @@ def main():
         "task_classnames": ["ValidateOrder", "CalculateShippingCosts", "SendOrderConfirmationEmail"],
     }
 
-    event_storm_model = EventStormModel.model_validate(event_storm_model_data)
+    event_storm_model = EventStormingDomainSpecificationModel.model_validate(event_storm_model_data)
 
     # generate_class_definitions(event_storm_model)
 

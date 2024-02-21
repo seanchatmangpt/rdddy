@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field
 import dspy
 from dspy import Signature
 from dspy.signatures.field import InputField, OutputField
+from typetemp.template.typed_template import TypedTemplate
+
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
 
@@ -68,7 +70,7 @@ class CheckForCitations(dspy.Signature):
     cited = dspy.OutputField(desc="True/False indicating if citations are present")
     ```
     '''
-    name: str = Field(
+    class_name: str = Field(
         ...,
         description="Signature class name. Use this to specify additional context or labeling.",
     )
@@ -100,47 +102,74 @@ def create_signature_class_from_model(model: SignatureTemplateSpecModel) -> type
         class_dict["__annotations__"][field.name] = OutputField
 
     # Dynamically create the Signature class
-    signature_class = type(model.name, (Signature,), class_dict)
+    signature_class = type(model.class_name, (Signature,), class_dict)
     return signature_class
+
+
+class GenDSPySignatureTemplate(TypedTemplate):
+    """
+    Generates and renders DSPy Signature classes to disk using Jinja2 templates.
+    """
+    source = '''from dspy import Signature
+from dspy.signatures.field import InputField, OutputField
+
+
+class {{ signature.class_name }}(Signature):
+    """
+    {{ signature.instructions }}
+    """
+    {% for input_field in signature.input_fields %}
+    {{ input_field.name }} = InputField(desc="{{ input_field.desc }}")
+    {% endfor %}
+
+    {% for output_field in signature.output_fields %}
+    {{ output_field.name }} = OutputField(desc="{{ output_field.desc }}")
+    {% endfor %}
+    '''
+    to = "signatures/{{ signature.class_name | underscore }}.py"
+
+business_sig_prompts = [
+    "I need a signature called CustomerFeedbackAnalysis that inputs 'customer_comments' and outputs 'sentiment_analysis'",
+    "I need a signature called SalesPrediction that inputs 'historical_sales_data', 'current_market_trends' and outputs 'future_sales_estimate'",
+    "I need a signature called EmployeePerformanceEvaluation that inputs 'employee_activities', 'project_outcomes' and outputs 'performance_rating'",
+    "I need a signature called MarketSegmentation that inputs 'customer_demographics', 'purchase_history' and outputs 'segment_labels'",
+    "I need a signature called ProductRecommendation that inputs 'customer_profile', 'browsing_history' and outputs 'recommended_products'",
+    "I need a signature called InventoryOptimization that inputs 'current_inventory_levels', 'sales_forecasts' and outputs 'reorder_recommendations'",
+    "I need a signature called RiskAssessment that inputs 'investment_portfolio', 'market_risks' and outputs 'risk_level'",
+    "I need a signature called CustomerLifetimeValuePrediction that inputs 'customer_purchase_history', 'engagement_metrics' and outputs 'lifetime_value_estimate'",
+    "I need a signature called CompetitorAnalysis that inputs 'competitor_product_offerings', 'market_position' and outputs 'competitive_advantages'",
+    "I need a signature called OperationalEfficiencyImprovement that inputs 'current_operational_metrics', 'process_bottlenecks' and outputs 'improvement_recommendations'"
+]
+
+sig_module = GenPydanticInstance(
+    root_model=SignatureTemplateSpecModel,
+    child_models=[InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel],
+)
+
+# Assuming we have a function `generate_signature_from_prompt` that takes a sig_prompt and processes it.
+def generate_signature_from_prompt(sig_prompt):
+    # This function is a placeholder for the actual logic that would generate a signature model from a prompt.
+    sig_instance = sig_module.forward(sig_prompt)
+
+    GenDSPySignatureTemplate(signature=sig_instance)()
+
+    print(sig_instance)
+
+
+
+
 
 
 def main():
     lm = dspy.OpenAI(max_tokens=500)
     dspy.settings.configure(lm=lm)
 
-    sig_prompt = "I need a signature called QuestionAnswering that allows input of 'context', 'question', and output 'answer'"
+    # Now, let's call this function for each prompt in the list.
+    for prompt in business_sig_prompts:
+        generate_signature_from_prompt(prompt)
 
-    sig_module = GenPydanticInstance(
-        root_model=SignatureTemplateSpecModel,
-        child_models=[InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel],
-    )
+    print(f"{len(business_sig_prompts)} signatures generated.")
 
-    question_answering_signature = sig_module.forward(sig_prompt)
-
-    # Convert the SignatureModel to a DSPy Signature class
-    QuestionAnswering = create_signature_class_from_model(question_answering_signature)
-
-    context = """Chaining language model (LM) calls as composable modules is fueling a new powerful
-    way of programming. However, ensuring that LMs adhere to important constraints remains a key
-    challenge, one often addressed with heuristic “prompt engineering”. We introduce LM Assertions,
-     a new programming construct for expressing computational constraints that LMs should satisfy.
-     We integrate our constructs into the recent DSPy programming model for LMs, and present new
-     strategies that allow DSPy to compile programs with arbitrary LM Assertions into systems
-     that are more reliable and more accurate. In DSPy, LM Assertions can be integrated at compile
-     time, via automatic prompt optimization, and/or at inference time, via automatic self- refinement
-     and backtracking. We report on two early case studies for complex question answer- ing (QA),
-     in which the LM program must iteratively retrieve information in multiple hops and synthesize a
-     long-form answer with citations. We find that LM Assertions improve not only compliance with
-     imposed rules and guidelines but also enhance downstream task performance, delivering intrinsic
-     and extrinsic gains up to 35.7% and 13.3%, respectively. Our reference implementation of LM Assertions
-     is integrated into DSPy at dspy.ai."""
-
-    question = "What strategies can DSPy use?"
-
-    answer = (
-        dspy.ChainOfThought(QuestionAnswering).forward(context=context, question=question).answer
-    )
-    print(answer)
 
 
 if __name__ == "__main__":
