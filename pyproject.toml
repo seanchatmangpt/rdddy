@@ -133,7 +133,6 @@ convention = "google"
         --log-file - \
         --timeout 30 \
         --worker-class uvicorn.workers.UvicornWorker \
-        --worker-tmp-dir /dev/shm \
         --workers 2 \
         rdddy.api:app
     } fi

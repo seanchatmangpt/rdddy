@@ -64,3 +64,6 @@ __pycache__/
 .vscode/
 
 .choma/
+
+frontend/node_modules
+frontend/.next
