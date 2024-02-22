@@ -1,0 +1,65 @@
+2024-02-21 15:30:39,763 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=["First, we need to creat...y based on the prompt.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+2024-02-21 15:35:15,300 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=["First, we need to creat...y based on the prompt.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+2024-02-21 15:38:58,607 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+invalid syntax (<unknown>, line 2)
+2024-02-21 15:41:19,463 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=['Try using two pointers ...t is not equal to val.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+2024-02-21 15:42:09,752 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['Try using two pointers ... are not equal to val.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+2024-02-21 15:43:11,066 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+'[' was never closed (<unknown>, line 62)
+2024-02-21 15:43:34,547 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+malformed node or string on line 1: <ast.Name object at 0x16a437100>
+2024-02-21 16:09:57,530 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+3 validation errors for InterviewCodingChallengeModel
+question
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+solution
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+hints
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+2024-02-21 16:10:04,644 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+closing parenthesis '}' does not match opening parenthesis '[' (<unknown>, line 1)
+2024-02-21 16:10:53,199 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+'{' was never closed (<unknown>, line 1)
+2024-02-21 16:11:03,446 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+invalid syntax (<unknown>, line 3)

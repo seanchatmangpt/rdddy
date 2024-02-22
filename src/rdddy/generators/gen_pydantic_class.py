@@ -86,7 +86,7 @@ class PydanticClassTemplateSpecificationModel(BaseModel):
     )
 
 
-template_str = '''from pydantic import BaseModel, Field, validator, root_validator, EmailStr, UrlStr
+class_template_str = '''from pydantic import BaseModel, Field, validator, root_validator, EmailStr, UrlStr
 from typing import List, Optional
 from datetime import datetime
 
@@ -172,7 +172,7 @@ def main():
     model_inst = model_module.forward(model_prompt)
 
     # Render the Pydantic class from the specification
-    rendered_class_str = render(template_str, model=model_inst)
+    rendered_class_str = render(class_template_str, model=model_inst)
 
     # Write the rendered class to a Python file
     write_pydantic_class_to_file(
@@ -206,7 +206,7 @@ def generate_icalendar_models():
         model_inst = model_module.forward(model_prompt)
 
         # Render the Pydantic class from the specification
-        rendered_class_str = render(template_str, model=model_inst)
+        rendered_class_str = render(class_template_str, model=model_inst)
 
         # Write the rendered class to a Python file
         write_pydantic_class_to_file(

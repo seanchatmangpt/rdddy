@@ -1,0 +1,263 @@
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=["First, we need to creat...y based on the prompt.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+Error You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=["First, we need to creat...y based on the prompt.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+Output:
+{"question": "Let's think step by step in order to generate the root_model_kwargs_dict.", "answer": "We will need to provide the question, answer, and hint for the coding challenge.", "hint": ["First, we need to create a Python dictionary with the keys 'question', 'answer', and 'hint'.", "Then, we can assign values to each key based on the prompt."]}
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=["First, we need to creat...y based on the prompt.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+Error You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=["First, we need to creat...y based on the prompt.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+Output:
+{"question": "Let's think step by step in order to generate the root_model_kwargs_dict.", "answer": "We will need to provide the question, answer, and hint for the coding challenge.", "hint": ["First, we need to create a Python dictionary with the keys 'question', 'answer', and 'hint'.", "Then, we can assign values to each key based on the prompt."]}
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+invalid syntax (<unknown>, line 2)
+Error You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+invalid syntax (<unknown>, line 2)
+Output:
+Generate({"pseudocode": "...", "solution": "...", "hint": ["...", "...", "..."]})
+kwargs_dict = Minimize(kwargs_dict)
+kwargs_dict = Validate(kwargs_dict)
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=['Try using two pointers ...t is not equal to val.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+Error You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 2 [type=too_short, input_value=['Try using two pointers ...t is not equal to val.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+Output:
+{ "pseudocode": "Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.", "solution": "To solve this problem, we can use two pointers. One pointer will iterate through the array and the other pointer will keep track of the index where we want to place the next element that is not equal to val. Whenever we encounter an element that is not equal to val, we place it at the index of the second pointer and increment the second pointer. Once we have iterated through the entire array, the second pointer will be pointing to the index where we want to truncate the array. We can then return the length of the truncated array as the answer.", "hint": ["Try using two pointers to keep track of the elements that are not equal to val.", "Think about how you can use the second pointer to keep track of the index where you want to place the next element that is not equal to val."], "input_array": "[3,2,2,3]", "value_to_remove": "3", "expected_answer": "2", "constraints": ["0 <= nums.length <= 100", "0 <= nums[i] <= 50", "0 <= val <= 100"] }
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+1 validation error for InterviewCodingChallengeModel
+hint
+  List should have at least 3 items after validation, not 1 [type=too_short, input_value=['Try using two pointers ... are not equal to val.'], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.5/v/too_short
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+'[' was never closed (<unknown>, line 62)
+Error You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+'[' was never closed (<unknown>, line 62)
+Output:
+{
+    "nums": [3, 2, 2, 3],
+    "val": 3,
+    "expectedNums": [2, 2, 0, 0],
+    "k": 2,
+    "actualLength": 2,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 2,
+    "expectedNums": [0, 0, 1, 3, 4],
+    "k": 5,
+    "actualLength": 5,
+    "nums": [],
+    "val": 0,
+    "expectedNums": [],
+    "k": 0,
+    "actualLength": 0,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 5,
+    "expectedNums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "k": 8,
+    "actualLength": 8,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 2,
+    "expectedNums": [0, 1, 4, 0, 3, 0, 0, 0],
+    "k": 5,
+    "actualLength": 5,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 0,
+    "expectedNums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "k": 8,
+    "actualLength": 8,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 4,
+    "expectedNums": [0, 1, 2, 2, 3, 0, 0, 0],
+    "k": 5,
+    "actualLength": 5,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 1,
+    "expectedNums": [0, 2, 2, 3, 0, 4, 2, 0],
+    "k": 7,
+    "actualLength": 7,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 3,
+    "expectedNums": [0, 1, 2, 2, 0, 4, 2, 0],
+    "k": 6,
+    "actualLength": 6,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 2,
+    "expectedNums": [0, 1, 3, 0, 4, 2, 0, 0],
+    "k": 6,
+    "actualLength": 6,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 0,
+    "expectedNums": [1, 2, 2, 3, 4, 2, 0, 0],
+    "k": 6,
+    "actualLength": 6,
+    "nums": [0, 1, 2, 2, 3, 0, 4, 2],
+    "val": 4,
+    "expectedNums": [0, 1, 2, 2, 3, 0, 2, 0],
+    "k": 7,
+    "actualLength": 7,
+    "nums": [0, 1, 2, 2,
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+malformed node or string on line 1: <ast.Name object at 0x16a437100>
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+3 validation errors for InterviewCodingChallengeModel
+question
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+solution
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+hints
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+Error You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+3 validation errors for InterviewCodingChallengeModel
+question
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+solution
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+hints
+  Field required [type=missing, input_value={'matrix': [['1', '0', '1...id_values': ['0', '1']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+Output:
+{"matrix": [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]], "m": 4, "n": 5, "constraints": {"m": 4, "n": 5, "min_m": 1, "max_m": 300, "min_n": 1, "max_n": 300, "valid_values": ["0", "1"]}}
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+closing parenthesis '}' does not match opening parenthesis '[' (<unknown>, line 1)
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+'{' was never closed (<unknown>, line 1)
+Error You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+'{' was never closed (<unknown>, line 1)
+Output:
+{"question": "Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.", "solution": "def maximalSquare(matrix):\n    m = len(matrix)\n    n = len(matrix[0])\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n    max_side = 0\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if matrix[i - 1][j - 1] == '1':\n                dp[i][j] = min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1\n                max_side = max(max_side, dp[i][j])\n    return max_side ** 2", "hints": ["Try using dynamic programming to solve this problem.", "Think about how you can use the values in the matrix to build a solution.", "Consider using a 2D array to store the results of subproblems."], "input_examples": [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]], "output_examples": [4], "constraints": {"m": 4, "n": 5, "matrix[i][j]": ["0", "1"]}
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for InterviewCodingChallengeModel
+
+            Validation error:
+invalid syntax (<unknown>, line 3)
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"

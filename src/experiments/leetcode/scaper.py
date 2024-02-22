@@ -1,4 +1,10 @@
+import dspy
 from playwright.sync_api import sync_playwright
+
+from experiments.leetcode.solution_model2 import InterviewCodingChallengeModel
+from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
+from rdddy.signatures.code_challenge_to_real_world import CodeChallengeToRealWorld
+from rdddy.signatures.code_interview_solver import CodeInterviewSolver
 
 leet_list = ['/problems/merge-sorted-array/editorial/?envType=study-plan-v2&envId=top-interview-150',
              '/problems/remove-element/editorial/?envType=study-plan-v2&envId=top-interview-150',
@@ -7,13 +13,18 @@ leet_list = ['/problems/merge-sorted-array/editorial/?envType=study-plan-v2&envI
 
 
 def main():
+    lm = dspy.OpenAI(max_tokens=1000)
+    dspy.settings.configure(lm=lm)
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
-        route = leet_list[0].split('/editorial')[0]
+        route = leet_list[-1].split('/editorial')[0]
         page.goto(f"https://leetcode.com{route}")
 
         page.click("button:has-text('Enable Dynamic Layout')")
+
+        page.wait_for_selector('[data-track-load="description_content"]')
 
         # Select the container element by its attribute
         container = page.query_selector('[data-track-load="description_content"]')
@@ -33,6 +44,24 @@ def main():
 
             print("Extracted Text Content:")
             print(all_text)
+
+            challenge = f"```challenge\n{all_text}\n```\nTake all of the code within ```challenge``` and convert to natural language"
+
+            lm = dspy.OpenAI(max_tokens=1000)
+            dspy.settings.configure(lm=lm)
+
+            # inst = GenPydanticInstance(root_model=InterviewCodingChallengeModel)(prompt=challenge)
+
+            # print(inst.model_dump())
+
+            print('done')
+
+            cot = dspy.ChainOfThought(CodeChallengeToRealWorld).forward(
+                code_challenge_description=all_text).real_world_scenario
+            print(cot)
+
+            cot = dspy.ChainOfThought(CodeInterviewSolver).forward(problem_statement=all_text).detailed_code_solution
+            print(cot)
         else:
             print("Container not found.")
         # Close the browser

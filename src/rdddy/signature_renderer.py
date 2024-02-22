@@ -129,16 +129,7 @@ class {{ signature.class_name }}(Signature):
     to = "signatures/{{ signature.class_name | underscore }}.py"
 
 business_sig_prompts = [
-    "I need a signature called CustomerFeedbackAnalysis that inputs 'customer_comments' and outputs 'sentiment_analysis'",
-    "I need a signature called SalesPrediction that inputs 'historical_sales_data', 'current_market_trends' and outputs 'future_sales_estimate'",
-    "I need a signature called EmployeePerformanceEvaluation that inputs 'employee_activities', 'project_outcomes' and outputs 'performance_rating'",
-    "I need a signature called MarketSegmentation that inputs 'customer_demographics', 'purchase_history' and outputs 'segment_labels'",
-    "I need a signature called ProductRecommendation that inputs 'customer_profile', 'browsing_history' and outputs 'recommended_products'",
-    "I need a signature called InventoryOptimization that inputs 'current_inventory_levels', 'sales_forecasts' and outputs 'reorder_recommendations'",
-    "I need a signature called RiskAssessment that inputs 'investment_portfolio', 'market_risks' and outputs 'risk_level'",
-    "I need a signature called CustomerLifetimeValuePrediction that inputs 'customer_purchase_history', 'engagement_metrics' and outputs 'lifetime_value_estimate'",
-    "I need a signature called CompetitorAnalysis that inputs 'competitor_product_offerings', 'market_position' and outputs 'competitive_advantages'",
-    "I need a signature called OperationalEfficiencyImprovement that inputs 'current_operational_metrics', 'process_bottlenecks' and outputs 'improvement_recommendations'"
+    "I need a signature called 'CodeInterviewSolver' that inputs a 'problem_statement', and outputs a 'detailed_code_solution'. This signature should first interpret the problem statement to identify key challenges and requirements. Each line of the code solution must be accompanied by comments that explain the purpose and logic of that line, ensuring that the thought process behind the solution is clear and educational. The aim is to not only solve the interview problem but also to provide a learning experience by demystifying complex solution steps and fostering a deeper understanding of algorithmic thinking and coding practices."    ,
 ]
 
 sig_module = GenPydanticInstance(
@@ -156,12 +147,8 @@ def generate_signature_from_prompt(sig_prompt):
     print(sig_instance)
 
 
-
-
-
-
 def main():
-    lm = dspy.OpenAI(max_tokens=500)
+    lm = dspy.OpenAI(max_tokens=500, model="gpt-4")
     dspy.settings.configure(lm=lm)
 
     # Now, let's call this function for each prompt in the list.
