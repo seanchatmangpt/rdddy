@@ -14,7 +14,9 @@ class WorkerActor(AbstractActor):
             raise RuntimeError("Worker encountered an error.")
         except Exception as e:
             await self.publish(ExceptionMessage(content=str(e)))
-            await self.publish(TerminationMessage(content=str(e), actor_id=self.actor_id))
+            await self.publish(
+                TerminationMessage(content=str(e), actor_id=self.actor_id)
+            )
 
 
 class SupervisorActor(AbstractActor):

@@ -76,7 +76,9 @@ class PyModule:
                 else:
                     if "def" in elem.type and "self" in value:
                         existing_class = self.red.find("class")
-                        self.replace_method(existing_class.actor_id, new_element.actor_id, value)
+                        self.replace_method(
+                            existing_class.actor_id, new_element.actor_id, value
+                        )
                     else:
                         self.red.append(elem)
                     self.add_imports(value)
@@ -160,12 +162,16 @@ class PyClass:
                 self.class_node.value.append(new_element)
                 self.add_imports(value)
         else:
-            self.class_node = RedBaron(f"class {self.class_name}:\n    pass\n").find("class")
+            self.class_node = RedBaron(f"class {self.class_name}:\n    pass\n").find(
+                "class"
+            )
             self.parent_module.red.append(self.class_node)
             self.class_node.value.append(new_element)
             self.add_imports(value)
 
-        logging.info(f"Method '{key}' in class '{self.class_name}' has been updated or added.")
+        logging.info(
+            f"Method '{key}' in class '{self.class_name}' has been updated or added."
+        )
         self.parent_module.save()
 
     def add_imports(self, value):
@@ -174,7 +180,9 @@ class PyClass:
             import_str = node.dumps().strip()
             existing_imports = [
                 existing.dumps().strip()
-                for existing in self.parent_module.red.find_all(("import", "from_import"))
+                for existing in self.parent_module.red.find_all(
+                    ("import", "from_import")
+                )
             ]
             if import_str not in existing_imports:
                 self.parent_module.red.insert(0, node)
@@ -182,7 +190,9 @@ class PyClass:
     def replace_method(self, new_element, existing_element, value):
         source_code = autopep8.fix_code(self.parent_module.red.dumps())
         tree = parse(source_code)
-        transformer = AddOrReplaceFunctionInClass(self.class_name, new_element.actor_id, value)
+        transformer = AddOrReplaceFunctionInClass(
+            self.class_name, new_element.actor_id, value
+        )
         new_tree = transformer.visit(tree)
         new_tree = fix_missing_locations(new_tree)
         new_source = autopep8.fix_code(astor.to_source(new_tree))
@@ -208,7 +218,10 @@ class AddOrReplaceFunctionInClass(NodeTransformer):
                 if isinstance(item, ast.FunctionDef) and item.name == self.func_name:
                     node.body[idx] = self.new_func
                     return node
-                if isinstance(item, ast.AsyncFunctionDef) and item.name == self.func_name:
+                if (
+                    isinstance(item, ast.AsyncFunctionDef)
+                    and item.name == self.func_name
+                ):
                     node.body[idx] = self.new_func
                     return node
 

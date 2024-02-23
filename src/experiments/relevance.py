@@ -12,17 +12,18 @@ class RelevantDDDToGherkinModel(BaseModel):
     """
     The specific DDD elements that should be considered when implementing the features.
     """
+
     domain_event_classnames: list[str] = Field(
         default=[],
-        description="Domain events directly implicated by Gherkin scenarios. Include only if they trigger reactions relevant to the described features."
+        description="Domain events directly implicated by Gherkin scenarios. Include only if they trigger reactions relevant to the described features.",
     )
     external_event_classnames: list[str] = Field(
         default=[],
-        description="External events from outside the system that are relevant to the Gherkin scenarios. Include those that significantly impact system behavior as described."
+        description="External events from outside the system that are relevant to the Gherkin scenarios. Include those that significantly impact system behavior as described.",
     )
     ui_event_classnames: list[str] = Field(
         default=[],
-        description="UI event names triggered by user interactions that play a significant role in the Gherkin scenarios."
+        description="UI event names triggered by user interactions that play a significant role in the Gherkin scenarios.",
     )
 
 

@@ -466,7 +466,9 @@ def create_data(
     )
 
     # print(instructions)
-    result = create(prompt=instructions, stop=["```", "\n\n"], max_tokens=max_tokens, model=model)
+    result = create(
+        prompt=instructions, stop=["```", "\n\n"], max_tokens=max_tokens, model=model
+    )
 
     # Safely evaluate to expected type
     try:
@@ -558,7 +560,11 @@ def create_kwargs(prompt: str, cabal: Callable) -> dict:
 
 
 def create_pydantic_class(
-    prompt: str, class_name: Optional[str] = None, min_fields=2, max_fields=5, file_path=None
+    prompt: str,
+    class_name: Optional[str] = None,
+    min_fields=2,
+    max_fields=5,
+    file_path=None,
 ) -> str:
     """Generate a Pydantic class based on a prompt.
 

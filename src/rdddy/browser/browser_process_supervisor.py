@@ -18,7 +18,9 @@ class BrowserProcessSupervisor(AbstractActor):
 
     async def start_browser_process(self, cmd: StartBrowserCommand):
         if cmd.browser_id in self.processes:
-            await self.stop_browser_process(StopBrowserCommand(browser_id=cmd.browser_id))
+            await self.stop_browser_process(
+                StopBrowserCommand(browser_id=cmd.browser_id)
+            )
         args = self.default_args if cmd.custom_args is None else cmd.custom_args
         self.processes[cmd.browser_id] = await asyncio.create_subprocess_exec(
             "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary",
@@ -45,7 +47,9 @@ class BrowserProcessSupervisor(AbstractActor):
         await self.publish(StartBrowserCommand(browser_id=cmd.browser_id))
 
     async def update_browser_config(self, cmd: UpdateBrowserConfigCommand):
-        logger.info(f"Updating browser configuration for ID {cmd.browser_id}: {cmd.new_args}")
+        logger.info(
+            f"Updating browser configuration for ID {cmd.browser_id}: {cmd.new_args}"
+        )
         await self.publish(RestartBrowserCommand())
 
     async def start_health_check(self):
@@ -57,7 +61,9 @@ class BrowserProcessSupervisor(AbstractActor):
                     logger.info(f"Browser process {browser_id} is alive.")
                     await self.publish(BrowserStatusEvent(status="alive"))
                 else:
-                    logger.warning(f"Browser process {browser_id} is unresponsive. Restarting...")
+                    logger.warning(
+                        f"Browser process {browser_id} is unresponsive. Restarting..."
+                    )
                     await self.publish(BrowserStatusEvent(status="dead"))
                     await self.publish(RestartBrowserCommand())
             await asyncio.sleep(10)  # Sleep for 60 seconds before the next check

@@ -332,7 +332,9 @@ def main():
 
     print("Generating EventStorm")
 
-    event_storm_model = GenPydanticInstance(root_model=EventStormingDomainSpecificationModel)(prompt=prompt)
+    event_storm_model = GenPydanticInstance(
+        root_model=EventStormingDomainSpecificationModel
+    )(prompt=prompt)
 
     print(f"Event Storm Model {event_storm_model}")
 

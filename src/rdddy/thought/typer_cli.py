@@ -42,7 +42,9 @@ class TyperCLI(BaseModel):
     """Typer CLI name and commands"""
 
     name: str = Field(..., min_length=1, description="The name of the CLI application")
-    commands: list[Command] = Field(..., description="The commands of the CLI application")
+    commands: list[Command] = Field(
+        ..., description="The commands of the CLI application"
+    )
 
 
 def main():

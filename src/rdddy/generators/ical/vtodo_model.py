@@ -49,8 +49,12 @@ class VTODOModel(BaseModel):
     categories: list[str] = Field(
         default=None, title="", description="A list of categories for the VTODO."
     )
-    location: str = Field(default=None, title="", description="The location of the VTODO.")
-    url: str = Field(default=None, title="", description="A URL associated with the VTODO.")
+    location: str = Field(
+        default=None, title="", description="The location of the VTODO."
+    )
+    url: str = Field(
+        default=None, title="", description="A URL associated with the VTODO."
+    )
     rrule: str = Field(
         default=None,
         title="",

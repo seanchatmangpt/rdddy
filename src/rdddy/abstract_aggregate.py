@@ -12,4 +12,5 @@ class AbstractAggregate(AbstractActor):
     that aligns with the principles of Domain-Driven Design. Aggregates are pivotal in ensuring that domain logic
     remains both encapsulated and correctly partitioned, facilitating a clear and maintainable domain model that can
     evolve over time with the business requirements."""
+
     pass

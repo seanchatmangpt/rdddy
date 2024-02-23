@@ -12,7 +12,9 @@ class TyperCommand(BaseModel):
 
 class TyperCLI(BaseModel):
     name: str = Field(..., min_length=1, description="The name of the CLI application")
-    commands: list[TyperCommand] = Field(..., description="The commands of the CLI application")
+    commands: list[TyperCommand] = Field(
+        ..., description="The commands of the CLI application"
+    )
 
 
 # Example description for testing
@@ -89,9 +91,9 @@ def main():
     lm = dspy.OpenAI(max_tokens=3000, model="gpt-4")
     dspy.settings.configure(lm=lm)
 
-    model = GenPydanticInstance(root_model=TyperCLI, child_models=[TyperCommand]).forward(
-        cli_description
-    )
+    model = GenPydanticInstance(
+        root_model=TyperCLI, child_models=[TyperCommand]
+    ).forward(cli_description)
 
     # Example CLI data
     cli_data = model
@@ -134,7 +136,9 @@ def main():
 
     # --- Render Templates ---
     env = Environment(loader=FileSystemLoader("."))
-    env.from_string(cli_template).stream(cli_data=cli_data.model_dump()).dump("ror_dspy.py")
+    env.from_string(cli_template).stream(cli_data=cli_data.model_dump()).dump(
+        "ror_dspy.py"
+    )
     env.from_string(pytest_template).stream(cli_data=cli_data.model_dump()).dump(
         "test_ror_dspy.py"
     )

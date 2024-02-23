@@ -21,7 +21,9 @@ templates_dir = module_dir / "templates"
 @app.command(name="module")
 def generate_module(
     name: str = typer.Argument(..., help="Name of the module to generate"),
-    output_key: str = typer.Option(..., "--output-key", "-o", help="The output key for the module"),
+    output_key: str = typer.Option(
+        ..., "--output-key", "-o", help="The output key for the module"
+    ),
     input_key: str = typer.Option(
         ..., "--input-key", "-i", help="The primary input key for the module"
     ),
@@ -33,9 +35,13 @@ def generate_module(
     template_path = templates_dir / "module_template.j2"
 
     # Handling additional input keys
-    input_keys = [input_key] + (additional_inputs.split(",") if additional_inputs else [])
+    input_keys = [input_key] + (
+        additional_inputs.split(",") if additional_inputs else []
+    )
 
-    rendered = render(template_path, name=name, output_key=output_key, input_key_or_keys=input_keys)
+    rendered = render(
+        template_path, name=name, output_key=output_key, input_key_or_keys=input_keys
+    )
 
     typer.echo(rendered)
 

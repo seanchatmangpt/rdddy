@@ -170,7 +170,9 @@ async def test_error_when_base_message_used(actor_system):
     Postconditions:
         - A ValueError is raised, indicating the base Message class should not be used directly.
     """
-    base_message_instance = AbstractMessage()  # Create an instance of the base Message class
+    base_message_instance = (
+        AbstractMessage()
+    )  # Create an instance of the base Message class
 
     with pytest.raises(ValueError) as exc_info:
         await actor_system.publish(

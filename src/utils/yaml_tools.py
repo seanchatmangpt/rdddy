@@ -43,7 +43,9 @@ class YAMLMixin:
         try:
             # Load from YAML if file exists
             print(f"Loading {absolute_path}...")
-            instance = cls.from_yaml(absolute_path) if os.path.exists(absolute_path) else cls()
+            instance = (
+                cls.from_yaml(absolute_path) if os.path.exists(absolute_path) else cls()
+            )
             print(f"Instance loaded: {instance}")
             yield instance
             # Save to YAML

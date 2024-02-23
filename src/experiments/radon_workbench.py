@@ -34,7 +34,9 @@ def get_maintainability_index(source_code: str) -> dict:
 def check_for_bugs_with_metrics(source_code: str, metrics: dict) -> str:
     """Uses GPT-3.5-turbo to analyze the code and metrics for possible bugs."""
     # Create the prompt for GPT-3.5-turbo
-    prompt = "Review the following Python code and its metrics to identify any bugs.\n\n"
+    prompt = (
+        "Review the following Python code and its metrics to identify any bugs.\n\n"
+    )
     prompt += f"Code:\n```\n{source_code}\n```\n\n"
     prompt += "Metrics:\n"
     for metric_name, metric_value in metrics.items():

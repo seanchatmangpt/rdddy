@@ -23,7 +23,9 @@ accessing the weather summary are not explicitly defined.
 class APIEndpoint(BaseModel):
     method: str = Field(..., description="HTTP method of the API endpoint")
     url: str = Field(..., description="URL of the API endpoint")
-    description: str = Field(..., description="Description of what the API endpoint does")
+    description: str = Field(
+        ..., description="Description of what the API endpoint does"
+    )
     response: str = Field(..., description="Response from the API endpoint")
     query_params: Optional[dict[str, Any]] = Field(None, description="Query parameters")
 

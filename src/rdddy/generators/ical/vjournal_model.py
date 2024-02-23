@@ -30,15 +30,21 @@ class VJOURNALModel(BaseModel):
     description: str = Field(
         default=None, title="", description="A detailed description of the VJOURNAL."
     )
-    location: str = Field(default=None, title="", description="The location of the VJOURNAL.")
+    location: str = Field(
+        default=None, title="", description="The location of the VJOURNAL."
+    )
     categories: list[str] = Field(
         default=None, title="", description="A list of categories for the VJOURNAL."
     )
-    status: str = Field(default=None, title="", description="The status of the VJOURNAL.")
+    status: str = Field(
+        default=None, title="", description="The status of the VJOURNAL."
+    )
     priority: int = Field(
         default=None, title="", description="The priority of the VJOURNAL.", ge=0, le=9
     )
-    url: str = Field(default=None, title="", description="A URL associated with the VJOURNAL.")
+    url: str = Field(
+        default=None, title="", description="A URL associated with the VJOURNAL."
+    )
     created: datetime = Field(
         default=None,
         title="",
@@ -49,7 +55,9 @@ class VJOURNALModel(BaseModel):
         title="",
         description="The last modified date and time of the VJOURNAL.",
     )
-    organizer: str = Field(default=None, title="", description="The organizer of the VJOURNAL.")
+    organizer: str = Field(
+        default=None, title="", description="The organizer of the VJOURNAL."
+    )
     attendees: list[str] = Field(
         default=None, title="", description="A list of attendees for the VJOURNAL."
     )

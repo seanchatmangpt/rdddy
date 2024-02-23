@@ -189,7 +189,9 @@ class AbstractActor:
         try:
             handler = self.handlers.get(type(message))
             if handler:
-                logger.debug(f"Actor handling message: {message} with {handler.__name__}")
+                logger.debug(
+                    f"Actor handling message: {message} with {handler.__name__}"
+                )
                 await handler(message)
         except Exception as e:
             error_message = f"Error in actor {self.actor_id} processing message: {e}"

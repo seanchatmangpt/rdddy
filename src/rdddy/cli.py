@@ -68,9 +68,13 @@ class DashboardGeneratorActor(AbstractActor):
         # Error – Hygen likely didn't succeed, or your Hygen template is misconfigured
 
     @app.command()
-    async def generate_dashboard(page_name: str = "overview", widget_type: str = "line_chart"):
+    async def generate_dashboard(
+        page_name: str = "overview", widget_type: str = "line_chart"
+    ):
         # ... Logic will come later ....
-        typer.echo(f"Generating a page page named '{page_name}' with a '{widget_type}' widget!")
+        typer.echo(
+            f"Generating a page page named '{page_name}' with a '{widget_type}' widget!"
+        )
         actor_system = ActorSystem()
         generator_actor = await actor_system.actor_of(DashboardGeneratorActor)
         await actor_system.publish(

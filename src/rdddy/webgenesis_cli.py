@@ -61,7 +61,9 @@ from rdddy.messages import *
 
 # ... (HygenCLIArgs, HygenTemplateModel remain unchanged)
 
-nextjs_root = "/Users/candacechatman/dev/nextjs-dashboard"  # Retrieve in your actual system
+nextjs_root = (
+    "/Users/candacechatman/dev/nextjs-dashboard"  # Retrieve in your actual system
+)
 
 
 from typing import Optional
@@ -143,7 +145,9 @@ class ProjectManager(AbstractActor):
         """
         # Project setup... (if there are steps prior to generation)
         await self.publish(
-            GeneratePageCommand(name="Homepage", route="/test/", description="Hello World")
+            GeneratePageCommand(
+                name="Homepage", route="/test/", description="Hello World"
+            )
         )
 
 

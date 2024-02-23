@@ -17,14 +17,16 @@ def eval_dict_str(dict_str: str) -> dict:
 
 
 class PromptToPydanticInstanceSignature(Signature):
-    """Synthesize the prompt into the kwargs fit the model.
+    """Synthesize the prompt into the kwargs to fit the model.
     Do not duplicate the field descriptions
     """
 
     root_pydantic_model_class_name = InputField(
         desc="The class name of the pydantic model to receive the kwargs"
     )
-    pydantic_model_definitions = InputField(desc="Pydantic model class definitions as a string")
+    pydantic_model_definitions = InputField(
+        desc="Pydantic model class definitions as a string"
+    )
     prompt = InputField(
         desc="The prompt to be synthesized into data. Do not duplicate descriptions"
     )
@@ -42,7 +44,9 @@ class PromptToPydanticInstanceErrorSignature(Signature):
     root_pydantic_model_class_name = InputField(
         desc="The class name of the pydantic model to receive the kwargs"
     )
-    pydantic_model_definitions = InputField(desc="Pydantic model class definitions as a string")
+    pydantic_model_definitions = InputField(
+        desc="Pydantic model class definitions as a string"
+    )
     prompt = InputField(desc="The prompt to be synthesized into data")
     root_model_kwargs_dict = OutputField(
         prefix="kwargs_dict = ",
@@ -80,7 +84,9 @@ class GenPydanticInstance(Module):
         self.root_model = root_model
 
         # Concatenate source code of models for use in generation/correction logic
-        self.model_sources = "\n".join([inspect.getsource(model) for model in self.models])
+        self.model_sources = "\n".join(
+            [inspect.getsource(model) for model in self.models]
+        )
 
         # Initialize DSPy ChainOfThought modules for generation and correction
         self.generate = ChainOfThought(generate_sig)
@@ -138,18 +144,7 @@ class GenPydanticInstance(Module):
         return self.forward(kwargs.get("prompt"))
 
 
-def main():
-    import dspy
-    from rdddy.messages import (
-        AbstractCommand,
-        AbstractEvent,
-        AbstractQuery,
-        EventStormingDomainSpecificationModel,
-    )
-
-    lm = dspy.OpenAI(max_tokens=2000, model="gpt-4")
-    dspy.settings.configure(lm=lm)
-    prompt = """
+hygen_prompt = prompt = """
     ```prompt
     Automated Hygen template full stack system for NextJS.
     Express
@@ -201,6 +196,19 @@ Note how we're anchoring this inject to before: "module.exports = app". If in pr
 
 You are a Event Storm assistant that comes up with Events, Commands, and Queries for Reactive Domain Driven Design based on the ```prompt```
     """
+
+
+def main():
+    import dspy
+    from rdddy.messages import (
+        AbstractCommand,
+        AbstractEvent,
+        AbstractQuery,
+        EventStormingDomainSpecificationModel,
+    )
+
+    lm = dspy.OpenAI(max_tokens=2000, model="gpt-4")
+    dspy.settings.configure(lm=lm)
 
     model_module = GenPydanticInstance(
         root_model=EventStormingDomainSpecificationModel,

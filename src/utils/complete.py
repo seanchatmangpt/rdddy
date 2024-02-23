@@ -83,7 +83,9 @@ async def acreate(*, config: Optional[LLMConfig] = None, **kwargs):
     if model == "llama":
         from llama_cpp import Llama
 
-        llm = Llama(model_path="/Users/candacechatman/dev/models/codellama-7b.Q4_0.gguf")
+        llm = Llama(
+            model_path="/Users/candacechatman/dev/models/codellama-7b.Q4_0.gguf"
+        )
 
         response = llm(
             model=model,
@@ -221,7 +223,9 @@ def chat(
             wait_time = initial_wait * (backoff_factor ** (retry - 1))
 
             # Print the error and wait before retrying
-            logger.warning(f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}")
+            logger.warning(
+                f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}"
+            )
             sleep(wait_time)
 
 
@@ -308,7 +312,9 @@ async def achat(
 
             wait_time = initial_wait * (backoff_factor ** (retry - 1))
 
-            print(f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}")
+            print(
+                f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}"
+            )
             await asyncio.sleep(wait_time)
 
 

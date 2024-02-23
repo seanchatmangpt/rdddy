@@ -1,8 +1,11 @@
 import inflection
 from dspy import OpenAI, settings
 
-from rdddy.generators.gen_pydantic_class import PydanticClassTemplateSpecificationModel, \
-    FieldTemplateSpecificationModel, class_template_str
+from rdddy.generators.gen_pydantic_class import (
+    PydanticClassTemplateSpecificationModel,
+    FieldTemplateSpecificationModel,
+    class_template_str,
+)
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 from typetemp.functional import render
 
@@ -39,7 +42,9 @@ def generate_pydantic_class(prompt: str, filename: str):
 # Example usage
 if __name__ == "__main__":
     # Define your prompt here
-    prompt = "I need a model for interview coding challenge questions, answers, and hints"
+    prompt = (
+        "I need a model for interview coding challenge questions, answers, and hints"
+    )
 
     # Specify the filename for the generated Pydantic model
     filename = "solution_model2.py"

@@ -23,10 +23,6 @@ const Dictaphone = () => {
   const [serverResponse, setServerResponse] = useState(null);
   const [pythonCode, setPythonCode] = useState(null); // State for the code editor
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser does not support speech recognition.</span>;
-  }
-
   const sendTranscript = async () => {
     const response = await fetch("/receive_transcript", {
       method: "POST",

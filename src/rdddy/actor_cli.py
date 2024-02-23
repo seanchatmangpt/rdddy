@@ -24,10 +24,16 @@ class InitiationActor(AbstractActor):
 
 
 class ProcessingActor(AbstractActor):
-    async def handle_evaluate_precondition_query(self, message: EvaluatePreconditionQuery):
-        await self.publish(PreconditionEvaluatedEvent(phase_name=message.phase_name, result=True))
+    async def handle_evaluate_precondition_query(
+        self, message: EvaluatePreconditionQuery
+    ):
+        await self.publish(
+            PreconditionEvaluatedEvent(phase_name=message.phase_name, result=True)
+        )
 
-    async def handle_precondition_evaluated_event(self, message: PreconditionEvaluatedEvent):
+    async def handle_precondition_evaluated_event(
+        self, message: PreconditionEvaluatedEvent
+    ):
         typer.echo("")
         if message.result:
             print(f"Preconditions met for phase: {message.phase_name}, processing...")
@@ -36,7 +42,9 @@ class ProcessingActor(AbstractActor):
         else:
             print(f"Preconditions not met for phase: {message.phase_name}, aborting...")
             await self.publish(
-                PhaseErrorEvent(phase_name=message.phase_name, error_message="Precondition failed")
+                PhaseErrorEvent(
+                    phase_name=message.phase_name, error_message="Precondition failed"
+                )
             )
 
     async def handle_process_phase_command(self, message: ProcessPhaseCommand):
@@ -47,7 +55,9 @@ class ProcessingActor(AbstractActor):
 
 
 class CompletionActor(AbstractActor):
-    async def handle_postcondition_evaluated_event(self, message: EvaluatePostconditionQuery):
+    async def handle_postcondition_evaluated_event(
+        self, message: EvaluatePostconditionQuery
+    ):
         if message.phase_name:
             print(f"Phase {message.phase_name} completed successfully.")
             await self.publish(PhaseCompletedEvent(phase_name=message.phase_name))
@@ -56,7 +66,9 @@ class CompletionActor(AbstractActor):
         else:
             print(f"Postconditions not met for phase: {message.phase_name}.")
             await self.publish(
-                PhaseErrorEvent(phase_name=message.phase_name, error_message="Postcondition failed")
+                PhaseErrorEvent(
+                    phase_name=message.phase_name, error_message="Postcondition failed"
+                )
             )
 
 

@@ -1,0 +1,350 @@
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.8s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4161 tokens (1161 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.5s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4161 tokens (1161 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 1.5s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4161 tokens (1161 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 3.0s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4161 tokens (1161 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for FunctionalRequirementsSpec
+
+            Validation error:
+12 validation errors for FunctionalRequirementsSpec
+requirements.0.input
+  Field required [type=missing, input_value={'id': '1', 'description'...plan must be included']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.0.output
+  Field required [type=missing, input_value={'id': '1', 'description'...plan must be included']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.input
+  Field required [type=missing, input_value={'id': '2', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.output
+  Field required [type=missing, input_value={'id': '2', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.input
+  Field required [type=missing, input_value={'id': '3', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.output
+  Field required [type=missing, input_value={'id': '3', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.input
+  Field required [type=missing, input_value={'id': '4', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.output
+  Field required [type=missing, input_value={'id': '4', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.input
+  Field required [type=missing, input_value={'id': '5', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.output
+  Field required [type=missing, input_value={'id': '5', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.input
+  Field required [type=missing, input_value={'id': '6', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.output
+  Field required [type=missing, input_value={'id': '6', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+Error You need to create a kwargs dict for FunctionalRequirementsSpec
+
+            Validation error:
+12 validation errors for FunctionalRequirementsSpec
+requirements.0.input
+  Field required [type=missing, input_value={'id': '1', 'description'...plan must be included']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.0.output
+  Field required [type=missing, input_value={'id': '1', 'description'...plan must be included']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.input
+  Field required [type=missing, input_value={'id': '2', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.output
+  Field required [type=missing, input_value={'id': '2', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.input
+  Field required [type=missing, input_value={'id': '3', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.output
+  Field required [type=missing, input_value={'id': '3', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.input
+  Field required [type=missing, input_value={'id': '4', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.output
+  Field required [type=missing, input_value={'id': '4', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.input
+  Field required [type=missing, input_value={'id': '5', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.output
+  Field required [type=missing, input_value={'id': '5', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.input
+  Field required [type=missing, input_value={'id': '6', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.output
+  Field required [type=missing, input_value={'id': '6', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+Output:
+{ "project_name": "TCS", "version": "1.0", "requirements": [ { "id": "1", "description": "Mission planning function", "process": "Allow the operator to generate a UAV mission plan", "acceptance_criteria": ["TCS Mission plan must be included"] }, { "id": "2", "description": "Mission control and monitoring function", "process": "Allow the operator to control and monitor the mission", "acceptance_criteria": [] }, { "id": "3", "description": "Payload product management function", "process": "Allow the operator to manage payload products", "acceptance_criteria": [] }, { "id": "4", "description": "Targeting function", "process": "Allow the operator to target specific locations", "acceptance_criteria": [] }, { "id": "5", "description": "C4I system interface function", "process": "Allow the operator to interface with C4I systems", "acceptance_criteria": [] }, { "id": "6", "description": "Functionality to receive and process UAV mission plans from service specific mission planning systems", "process": "Receive and process UAV mission plans from TAMPS, AMPS, and AFMSS", "acceptance_criteria": [] } ] }
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 0.7s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4116 tokens (1116 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 1.7s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4116 tokens (1116 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 400 Bad Request"
+Backing off request(...) for 3.3s (openai.BadRequestError: Error code: 400 - {'error': {'message': "This model's maximum context length is 4097 tokens, however you requested 4116 tokens (1116 in your prompt; 3000 for the completion). Please reduce your prompt; or completion length.", 'type': 'invalid_request_error', 'param': None, 'code': None}})
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for FunctionalRequirementsSpec
+
+            Validation error:
+14 validation errors for FunctionalRequirementsSpec
+requirements.0.input
+  Field required [type=missing, input_value={'id': '1', 'description'...uccessfully generated']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.0.output
+  Field required [type=missing, input_value={'id': '1', 'description'...uccessfully generated']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.input
+  Field required [type=missing, input_value={'id': '2', 'description'...trolled and monitored']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.output
+  Field required [type=missing, input_value={'id': '2', 'description'...trolled and monitored']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.input
+  Field required [type=missing, input_value={'id': '3', 'description'... successfully managed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.output
+  Field required [type=missing, input_value={'id': '3', 'description'... successfully managed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.input
+  Field required [type=missing, input_value={'id': '4', 'description'...entified and selected']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.output
+  Field required [type=missing, input_value={'id': '4', 'description'...entified and selected']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.input
+  Field required [type=missing, input_value={'id': '5', 'description'...fully interfaced with']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.output
+  Field required [type=missing, input_value={'id': '5', 'description'...fully interfaced with']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.input
+  Field required [type=missing, input_value={'id': '6', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.output
+  Field required [type=missing, input_value={'id': '6', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.6.input
+  Field required [type=missing, input_value={'id': '7', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.6.output
+  Field required [type=missing, input_value={'id': '7', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+Error You need to create a kwargs dict for FunctionalRequirementsSpec
+
+            Validation error:
+14 validation errors for FunctionalRequirementsSpec
+requirements.0.input
+  Field required [type=missing, input_value={'id': '1', 'description'...uccessfully generated']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.0.output
+  Field required [type=missing, input_value={'id': '1', 'description'...uccessfully generated']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.input
+  Field required [type=missing, input_value={'id': '2', 'description'...trolled and monitored']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.output
+  Field required [type=missing, input_value={'id': '2', 'description'...trolled and monitored']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.input
+  Field required [type=missing, input_value={'id': '3', 'description'... successfully managed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.output
+  Field required [type=missing, input_value={'id': '3', 'description'... successfully managed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.input
+  Field required [type=missing, input_value={'id': '4', 'description'...entified and selected']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.output
+  Field required [type=missing, input_value={'id': '4', 'description'...entified and selected']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.input
+  Field required [type=missing, input_value={'id': '5', 'description'...fully interfaced with']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.output
+  Field required [type=missing, input_value={'id': '5', 'description'...fully interfaced with']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.input
+  Field required [type=missing, input_value={'id': '6', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.output
+  Field required [type=missing, input_value={'id': '6', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.6.input
+  Field required [type=missing, input_value={'id': '7', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.6.output
+  Field required [type=missing, input_value={'id': '7', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+Output:
+{ "project_name": "TCS", "version": "1.0", "requirements": [ { "id": "1", "description": "Mission planning function", "process": "Allow the operator to generate a UAV mission plan", "acceptance_criteria": [ "The mission plan is successfully generated" ] }, { "id": "2", "description": "Mission control and monitoring function", "process": "Allow the operator to control and monitor the mission", "acceptance_criteria": [ "The mission is successfully controlled and monitored" ] }, { "id": "3", "description": "Payload product management function", "process": "Allow the operator to manage payload products", "acceptance_criteria": [ "The payload products are successfully managed" ] }, { "id": "4", "description": "Targeting function", "process": "Allow the operator to target specific locations", "acceptance_criteria": [ "The target is successfully identified and selected" ] }, { "id": "5", "description": "C4I system interface function", "process": "Allow the operator to interface with C4I systems", "acceptance_criteria": [ "The C4I systems are successfully interfaced with" ] }, { "id": "6", "description": "UAV mission plan functionality", "process": "Allow the operator to receive and process UAV mission plans", "acceptance_criteria": [ "The UAV mission plans are successfully received and processed" ] }, { "id": "7", "description": "Functionality to receive and process UAV mission plans from service specific mission planning systems", "process": "Allow the operator to receive and process UAV mission plans from service specific mission planning systems", "acceptance_criteria": [ "The UAV mission plans from service specific mission planning systems are successfully received and processed" ] } ] }
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+AssertionError: You need to create a kwargs dict for FunctionalRequirementsSpec
+
+            Validation error:
+4 validation errors for FunctionalRequirementsSpec
+requirements.0.acceptance_criteria
+  Input should be a valid list [type=list_type, input_value='N/A', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/list_type
+requirements.1.acceptance_criteria
+  Input should be a valid list [type=list_type, input_value='N/A', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/list_type
+requirements.2.acceptance_criteria
+  Input should be a valid list [type=list_type, input_value='N/A', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/list_type
+requirements.3.acceptance_criteria
+  Input should be a valid list [type=list_type, input_value='N/A', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/list_type
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+HTTP Request: POST https://api.openai.com/v1/completions "HTTP/1.1 200 OK"
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.

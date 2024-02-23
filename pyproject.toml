@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
 name = "rdddy"
-version = "2024.1.23"
+version = "2024.2.22"
 description = "Reactive DDD framework with DSPy"
 authors = ["Sean Chatman <info@chatmangpt.com>"]
 readme = "README.md"

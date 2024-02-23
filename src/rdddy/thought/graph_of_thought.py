@@ -9,14 +9,20 @@ from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
 class GraphNode(BaseModel):
     id: str = Field(..., description="Unique identifier for the node")
-    content: str = Field(..., description="Content or question associated with the node")
-    answer: Optional[str] = Field(None, description="Answer or result of the node's reasoning step")
+    content: str = Field(
+        ..., description="Content or question associated with the node"
+    )
+    answer: Optional[str] = Field(
+        None, description="Answer or result of the node's reasoning step"
+    )
 
 
 class GraphEdge(BaseModel):
     source_id: str = Field(..., description="Source node ID")
     target_id: str = Field(..., description="Target node ID")
-    relationship: str = Field(..., description="Description of the relationship or reasoning link")
+    relationship: str = Field(
+        ..., description="Description of the relationship or reasoning link"
+    )
 
 
 class GraphOfThoughtModel(BaseModel):
@@ -58,7 +64,9 @@ import asyncio
 
 
 async def main():
-    prompt = "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
+    prompt = (
+        "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
+    )
 
     result = await create_mermaid(prompt)
 

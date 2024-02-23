@@ -24,7 +24,9 @@ class PreconditionActor(AbstractActor):
     ):
         print(f"Evaluating scraping precondition for URL {message.url}")
         # Example: Pretend the precondition is always met
-        await self.publish(ScrapingPreconditionEvaluatedEvent(url=message.url, result=True))
+        await self.publish(
+            ScrapingPreconditionEvaluatedEvent(url=message.url, result=True)
+        )
 
 
 class ProcessingActor(AbstractActor):
@@ -50,7 +52,9 @@ class ExecutionActor(AbstractActor):
     async def handle_evaluate_scraping_post_condition_query(
         self, message: EvaluateScrapingPostconditionQuery
     ):
-        await self.publish(ScrapingPostconditionEvaluatedEvent(url=message.url, result=True))
+        await self.publish(
+            ScrapingPostconditionEvaluatedEvent(url=message.url, result=True)
+        )
 
 
 class CompletionActor(AbstractActor):
@@ -65,5 +69,7 @@ class CompletionActor(AbstractActor):
         else:
             print(f"Postconditions not met for URL {message.url}.")
             await self.publish(
-                ScrapingErrorEvent(url=message.url, error_message="Postcondition failed")
+                ScrapingErrorEvent(
+                    url=message.url, error_message="Postcondition failed"
+                )
             )

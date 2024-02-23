@@ -22,6 +22,7 @@ def removeElement(nums, val):
     # return the non-val index as the number of elements in nums which are not equal to val
     return non_val_index
 
+
 # Custom Judge:
 # The judge will test your solution with the following code:
 nums = [3, 2, 2, 3]  # Input array
@@ -29,9 +30,12 @@ val = 3  # Value to remove
 expectedNums = [2, 2]  # The expected answer with correct length.
 # It is sorted with no values equaling val.
 k = removeElement(nums, val)  # Calls your implementation
-assert k == len(expectedNums)  # Checks if the returned k is equal to the expected length
+assert k == len(
+    expectedNums
+)  # Checks if the returned k is equal to the expected length
 nums.sort()  # Sort the first k elements of nums
 for i in range(k):
     print(nums[i], expectedNums[i])
-    assert nums[i] == expectedNums[i]  # Checks if the first k elements of nums are equal to the expected elements
-
+    assert (
+        nums[i] == expectedNums[i]
+    )  # Checks if the first k elements of nums are equal to the expected elements

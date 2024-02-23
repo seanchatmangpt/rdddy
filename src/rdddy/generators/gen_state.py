@@ -6,7 +6,9 @@ from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
 class State(BaseModel):
     name: str = Field(..., description="The name of the state")
-    abbreviation: str = Field(..., description="The two-letter postal abbreviation for the state")
+    abbreviation: str = Field(
+        ..., description="The two-letter postal abbreviation for the state"
+    )
     capital: str = Field(..., description="The capital city of the state")
 
 

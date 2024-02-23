@@ -1,4 +1,5 @@
 import typer
+
 app = typer.Typer()
 
 
@@ -67,5 +68,3 @@ def help():
 
 if __name__ == "__main__":
     app()
-
-

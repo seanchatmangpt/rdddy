@@ -167,7 +167,9 @@ def extract_code(text: str) -> str:
         return text
 
     # Concatenate all the code blocks together with double newline separators.
-    concatenated_code = "\n\n".join([code[code.index("\n") + 1 :] for code in text_code])
+    concatenated_code = "\n\n".join(
+        [code[code.index("\n") + 1 :] for code in text_code]
+    )
 
     return concatenated_code
 

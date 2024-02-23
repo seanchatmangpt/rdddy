@@ -77,6 +77,8 @@ async def test_chrome_browser_restart(actor_system):
 
         mock_process.returncode = None
 
-        message = cast(BrowserStatusEvent, await actor_system.wait_for_message(BrowserStatusEvent))
+        message = cast(
+            BrowserStatusEvent, await actor_system.wait_for_message(BrowserStatusEvent)
+        )
 
         assert message.status == "alive"

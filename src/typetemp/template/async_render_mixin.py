@@ -21,7 +21,9 @@ class AsyncRenderMixin:
         """Render the template."""
         self._env = async_native_environment if use_native else async_environment
 
-        template = self._env.from_string(self.source)  # Assuming self.env is a jinja2.Environment
+        template = self._env.from_string(
+            self.source
+        )  # Assuming self.env is a jinja2.Environment
 
         render_dict = kwargs.copy()
         render_dict.update(await self._render_vars())

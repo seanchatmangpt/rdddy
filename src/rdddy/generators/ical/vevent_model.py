@@ -27,7 +27,9 @@ class VEVENTModel(BaseModel):
     description: str = Field(
         default=None, title="", description="A detailed description of the event."
     )
-    location: str = Field(default=None, title="", description="The location of the event.")
+    location: str = Field(
+        default=None, title="", description="The location of the event."
+    )
     organizer: str = Field(
         default=None, title="", description="The organizer or creator of the event."
     )

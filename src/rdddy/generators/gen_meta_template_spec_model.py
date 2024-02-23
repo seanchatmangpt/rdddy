@@ -73,7 +73,9 @@ class {{ model.class_name }}(TemplateSpecificationBaseModel):
 
 class RootModel(BaseModel):
     root_model_class_name: str = Field(..., description="The name of the root model")
-    child_model_class_names: list[str] = Field(..., description="The names of the child models")
+    child_model_class_names: list[str] = Field(
+        ..., description="The names of the child models"
+    )
 
 
 def gen_model_tree():
@@ -124,9 +126,7 @@ def generate_icalendar_models():
         print(f"{entity}: {answer}")
 
         # Define a Pydantic class dynamically for each entity
-        model_prompt = (
-            f"I need a model named {entity}Model that has all of the relevant fields {description}"
-        )
+        model_prompt = f"I need a model named {entity}Model that has all of the relevant fields {description}"
 
         model_module = GenPydanticInstance(
             root_model=MetaTemplateSpecificationBaseModel,

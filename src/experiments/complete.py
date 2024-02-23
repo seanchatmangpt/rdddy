@@ -10,7 +10,6 @@ from playwright.async_api import async_playwright
 from utils.models import get_model
 
 
-
 @dataclass
 class LLMConfig:
     prompt: str = ""
@@ -72,7 +71,9 @@ async def count_response_buttons(page):
 
 async def extract_new_messages(page, last_count):
     # Get all messages by the assistant
-    elements = await page.query_selector_all('div[data-message-author-role="assistant"]')
+    elements = await page.query_selector_all(
+        'div[data-message-author-role="assistant"]'
+    )
     new_messages = []
 
     for element in elements[-last_count:]:  # Process only the last few messages
@@ -306,7 +307,9 @@ def chat(
             wait_time = initial_wait * (backoff_factor ** (retry - 1))
 
             # Print the error and wait before retrying
-            logger.warning(f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}")
+            logger.warning(
+                f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}"
+            )
             sleep(wait_time)
 
 
@@ -393,7 +396,9 @@ async def achat(
 
             wait_time = initial_wait * (backoff_factor ** (retry - 1))
 
-            print(f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}")
+            print(
+                f"Error communicating with OpenAI (attempt {retry}/{max_retry}): {oops}"
+            )
             await asyncio.sleep(wait_time)
 
 

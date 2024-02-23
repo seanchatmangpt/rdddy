@@ -11,7 +11,9 @@ class CodeInterviewSolver(Signature):
     fostering a deeper understanding of algorithmic thinking and coding practices. Python PEP8 compliant.
     In the style of Luciano Ramahlo author of Fluent Python.
     """
+
     problem_statement = InputField(desc="The problem statement to be solved")
 
-    detailed_code_solution = OutputField(desc="The detailed code solution with comments explaining each line of code. In the style of Luciano Ramahlo author of Fluent Python.")
-    
+    detailed_code_solution = OutputField(
+        desc="The detailed code solution with comments explaining each line of code. In the style of Luciano Ramahlo author of Fluent Python."
+    )

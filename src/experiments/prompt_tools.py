@@ -308,7 +308,9 @@ async def prompt_matrix(
 async def main():
     x_prompts = ["Create a python function for", "Create a python class for"]
     y_prompts = ["sorting an array", "finding the maximum element"]
-    result = await prompt_matrix(x_prompts, y_prompts, "You are an agent", max_tokens=50)
+    result = await prompt_matrix(
+        x_prompts, y_prompts, "You are an agent", max_tokens=50
+    )
     print(result)
 
 
@@ -344,7 +346,9 @@ class Verifiers:
         base_prompt = "Using the idea of 'N-step reasoning' and 'verification model', identify the best solution among the following verified solutions:"
         combined_solutions = "\n".join(verified_solutions)
         best_solution = await prompt_map([combined_solutions], base_prompt)
-        return best_solution[0]  # Return the first item as it should contain the best solution
+        return best_solution[
+            0
+        ]  # Return the first item as it should contain the best solution
 
 
 # async def main():

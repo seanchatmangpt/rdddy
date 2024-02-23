@@ -12,7 +12,10 @@ from rdddy.messages import *
 
 class BrowserWorker(AbstractActor):
     def __init__(
-        self, actor_system: ActorSystem, actor_id: Optional[int] = None, page: Optional[Page] = None
+        self,
+        actor_system: ActorSystem,
+        actor_id: Optional[int] = None,
+        page: Optional[Page] = None,
     ):
         super().__init__(actor_system, actor_id)
         self.page = page
@@ -25,7 +28,9 @@ class BrowserWorker(AbstractActor):
         )
 
     async def handle_goto(self, goto_cmd: Goto) -> None:
-        await self.page.goto(url=goto_cmd.url, options=goto_cmd.options, **goto_cmd.kwargs)
+        await self.page.goto(
+            url=goto_cmd.url, options=goto_cmd.options, **goto_cmd.kwargs
+        )
 
     async def handle_type(self, type_cmd: TypeText) -> None:
         await self.page.type(
@@ -70,7 +75,9 @@ class BrowserWorker(AbstractActor):
         await self.page.go_back()
         # Optionally, send a navigation event indicating the back action
 
-    async def handle_navigate_forward(self, navigate_forward_cmd: NavigateForward) -> None:
+    async def handle_navigate_forward(
+        self, navigate_forward_cmd: NavigateForward
+    ) -> None:
         await self.page.go_forward()
         # Optionally, send a navigation event indicating the forward action
 
@@ -78,7 +85,9 @@ class BrowserWorker(AbstractActor):
         await self.page.reload()
         # Optionally, send an event indicating that the component has been reloaded
 
-    async def handle_get_page_content(self, get_page_content_cmd: GetPageContent) -> None:
+    async def handle_get_page_content(
+        self, get_page_content_cmd: GetPageContent
+    ) -> None:
         page_content = await self.page.content()
         await self.publish(PageContent(content=page_content))
 
@@ -89,7 +98,9 @@ class BrowserWorker(AbstractActor):
     async def handle_close_browser(self, close_browser_cmd: CloseBrowser) -> None:
         await self.publish(BrowserClosed())
 
-    async def handle_set_viewport_size(self, set_viewport_size_cmd: SetViewportSize) -> None:
+    async def handle_set_viewport_size(
+        self, set_viewport_size_cmd: SetViewportSize
+    ) -> None:
         await self.page.set_viewport_size(
             viewport_size={
                 "width": set_viewport_size_cmd.width,

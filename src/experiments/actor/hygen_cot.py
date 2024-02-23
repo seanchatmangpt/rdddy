@@ -16,7 +16,9 @@ class GenerateHygenTemplate(dspy.Signature):
     (version <%= version %>)
     """
 
-    requirements = dspy.InputField(desc="Specifications or requirements for the Hygen template")
+    requirements = dspy.InputField(
+        desc="Specifications or requirements for the Hygen template"
+    )
     template = dspy.OutputField(desc="Generated Hygen template code")
 
 

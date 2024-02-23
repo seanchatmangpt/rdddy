@@ -41,7 +41,9 @@ class WorkshopSimulator:
         self.process_message(schedule_message)
 
         # Assign a presenter
-        assign_presenter_message = AssignPresenter(workshop_id=1, presenter_name="John Doe")
+        assign_presenter_message = AssignPresenter(
+            workshop_id=1, presenter_name="John Doe"
+        )
         self.process_message(assign_presenter_message)
 
         # Send invitations
@@ -64,7 +66,9 @@ class WorkshopSimulator:
         self.process_message(update_details_message)
 
         # Cancel the workshop
-        cancel_workshop_message = CancelWorkshop(workshop_id=1, reason="Cancellation Reason")
+        cancel_workshop_message = CancelWorkshop(
+            workshop_id=1, reason="Cancellation Reason"
+        )
         self.process_message(cancel_workshop_message)
 
     def process_message(self, message):

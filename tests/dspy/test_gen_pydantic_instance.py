@@ -13,7 +13,9 @@ from rdddy.generators.gen_pydantic_instance import (
 class APIEndpoint(BaseModel):
     method: str = Field(..., description="HTTP method of the API endpoint")
     url: str = Field(..., description="URL of the API endpoint")
-    description: str = Field(..., description="Description of what the API endpoint does")
+    description: str = Field(
+        ..., description="Description of what the API endpoint does"
+    )
     response: str = Field(..., description="Response from the API endpoint")
     query_params: Optional[dict[str, Any]] = Field(None, description="Query parameters")
 
@@ -54,8 +56,12 @@ INVALID_STR = "{ 'name': 'Alice', 'age': 30, 'city': 'Wonderland' }"
 
 @pytest.fixture()
 def gen_pydantic_model():
-    with patch.object(settings, "configure"), patch.object(OpenAI, "__init__", return_value=None):
-        yield GenPydanticInstance(APIEndpoint)  # Replace APIEndpoint with your Pydantic model
+    with patch.object(settings, "configure"), patch.object(
+        OpenAI, "__init__", return_value=None
+    ):
+        yield GenPydanticInstance(
+            APIEndpoint
+        )  # Replace APIEndpoint with your Pydantic model
 
 
 @patch("dspy.predict.Predict.forward")
@@ -74,8 +80,12 @@ def test_forward_success(
     )
 
     # Call the method
-    result = gen_pydantic_model.forward(prompt=VALID_PROMPT)  # Replace with a valid prompt
-    assert isinstance(result, APIEndpoint)  # Replace APIEndpoint with your Pydantic model class
+    result = gen_pydantic_model.forward(
+        prompt=VALID_PROMPT
+    )  # Replace with a valid prompt
+    assert isinstance(
+        result, APIEndpoint
+    )  # Replace APIEndpoint with your Pydantic model class
 
 
 @patch("dspy.predict.Predict.forward")

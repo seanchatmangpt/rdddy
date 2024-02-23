@@ -7,9 +7,14 @@ class CodeChallengeToRealWorld(Signature):
     """
     This signature inputs a code challenge description and outputs a real-world scenario that highlights practical applications or implications of the underlying algorithms or data structures.
     """
-    code_challenge_description = InputField(desc="The description of the programming task.")
 
-    real_world_scenario = OutputField(desc="A real-world scenario that showcases the practical applications or implications of the underlying algorithms or data structures.")
+    code_challenge_description = InputField(
+        desc="The description of the programming task."
+    )
+
+    real_world_scenario = OutputField(
+        desc="A real-world scenario that showcases the practical applications or implications of the underlying algorithms or data structures."
+    )
 
 
 def main():
@@ -93,13 +98,14 @@ Follow up: Can you come up with an algorithm that runs in O(m + n) time?
 Follow up:
 O(m + n)"""
 
-    cot = dspy.ChainOfThought(CodeChallengeToRealWorld).forward(code_challenge_description=context).real_world_scenario
+    cot = (
+        dspy.ChainOfThought(CodeChallengeToRealWorld)
+        .forward(code_challenge_description=context)
+        .real_world_scenario
+    )
 
     print(cot)
 
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

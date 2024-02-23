@@ -27,8 +27,12 @@ class VAVAILABILITYModel(BaseModel):
     description: str = Field(
         default=None, title="", description="A detailed description of the event."
     )
-    location: str = Field(default=None, title="", description="The location of the event.")
-    rrule: str = Field(default=None, title="", description="A recurrence rule for the event.")
+    location: str = Field(
+        default=None, title="", description="The location of the event."
+    )
+    rrule: str = Field(
+        default=None, title="", description="A recurrence rule for the event."
+    )
     exdate: datetime = Field(
         default=None,
         title="",
@@ -57,7 +61,9 @@ class VAVAILABILITYModel(BaseModel):
         description="The status of the event.",
         allowed_values=["CONFIRMED", "TENTATIVE", "CANCELLED"],
     )
-    organizer: str = Field(default=None, title="", description="The organizer of the event.")
+    organizer: str = Field(
+        default=None, title="", description="The organizer of the event."
+    )
     attendees: list[str] = Field(
         default=None, title="", description="A list of attendees for the event."
     )

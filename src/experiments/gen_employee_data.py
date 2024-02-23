@@ -11,7 +11,9 @@ from rdddy.generators.gen_python_primitive import (
 
 @pytest.fixture()
 def gen_python_primitive():
-    with patch.object(settings, "configure"), patch.object(OpenAI, "__init__", return_value=None):
+    with patch.object(settings, "configure"), patch.object(
+        OpenAI, "__init__", return_value=None
+    ):
         yield GenPythonPrimitive(list)
 
 
@@ -38,7 +40,9 @@ def test_forward_syntax_error(
     mock_predict.return_value.get.return_value = "{'Jupiter', 'Saturn'}"
     mock_chain_of_thought.side_effect = [
         MagicMock(get=MagicMock(return_value="{'Jupiter', 'Saturn'}")),  # initial call
-        MagicMock(get=MagicMock(return_value="{'Jupiter', 'Saturn'}")),  # correction call
+        MagicMock(
+            get=MagicMock(return_value="{'Jupiter', 'Saturn'}")
+        ),  # correction call
     ]
     # Call the method and expect an error
     with pytest.raises(ValueError):

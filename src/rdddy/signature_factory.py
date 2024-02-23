@@ -42,32 +42,33 @@ class OutputFieldTemplateSpecModel(BaseModel):
 
 class SignatureTemplateSpecModel(BaseModel):
     '''
-    Generate a Signature for the DSPy Framework.
+        Generate a Signature for the DSPy Framework.
 
-    Examples:
-    ```python
-class CheckCitationFaithfulness(dspy.Signature):
-    """Verify that the text is based on the provided context."""
+        Examples:
+        ```python
+    class CheckCitationFaithfulness(dspy.Signature):
+        """Verify that the text is based on the provided context."""
 
-    context = dspy.InputField(desc="facts here are assumed to be true")
-    text = dspy.InputField()
-    faithfulness = dspy.OutputField(desc="True/False indicating if text is faithful to context")
+        context = dspy.InputField(desc="facts here are assumed to be true")
+        text = dspy.InputField()
+        faithfulness = dspy.OutputField(desc="True/False indicating if text is faithful to context")
 
-class GenerateAnswer(dspy.Signature):
-    """Answer questions with short factoid answers."""
+    class GenerateAnswer(dspy.Signature):
+        """Answer questions with short factoid answers."""
 
-    context = dspy.InputField(desc="contains cited relevant facts")
-    question = dspy.InputField()
-    answer = dspy.OutputField(desc="Descriptive answer to the question")
+        context = dspy.InputField(desc="contains cited relevant facts")
+        question = dspy.InputField()
+        answer = dspy.OutputField(desc="Descriptive answer to the question")
 
-class CheckForCitations(dspy.Signature):
-    """Verify the text has proper citations."""
+    class CheckForCitations(dspy.Signature):
+        """Verify the text has proper citations."""
 
-    context = dspy.InputField(desc="facts here are assumed to be true")
-    text = dspy.InputField()
-    cited = dspy.OutputField(desc="True/False indicating if citations are present")
-    ```
+        context = dspy.InputField(desc="facts here are assumed to be true")
+        text = dspy.InputField()
+        cited = dspy.OutputField(desc="True/False indicating if citations are present")
+        ```
     '''
+
     name: str = Field(
         ...,
         description="Signature class name. Use this to specify additional context or labeling.",
@@ -138,7 +139,9 @@ def main():
     question = "What strategies can DSPy use?"
 
     answer = (
-        dspy.ChainOfThought(QuestionAnswering).forward(context=context, question=question).answer
+        dspy.ChainOfThought(QuestionAnswering)
+        .forward(context=context, question=question)
+        .answer
     )
     print(answer)
 

@@ -8,4 +8,5 @@ class AbstractPolicy(AbstractActor):
     constraints. Through extending AbstractPolicy, developers can encapsulate and enforce the strategic and
     operational rules that drive the domain's functionality, ensuring consistency and alignment with business
     objectives."""
+
     pass

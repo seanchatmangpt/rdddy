@@ -65,7 +65,10 @@ class ChromaMemStore:
         return collection.query(**kwargs)
 
     def get(
-        self, collection_id: str, doc_ids: Optional[list] = None, where: Optional[dict] = None
+        self,
+        collection_id: str,
+        doc_ids: Optional[list] = None,
+        where: Optional[dict] = None,
     ) -> dict:
         """Get documents from the MemStore.
 
@@ -85,7 +88,9 @@ class ChromaMemStore:
             kwargs["where"] = where
         return collection.get(**kwargs)
 
-    def update(self, collection_id: str, doc_ids: list, documents: list, metadatas: list):
+    def update(
+        self, collection_id: str, doc_ids: list, documents: list, metadatas: list
+    ):
         """Update documents in the MemStore.
 
         Args:

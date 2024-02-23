@@ -44,32 +44,33 @@ class OutputFieldTemplateSpecModel(BaseModel):
 
 class SignatureTemplateSpecModel(BaseModel):
     '''
-    Generate a Signature for the DSPy Framework.
+        Generate a Signature for the DSPy Framework.
 
-    Examples:
-    ```python
-class CheckCitationFaithfulness(dspy.Signature):
-    """Verify that the text is based on the provided context."""
+        Examples:
+        ```python
+    class CheckCitationFaithfulness(dspy.Signature):
+        """Verify that the text is based on the provided context."""
 
-    context = dspy.InputField(desc="facts here are assumed to be true")
-    text = dspy.InputField()
-    faithfulness = dspy.OutputField(desc="True/False indicating if text is faithful to context")
+        context = dspy.InputField(desc="facts here are assumed to be true")
+        text = dspy.InputField()
+        faithfulness = dspy.OutputField(desc="True/False indicating if text is faithful to context")
 
-class GenerateAnswer(dspy.Signature):
-    """Answer questions with short factoid answers."""
+    class GenerateAnswer(dspy.Signature):
+        """Answer questions with short factoid answers."""
 
-    context = dspy.InputField(desc="contains cited relevant facts")
-    question = dspy.InputField()
-    answer = dspy.OutputField(desc="Descriptive answer to the question")
+        context = dspy.InputField(desc="contains cited relevant facts")
+        question = dspy.InputField()
+        answer = dspy.OutputField(desc="Descriptive answer to the question")
 
-class CheckForCitations(dspy.Signature):
-    """Verify the text has proper citations."""
+    class CheckForCitations(dspy.Signature):
+        """Verify the text has proper citations."""
 
-    context = dspy.InputField(desc="facts here are assumed to be true")
-    text = dspy.InputField()
-    cited = dspy.OutputField(desc="True/False indicating if citations are present")
-    ```
+        context = dspy.InputField(desc="facts here are assumed to be true")
+        text = dspy.InputField()
+        cited = dspy.OutputField(desc="True/False indicating if citations are present")
+        ```
     '''
+
     class_name: str = Field(
         ...,
         description="Signature class name. Use this to specify additional context or labeling.",
@@ -110,6 +111,7 @@ class GenDSPySignatureTemplate(TypedTemplate):
     """
     Generates and renders DSPy Signature classes to disk using Jinja2 templates.
     """
+
     source = '''from dspy import Signature
 from dspy.signatures.field import InputField, OutputField
 
@@ -128,14 +130,16 @@ class {{ signature.class_name }}(Signature):
     '''
     to = "signatures/{{ signature.class_name | underscore }}.py"
 
+
 business_sig_prompts = [
-    "I need a signature called 'CodeInterviewSolver' that inputs a 'problem_statement', and outputs a 'detailed_code_solution'. This signature should first interpret the problem statement to identify key challenges and requirements. Each line of the code solution must be accompanied by comments that explain the purpose and logic of that line, ensuring that the thought process behind the solution is clear and educational. The aim is to not only solve the interview problem but also to provide a learning experience by demystifying complex solution steps and fostering a deeper understanding of algorithmic thinking and coding practices."    ,
+    "I need a signature called 'CodeInterviewSolver' that inputs a 'problem_statement', and outputs a 'detailed_code_solution'. This signature should first interpret the problem statement to identify key challenges and requirements. Each line of the code solution must be accompanied by comments that explain the purpose and logic of that line, ensuring that the thought process behind the solution is clear and educational. The aim is to not only solve the interview problem but also to provide a learning experience by demystifying complex solution steps and fostering a deeper understanding of algorithmic thinking and coding practices.",
 ]
 
 sig_module = GenPydanticInstance(
     root_model=SignatureTemplateSpecModel,
     child_models=[InputFieldTemplateSpecModel, OutputFieldTemplateSpecModel],
 )
+
 
 # Assuming we have a function `generate_signature_from_prompt` that takes a sig_prompt and processes it.
 def generate_signature_from_prompt(sig_prompt):
@@ -156,7 +160,6 @@ def main():
         generate_signature_from_prompt(prompt)
 
     print(f"{len(business_sig_prompts)} signatures generated.")
-
 
 
 if __name__ == "__main__":

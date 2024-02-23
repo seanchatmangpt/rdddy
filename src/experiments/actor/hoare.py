@@ -14,10 +14,14 @@ class InitiationActor(AbstractActor):
             )
         else:
             await self.publish(
-                PhaseErrorEvent(phase_name=message.phase_name, error_message="Precondition failed")
+                PhaseErrorEvent(
+                    phase_name=message.phase_name, error_message="Precondition failed"
+                )
             )
 
-    async def handle_evaluate_precondition_query(self, message: EvaluatePreconditionQuery):
+    async def handle_evaluate_precondition_query(
+        self, message: EvaluatePreconditionQuery
+    ):
         # Directly using the message content to decide success or failure here for simplicity
         if message.phase_name == "Hello":
             await self.publish(
@@ -25,12 +29,16 @@ class InitiationActor(AbstractActor):
             )
         else:
             await self.publish(
-                PhaseErrorEvent(phase_name=message.phase_name, error_message="Precondition failed")
+                PhaseErrorEvent(
+                    phase_name=message.phase_name, error_message="Precondition failed"
+                )
             )
 
 
 class CompletionActor(AbstractActor):
-    async def handle_evaluate_postcondition_query(self, message: EvaluatePostconditionQuery):
+    async def handle_evaluate_postcondition_query(
+        self, message: EvaluatePostconditionQuery
+    ):
         # If message is "Hello", the postcondition check passes
         if message.phase_name == "Hello":
             await self.publish(
@@ -40,7 +48,9 @@ class CompletionActor(AbstractActor):
         # If message is "Goodbye", the postcondition check fails
         elif message.phase_name == "Goodbye":
             await self.publish(
-                PhaseErrorEvent(phase_name=message.phase_name, error_message="Postcondition failed")
+                PhaseErrorEvent(
+                    phase_name=message.phase_name, error_message="Postcondition failed"
+                )
             )
 
 

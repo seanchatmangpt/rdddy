@@ -44,7 +44,9 @@ def export_html_to_yaml(yaml_file_path):
             selector += f'[{attr}="{aria_value}"]'
             tag.selector = selector
             tag.attributes[attr] = aria_value
-        inner_text = element.get_text(strip=True)  # Get inner text without extra whitespace
+        inner_text = element.get_text(
+            strip=True
+        )  # Get inner text without extra whitespace
         if inner_text:
             selector += f'{{text: "{inner_text}"}}'
         selectors_with_text.append(selector)

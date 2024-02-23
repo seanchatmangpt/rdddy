@@ -10,10 +10,14 @@ class AlbertoBrandoliniAgent(CollaborativeAgent):
         print(f"Alberto Brandolini created with name: {event.agent_name}")
 
     def handle_message_sent(self, event: MessageSent):
-        print(f"Alberto Brandolini sent a message to Greg Young: {event.message_content}")
+        print(
+            f"Alberto Brandolini sent a message to Greg Young: {event.message_content}"
+        )
 
     def handle_task_assigned(self, event: TaskAssigned):
-        print(f"Alberto Brandolini assigned a task (ID: {event.task_id}): {event.task_description}")
+        print(
+            f"Alberto Brandolini assigned a task (ID: {event.task_id}): {event.task_description}"
+        )
 
     def handle_task_completed(self, event: TaskCompleted):
         print(
@@ -21,7 +25,9 @@ class AlbertoBrandoliniAgent(CollaborativeAgent):
         )
 
     def handle_decision_made(self, event: DecisionMade):
-        print(f"Alberto Brandolini made a significant decision: {event.decision_description}")
+        print(
+            f"Alberto Brandolini made a significant decision: {event.decision_description}"
+        )
 
     def handle_resource_allocation(self, event: ResourceAllocation):
         print(
@@ -47,19 +53,27 @@ class AlbertoBrandoliniAgent(CollaborativeAgent):
 
 class GregYoungAgent(CollaborativeAgent):
     def handle_message_received(self, event: MessageReceived):
-        print(f"Greg Young received a message from Alberto Brandolini: {event.message_content}")
+        print(
+            f"Greg Young received a message from Alberto Brandolini: {event.message_content}"
+        )
 
     def handle_collaboration_initiated(self, event: CollaborationInitiated):
         agents_involved = ", ".join(map(str, event.agents_involved))
-        print(f"Collaboration initiated by Alberto Brandolini and Greg Young: {agents_involved}")
+        print(
+            f"Collaboration initiated by Alberto Brandolini and Greg Young: {agents_involved}"
+        )
 
     def handle_conflict_detected(self, event: ConflictDetected):
         conflicting_agents = ", ".join(map(str, event.conflicting_agents))
-        print(f"Conflict detected among Alberto Brandolini and Greg Young: {conflicting_agents}")
+        print(
+            f"Conflict detected among Alberto Brandolini and Greg Young: {conflicting_agents}"
+        )
 
     def handle_conflict_resolved(self, event: ConflictResolved):
         resolved_agents = ", ".join(map(str, event.resolved_agents))
-        print(f"Conflict resolved among Alberto Brandolini and Greg Young: {resolved_agents}")
+        print(
+            f"Conflict resolved among Alberto Brandolini and Greg Young: {resolved_agents}"
+        )
 
     def handle_emergency_shutdown(self, event: EmergencyShutdown):
         print(f"Emergency shutdown triggered. Reason: {event.reason}")
@@ -95,7 +109,9 @@ class AgentSystem:
 async def main():
     sys = ActorSystem()
 
-    alberto_brandolini = cast(AlbertoBrandoliniAgent, await sys.actor_of(AlbertoBrandoliniAgent))
+    alberto_brandolini = cast(
+        AlbertoBrandoliniAgent, await sys.actor_of(AlbertoBrandoliniAgent)
+    )
     greg_young = cast(GregYoungAgent, await sys.actor_of(GregYoungAgent))
 
     event_results = [
@@ -120,9 +136,15 @@ async def main():
         ),
         ResourceAllocation(resource_type="Design", amount=1),
         ResourceDeallocation(resource_type="Design", amount=1),
-        CollaborationInitiated(agents_involved=[alberto_brandolini.actor_id, greg_young.actor_id]),
-        ConflictDetected(conflicting_agents=[alberto_brandolini.actor_id, greg_young.actor_id]),
-        ConflictResolved(resolved_agents=[alberto_brandolini.actor_id, greg_young.actor_id]),
+        CollaborationInitiated(
+            agents_involved=[alberto_brandolini.actor_id, greg_young.actor_id]
+        ),
+        ConflictDetected(
+            conflicting_agents=[alberto_brandolini.actor_id, greg_young.actor_id]
+        ),
+        ConflictResolved(
+            resolved_agents=[alberto_brandolini.actor_id, greg_young.actor_id]
+        ),
         EmergencyShutdown(reason="Technical issue"),
         FeedbackReceived(
             feedback_content="Positive feedback received",

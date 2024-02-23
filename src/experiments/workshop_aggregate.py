@@ -48,7 +48,9 @@ class WorkshopAggregate(AbstractAggregate):
         # Add participant logic
         # Emit ParticipantAdded event
         self.emit_event(
-            ParticipantAdded(workshop_id=command.workshop_id, participant_id=command.participant_id)
+            ParticipantAdded(
+                workshop_id=command.workshop_id, participant_id=command.participant_id
+            )
         )
 
 
@@ -57,7 +59,9 @@ async def simulate_workshop():
     actor_system = ActorSystem()
 
     # Create WorkshopAggregate
-    workshop_aggregate = await actor_system.actor_of(WorkshopAggregate, workshop_id="workshop-123")
+    workshop_aggregate = await actor_system.actor_of(
+        WorkshopAggregate, workshop_id="workshop-123"
+    )
 
     # Send commands to the aggregate
     start_command = StartWorkshop(workshop_id="workshop")

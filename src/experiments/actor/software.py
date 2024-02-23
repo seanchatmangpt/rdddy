@@ -63,7 +63,9 @@ class ModelGenerationActor(AbstractActor):
     async def handle_model_generated_event(self, message: ModelGeneratedEvent):
         # Generate model based on received event (simulate model generation)
         print(f"Model {message.mdl_id} generated.")
-        await self.publish(ModelValidatedEvent(mdl_id=message.mdl_id, validation_status=True))
+        await self.publish(
+            ModelValidatedEvent(mdl_id=message.mdl_id, validation_status=True)
+        )
 
 
 class ModelValidationActor(AbstractActor):
@@ -76,7 +78,9 @@ class ModelValidationActor(AbstractActor):
             )
         else:
             await self.publish(
-                PhaseErrorEvent(phase_name="Validation", error_message="Validation Failed")
+                PhaseErrorEvent(
+                    phase_name="Validation", error_message="Validation Failed"
+                )
             )
 
 
@@ -96,14 +100,18 @@ class DecisionMakingActor(AbstractActor):
 
 
 class OptimizationActor(AbstractActor):
-    async def handle_optimization_completed_event(self, message: OptimizationCompletedEvent):
+    async def handle_optimization_completed_event(
+        self, message: OptimizationCompletedEvent
+    ):
         # Optimization logic (simulation)
         print(f"Optimization completed for model {message.mdl_id}.")
         await self.publish(ModelDeployedEvent(mdl_id=message.mdl_id))
 
 
 class DeploymentActor(AbstractActor):
-    async def handle_deployment_started_command(self, message: DeploymentStartedCommand):
+    async def handle_deployment_started_command(
+        self, message: DeploymentStartedCommand
+    ):
         # Handle deployment (simulate deployment process)
         print(f"Deployment started for model {message.mdl_id}.")
         await self.publish(ModelMonitoringCommand(mdl_id=message.mdl_id))
@@ -135,7 +143,9 @@ async def setup_and_run():
     # Example: project_management_actor = await actor_system.actor_of(ProjectManagementActor)
     # Trigger the start of the scenario by sending a RequirementSpecificationCommand
     await actor_system.publish(
-        RequirementSpecificationCommand(requirements={"model-deployment-started": "hello"})
+        RequirementSpecificationCommand(
+            requirements={"model-deployment-started": "hello"}
+        )
     )
 
 

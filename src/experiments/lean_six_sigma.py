@@ -44,7 +44,9 @@ async def main():
     task_event = TaskEvent(task_id=1, task_description="Lean six sigma kickoff event")
 
     await sys.publish(
-        TaskAssigned(agent_id=1, task_id=101, task_description="Perform Process Analysis"),
+        TaskAssigned(
+            agent_id=1, task_id=101, task_description="Perform Process Analysis"
+        ),
     )
     await sys.publish(
         TaskAssigned(agent_id=2, task_id=102, task_description="Collect Data"),

@@ -1,0 +1,102 @@
+2024-02-22 17:47:43,524 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for FunctionalRequirementsSpec
+
+            Validation error:
+12 validation errors for FunctionalRequirementsSpec
+requirements.0.input
+  Field required [type=missing, input_value={'id': '1', 'description'...plan must be included']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.0.output
+  Field required [type=missing, input_value={'id': '1', 'description'...plan must be included']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.input
+  Field required [type=missing, input_value={'id': '2', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.output
+  Field required [type=missing, input_value={'id': '2', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.input
+  Field required [type=missing, input_value={'id': '3', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.output
+  Field required [type=missing, input_value={'id': '3', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.input
+  Field required [type=missing, input_value={'id': '4', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.output
+  Field required [type=missing, input_value={'id': '4', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.input
+  Field required [type=missing, input_value={'id': '5', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.output
+  Field required [type=missing, input_value={'id': '5', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.input
+  Field required [type=missing, input_value={'id': '6', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.output
+  Field required [type=missing, input_value={'id': '6', 'description'...cceptance_criteria': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+2024-02-22 17:48:00,505 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for FunctionalRequirementsSpec
+
+            Validation error:
+14 validation errors for FunctionalRequirementsSpec
+requirements.0.input
+  Field required [type=missing, input_value={'id': '1', 'description'...uccessfully generated']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.0.output
+  Field required [type=missing, input_value={'id': '1', 'description'...uccessfully generated']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.input
+  Field required [type=missing, input_value={'id': '2', 'description'...trolled and monitored']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.1.output
+  Field required [type=missing, input_value={'id': '2', 'description'...trolled and monitored']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.input
+  Field required [type=missing, input_value={'id': '3', 'description'... successfully managed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.2.output
+  Field required [type=missing, input_value={'id': '3', 'description'... successfully managed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.input
+  Field required [type=missing, input_value={'id': '4', 'description'...entified and selected']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.3.output
+  Field required [type=missing, input_value={'id': '4', 'description'...entified and selected']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.input
+  Field required [type=missing, input_value={'id': '5', 'description'...fully interfaced with']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.4.output
+  Field required [type=missing, input_value={'id': '5', 'description'...fully interfaced with']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.input
+  Field required [type=missing, input_value={'id': '6', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.5.output
+  Field required [type=missing, input_value={'id': '6', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.6.input
+  Field required [type=missing, input_value={'id': '7', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+requirements.6.output
+  Field required [type=missing, input_value={'id': '7', 'description'...eceived and processed']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.5/v/missing
+2024-02-22 17:48:07,030 - dspy.primitives.assertions - ERROR - AssertionError: You need to create a kwargs dict for FunctionalRequirementsSpec
+
+            Validation error:
+4 validation errors for FunctionalRequirementsSpec
+requirements.0.acceptance_criteria
+  Input should be a valid list [type=list_type, input_value='N/A', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/list_type
+requirements.1.acceptance_criteria
+  Input should be a valid list [type=list_type, input_value='N/A', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/list_type
+requirements.2.acceptance_criteria
+  Input should be a valid list [type=list_type, input_value='N/A', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/list_type
+requirements.3.acceptance_criteria
+  Input should be a valid list [type=list_type, input_value='N/A', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.5/v/list_type

@@ -5,4 +5,5 @@ class AbstractRepository:
     of AbstractRepository, developers can ensure smooth interactions with the domain entities, offering a clean,
     cohesive API for querying and persisting domain objects, thereby supporting the principles of domain-driven
     design."""
+
     pass

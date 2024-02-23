@@ -29,7 +29,9 @@ class VFREEBUSYModel(BaseModel):
         title="",
         description="The unique identifier for the VFREEBUSY period.",
     )
-    url: str = Field(default="", title="", description="The URL for the VFREEBUSY period.")
+    url: str = Field(
+        default="", title="", description="The URL for the VFREEBUSY period."
+    )
     freebusy: str = Field(
         default="",
         title="",

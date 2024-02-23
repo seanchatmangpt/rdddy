@@ -15,7 +15,9 @@ class FakerExtension(Extension):
         for method in dir(self.faker):
             try:
                 if callable(getattr(self.faker, method)) and not method.startswith("_"):
-                    self.environment.globals["faker_" + method] = getattr(self.faker, method)
+                    self.environment.globals["faker_" + method] = getattr(
+                        self.faker, method
+                    )
                     # print("# faker_" + method)
             except TypeError:
                 continue

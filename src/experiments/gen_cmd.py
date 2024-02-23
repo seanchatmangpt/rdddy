@@ -41,7 +41,9 @@ def static(
     asyncio.run(_render_typed_template(name, paste))
 
 
-async def _render_smart_template(name: str, prompt: str, max_tokens: int, output_format: str):
+async def _render_smart_template(
+    name: str, prompt: str, max_tokens: int, output_format: str
+):
     """Renders a SmartTemplate to the filesystem"""
     prompt = await spr(
         prompt=f"ChatGPT Assistant that {prompt}",

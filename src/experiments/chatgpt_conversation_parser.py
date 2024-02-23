@@ -85,5 +85,5 @@ def main():
             process_conversations_chunk(chunk)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

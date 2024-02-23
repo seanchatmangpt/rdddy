@@ -22,8 +22,12 @@ Hello <%= name %>,
 
 class HygenTemplateSpecificationCommand(AbstractCommand):
     template_name: str = Field(..., description="The name of the template to generate.")
-    template_path: str = Field(..., description="The path where the template should be created.")
-    template_content: str = Field(..., description=template_content_desc, min_length=200)
+    template_path: str = Field(
+        ..., description="The path where the template should be created."
+    )
+    template_content: str = Field(
+        ..., description=template_content_desc, min_length=200
+    )
 
 
 class TemplateGeneratedEvent(AbstractEvent):
@@ -35,11 +39,15 @@ class TemplateGeneratedEvent(AbstractEvent):
 
 class TemplateValidatedEvent(AbstractEvent):
     template_name: str = Field(..., description="The name of the validated template.")
-    is_valid: bool = Field(..., description="Indicates the validation result of the template.")
+    is_valid: bool = Field(
+        ..., description="Indicates the validation result of the template."
+    )
 
 
 class TemplateDeploymentStartedEvent(AbstractEvent):
-    template_name: str = Field(..., description="The name of the template being deployed.")
+    template_name: str = Field(
+        ..., description="The name of the template being deployed."
+    )
 
 
 class TemplateDeploymentCompletedEvent(AbstractEvent):
@@ -59,14 +67,20 @@ class HygenTemplateGeneratorActor(AbstractActor):
                 f"{command.template_path}/{command.template_name}.ejs.t",
                 command.template_content,
             )
-            logger.debug(f"Hygen template {command.template_name} generated successfully.")
+            logger.debug(
+                f"Hygen template {command.template_name} generated successfully."
+            )
             await self.publish(
-                TemplateGeneratedEvent(template_name=command.template_name, success=True)
+                TemplateGeneratedEvent(
+                    template_name=command.template_name, success=True
+                )
             )
         except Exception as e:
             logger.debug(f"Failed to generate template {command.template_name}: {e}")
             await self.publish(
-                TemplateGeneratedEvent(template_name=command.template_name, success=False)
+                TemplateGeneratedEvent(
+                    template_name=command.template_name, success=False
+                )
             )
 
     def write_to_file(self, file_path: str, content: str):
@@ -93,7 +107,9 @@ class TemplateDeploymentActor(AbstractActor):
             # Simulate deployment logic
             # Assume deployment succeeds for this example
             await self.publish(
-                TemplateDeploymentCompletedEvent(template_name=event.template_name, success=True)
+                TemplateDeploymentCompletedEvent(
+                    template_name=event.template_name, success=True
+                )
             )
 
 
