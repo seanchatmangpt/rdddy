@@ -1,9 +1,10 @@
 from typing import Optional
 
+import dspy
 from pydantic import BaseModel, Field
 
 from dspy import Module
-from experiments.web.mer import create_mermaid
+# from experiments.web.mer import create_mermaid
 from rdddy.generators.gen_pydantic_instance import GenPydanticInstance
 
 
@@ -40,38 +41,37 @@ class GraphOfThought(Module):
         ).forward(prompt)
 
 
-# def main():
-# lm = dspy.OpenAI(max_tokens=1000)
-# dspy.settings.configure(lm=lm)
+def main():
+    lm = dspy.OpenAI(max_tokens=1000)
+    dspy.settings.configure(lm=lm)
 
-# prompt = (
-#     "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
-# )
+    # prompt = (
+    #     "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
+    # )
 
-# result
-# prompt = "BPMN for ordering a sandwich"
-# prompt = "Explain the water cycle step by step."
+    prompt = "BPMN for ordering a sandwich"
+    # prompt = "Explain the water cycle step by step."
 
-# result_graph = GraphOfThought().forward(prompt)
-# print(result_graph)
-
-
-# if __name__ == "__main__":
-#     main()
-
-
-import asyncio
-
-
-async def main():
-    prompt = (
-        "Decision Model Notation for cancer diagnosis in a 5 step circle with branches"
-    )
-
-    result = await create_mermaid(prompt)
-
-    print(result)
+    result_graph = GraphOfThought().forward(prompt)
+    print(result_graph)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
+
+
+# import asyncio
+
+
+# async def main():
+#     prompt = (
+#         "Imagine the interactible elements of the Linkedin homepage"
+#     )
+#
+#     result = await create_mermaid(prompt)
+#
+#     print(result)
+
+
+# if __name__ == "__main__":
+#     asyncio.run(main())

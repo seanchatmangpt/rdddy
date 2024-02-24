@@ -12,7 +12,7 @@ class {{ event }}(Event):
     """
     Event triggered by {{ event }}.
     """
-    pass
+    {{ business_logic }}
 
 {% endfor %}
 
@@ -324,8 +324,8 @@ def main():
         EventStormingDomainSpecificationModel,
     )
 
-    lm = dspy.OpenAI(max_tokens=3000)
-    # lm = dspy.OpenAI(max_tokens=4500, model="gpt-4")
+    # lm = dspy.OpenAI(max_tokens=3000)
+    lm = dspy.OpenAI(max_tokens=4500, model="gpt-4")
     dspy.settings.configure(lm=lm)
     # Create a Jinja environment and render the template
     env = Environment()
@@ -334,7 +334,7 @@ def main():
 
     event_storm_model = GenPydanticInstance(
         root_model=EventStormingDomainSpecificationModel
-    )(prompt=prompt)
+    )(prompt="online contract signing full stack site")
 
     print(f"Event Storm Model {event_storm_model}")
 

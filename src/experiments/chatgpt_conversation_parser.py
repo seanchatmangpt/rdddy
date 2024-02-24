@@ -51,7 +51,7 @@ def process_conversations_chunk(chunk):
                 data = Data(**conversation.mapping[key])
                 if data.message and data.message.author.role == "assistant":
                     for part in data.message.content.parts:
-                        if "ECCN" in part:
+                        if "AutoSpider" in part:
                             print(part)
                         # encoding = tiktoken.encoding_for_model("text-embedding-ada-002")
                         # print(len(encoding.encode(part)))

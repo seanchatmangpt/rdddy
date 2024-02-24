@@ -1,85 +1,81 @@
-import asyncio
-import os
+import dspy
 
 import typer
+from typer import Typer
 
-from rdddy.actor_system import ActorSystem
-from rdddy.async_typer import AsyncTyper
+from rdddy.generators.gen_pydantic_class import GenPydanticClass
 
-app = AsyncTyper()
-
-from rdddy.abstract_actor import AbstractActor
-from rdddy.messages import *
-from rdddy.messages import AbstractEvent  # We likely still need this at the base
+app = Typer()
 
 
-class GenerateDashboardEvent(AbstractEvent):
-    page_name: str
-    widget_type: str
 
 
-class DashboardGeneratorActor(AbstractActor):
-    def __init__(self, actor_system: ActorSystem, actor_id=None):
-        super().__init__(actor_system, actor_id=actor_id)
-        # Retrieve NextJS project root:
-        self.nextjs_root = "/Users/candacechatman/dev/nextjs-page"
-        # self.nextjs_root = os.getenv("NEXTJS_PROJECT_ROOT")
-        if not self.nextjs_root:
-            # Handle this error - is this an event to the ActorSystem, a log?
-            print("Error: NEXTJS_PROJECT_ROOT environment variable not found.")
-            return
+@app.command(name="model", short_help="Generates a Pydantic model class.")
+def pydantic_model_gen(prompt: str):
+    lm = dspy.OpenAI(max_tokens=500)
+    dspy.settings.configure(lm=lm)
 
-    async def handle_generate_dashboard_event(self, event: GenerateDashboardEvent):
-        # ... Logic will come later ...
-        print(f"Received generation request: {event}")
-        try:
-            await self.generate_with_hygen(event.page_name, event.widget_type)
-        except Exception as e:
-            # Add robust error handling later with relevant event publishing
-            print(f"Hygen generation failed: {e}")
+    style = "All fields must be fields annotated attributes Field classes with descriptions"
+    module = dspy.Predict("reqs, style -> pydantic_class_source")
+    source = module(reqs=prompt, style=style).pydantic_class_source
+    print(source)
 
-    async def generate_with_hygen(self, page_name: str, widget_type: str):
-        # Construct Hygen command
-        hygen_command = [
-            "hygen",
-            "page",  # Assuming your template is  named 'page'
-            "new",
-            page_name,  # We  pass the component name to Hygen
-        ]
 
-        process = await asyncio.create_subprocess_exec(
-            *hygen_command,
-            # Capture process output
-            stdin=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
+@app.command(name="models", short_help="Generates a Pydantic root model with child models.")
+def pydantic_root_child_model_gen(prompt: str):
+    lm = dspy.OpenAI(max_tokens=1000, model="gpt-4")
+    dspy.settings.configure(lm=lm)
 
-        # Wait for Hygen, collect output for analysis if needed
-        await process.communicate()
+    # Define the style for generating complex models including root and child relationships
+    style = "Generate root and child Pydantic models. Include fields with types, default values, and descriptions."
 
-        # Construct the filepath where Hygen should place the output
-        target_filepath = os.path.join(self.nextjs_root, "pages", f"{page_name}.tsx")
+    # Use DSPy to predict the Pydantic class source code for both root and child models based on the prompt
+    module = dspy.Predict("reqs, style -> pydantic_root_and_child_classes_source")
+    source = module(reqs=prompt, style=style).pydantic_root_and_child_classes_source
 
-        if not os.path.exists(target_filepath):
-            raise OSError(f"Could not find {target_filepath}")
+    # Print the generated Pydantic class source code
+    print(source)
+
+
+
+README = "DSPy is a framework for algorithmically optimizing LM prompts and weights"
+
+
+@app.command(name="help")
+def dspy_help(
+    question: str
+):
+    history = ""
+    history = chatbot(question, history=history, context=README)
+
+
+def chatbot(question, history, context):
+    qa = dspy.ChainOfThought("question, context -> answer")
+    response = qa(question=question, context=context).answer
+    history += response
+    print(f"Chatbot: {response}")
+    confirmed = False
+    while not confirmed:
+        confirm = typer.prompt("Did this answer your question? [y/N]", default="N")
+
+        if confirm.lower() in ["y", "yes"]:
+            confirmed = True
         else:
-            typer.echo(f"Generated {page_name}")
+            want = typer.prompt("How can I help more?")
 
-        # Error – Hygen likely didn't succeed, or your Hygen template is misconfigured
+            question = f"{history}\n{want}"
+            question = question[-1000:]
 
-    @app.command()
-    async def generate_dashboard(
-        page_name: str = "overview", widget_type: str = "line_chart"
-    ):
-        # ... Logic will come later ....
-        typer.echo(
-            f"Generating a page page named '{page_name}' with a '{widget_type}' widget!"
-        )
-        actor_system = ActorSystem()
-        generator_actor = await actor_system.actor_of(DashboardGeneratorActor)
-        await actor_system.publish(
-            GenerateDashboardEvent(page_name=page_name, widget_type=widget_type)
-        )
+            response = qa(question=question, context=README).answer
+            history += response
+            print(f"Chatbot: {response}")
+
+    return history
+
+
+@app.command()
+def init(name: str):
+    print(f"Initializing DPSy project: {name}")
 
 
 if __name__ == "__main__":

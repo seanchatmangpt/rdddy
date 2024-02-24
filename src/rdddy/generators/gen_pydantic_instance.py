@@ -1,11 +1,12 @@
 import ast
+import dspy
 import inspect
 import logging
 from typing import Optional, TypeVar
 
 from pydantic import BaseModel, ValidationError
 
-from dspy import Assert, ChainOfThought, InputField, Module, OutputField, Signature
+from dspy import Assert, ChainOfThought, InputField, OutputField, Signature
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -57,7 +58,7 @@ class PromptToPydanticInstanceErrorSignature(Signature):
 T = TypeVar("T", bound=BaseModel)
 
 
-class GenPydanticInstance(Module):
+class GenPydanticInstance(dspy.Module):
     """A module for generating and validating Pydantic model instances based on prompts.
 
     Usage:

@@ -191,6 +191,33 @@ icalendar_entities = {
 }
 
 
+class GenPydanticClass(dspy.Module):
+    """A DSPy module that generates Pydantic class definition based on a prompt"""
+
+    def forward(self, prompt: str, to_dir: str = "") -> str:
+        spec = dspy.Predict("prompt -> pydantic_class")
+
+
+        instance_module = GenPydanticInstance(
+            root_model=PydanticClassTemplateSpecificationModel,
+            child_models=[FieldTemplateSpecificationModel],
+            generate_sig=PromptToPydanticInstanceSignature,
+            correct_generate_sig=PromptToPydanticInstanceErrorSignature,
+        )
+
+        instance = instance_module.forward(prompt)
+
+        rendered_class_str = render(class_template_str, model=instance)
+
+        if to_dir:
+            write_pydantic_class_to_file(
+                rendered_class_str,
+                f"{to_dir}/{inflection.underscore(instance.class_name)}.py",
+            )
+
+        return rendered_class_str
+
+
 def generate_icalendar_models():
     for entity, description in icalendar_entities.items():
         # Define a Pydantic class dynamically for each entity

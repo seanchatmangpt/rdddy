@@ -1,7 +1,7 @@
-from rdddy.event import Event
+from rdddy.messages import AbstractEvent
 
 
-class CheckoutFormSubmitted(Event):
+class CheckoutFormSubmitted(AbstractEvent):
     """Generated class for CheckoutFormSubmitted, inheriting from Event."""
 
     pass
