@@ -4,6 +4,10 @@ from typetemp.extension.faker_extension import FakerExtension
 from typetemp.extension.inflection_extension import InflectionExtension
 
 
+def to_kwarg(input_name):
+    return f"{input_name}={input_name}"
+
+
 class TypedEnvironment(Environment):
     def __init__(self, **kwargs):
         super(TypedEnvironment, self).__init__(
@@ -18,8 +22,8 @@ class TypedEnvironment(Environment):
         self.add_extension("jinja2.ext.do")
         self.add_extension("jinja2.ext.loopcontrols")
 
+        self.filters['abc'] = to_kwarg
 
-# Initializing environment instances
 
 file_loader = FileSystemLoader("./templates")
 

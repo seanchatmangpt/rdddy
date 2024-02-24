@@ -141,11 +141,11 @@ class GenPydanticInstance(dspy.Module):
 
             return self.validate_output(corrected_output)
 
-    def __call__(self, *args, **kwargs):
-        return self.forward(kwargs.get("prompt"))
+    def __call__(self, prompt):
+        return self.forward(prompt=prompt)
 
 
-hygen_prompt = prompt = """
+hygen_prompt = """
     ```prompt
     Automated Hygen template full stack system for NextJS.
     Express
@@ -215,7 +215,7 @@ def main():
         root_model=EventStormingDomainSpecificationModel,
         child_models=[AbstractEvent, AbstractCommand, AbstractQuery],
     )
-    model_inst = model_module(prompt=prompt)
+    model_inst = model_module(hygen_prompt)
     print(model_inst)
 
 
